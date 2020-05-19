@@ -1,4 +1,3 @@
-
 import dataclasses
 import logging
 import os
@@ -7,19 +6,12 @@ from dataclasses import dataclass, field
 from typing import Dict, Optional
 
 import numpy as np
-
-from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer, EvalPrediction, GlueDataset
+from transformers import (AutoConfig, AutoModelForSequenceClassification,
+                          AutoTokenizer, EvalPrediction, GlueDataset)
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
-from transformers import (
-    HfArgumentParser,
-    Trainer,
-    TrainingArguments,
-    glue_compute_metrics,
-    glue_output_modes,
-    glue_tasks_num_labels,
-    set_seed,
-)
-
+from transformers import (HfArgumentParser, Trainer, TrainingArguments,
+                          glue_compute_metrics, glue_output_modes,
+                          glue_tasks_num_labels, set_seed)
 
 logger = logging.getLogger(__name__)
 
