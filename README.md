@@ -70,3 +70,6 @@ Results:
 | 90              | 79.88792 /  80.66514      | (0.4688, 0.377, 0.4382) , (0.5936, 0.5972, 0.7106)                     |
 | 100             | 80.11207 /  81.16354      | (0.0562, 0.0552, 0.028), (0.9782, 0.9684, 0.9904)                      |
 ```
+![mnli_graph](figs/mnli_graph.png)
+![hans_entailed](figs/hans_entailed.png)
+![hans_non_entailed](figs/hans_non_entailed.png)
