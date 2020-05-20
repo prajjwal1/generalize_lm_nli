@@ -56,7 +56,7 @@ $ python3 evaluate_heur_output.py /predictions_from_previous_step (output_dir)
 
 
 Results:
-
+```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed (lexical overlap, subsequence, constituent)| Hans non=entailed (lexical overlap, subsequence, constituent)
 |-----------------|---------------------------|----------------------------------------------------------|
 | 10              | 70.99337 /  72.95565      | (0.0196, 0.0146, 0.0118), (0.9776, 0.9858, 0.991)        |
@@ -69,3 +69,4 @@ Results:
 | 80              | 79.71472 /  80.29902      | (0.1324, 0.159, 0.1278) , (0.9168, 0.8788, 0.9502)       |
 | 90              | 79.88792 /  80.66514      | (0.4688, 0.377, 0.4382) , (0.5936, 0.5972, 0.7106)       |
 | 100             | 80.11207 /  81.16354      | (0.0562, 0.0552, 0.028), (0.9782, 0.9684, 0.9904)        |
+```
