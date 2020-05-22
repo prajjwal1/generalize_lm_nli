@@ -138,3 +138,4 @@ Results (seed 999):
 ![mnli_seeds_graph](figs/mnli_seeds_graph.png)
 ![hans_mm_seeds_graph](figs/mnli_mm_seeds_graph.png)
 ![avg_acc_hans_seeds_graph](figs/avg_acc_hans_seeds_graph.png)
+![avg_acc_hans_seeds_error_graph](figs/avg_acc_hans_seeds_error_graph.png)
