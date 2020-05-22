@@ -57,7 +57,7 @@ $ python3 evaluate_heur_output.py /predictions_from_previous_step (output_dir)
 
 Results (seed 42):
 ```
-| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entitled (lexical overlap, subsequence, constituent) |
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
 | 10              | 70.99337 /  72.95565      | (0.0196, 0.0146, 0.0118), (0.9776, 0.9858, 0.991)                      |
 | 20              | 74.51859 /  76.38323      | (0.1626, 0.0956, 0.0866), (0.8396, 0.862, 0.9364)                      |
@@ -76,7 +76,7 @@ Results (seed 42):
 
 Results (seed 0):
 ```
-| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entitled (lexical overlap, subsequence, constituent) |
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
 | 10              | 70.95262 /  72.32506      | (0.0048, 0.0024, 0.002) , (0.9946, 0.9772, 0.9992)                     |
 | 20              | 74.33550 /  75.66110      | (0.1428, 0.082, 0.088)  , (0.8522, 0.8982, 0.9334)                     |
@@ -91,7 +91,7 @@ Results (seed 0):
 ```
 Results (seed 250):
 ```
-| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entitled (lexical overlap, subsequence, constituent) |
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
 | 10              | 69.81151 /  72.11147      | (0.0, 0.0, 0.0)          , (1.0, 1.0, 1.0)                             |
 | 20              | 73.89709 /  75.23393      | (0.0, 0.0, 0.0002)       , (1.0, 1.0, 1.0)                             |
@@ -106,7 +106,7 @@ Results (seed 250):
 ```
 Results (seed 500):
 ```
-| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entitled (lexical overlap, subsequence, constituent) |
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
 | 10              | 70.70809 /  72.20301      | (0.0002, 0.0, 0.0006)    , (1.0, 1.0, 0.9998)                          |
 | 20              | 74.28425 /  75.91537      | (0.0, 0.0, 0.0)          , (1.0, 1.0, 1.0)                             |
@@ -122,7 +122,7 @@ Results (seed 500):
 
 Results (seed 999):
 ```
-| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entitled (lexical overlap, subsequence, constituent) |
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
 | 10              | 69.89302 /  71.80634      | (0.1554, 0.1184, 0.018)  , (0.796, 0.9372, 0.9906)                     |
 | 20              | 74.83443 /  75.86452      | (0.002, 0.0004, 0.0148)  , (0.9976, 0.9982, 0.9906)                    | 
@@ -135,3 +135,6 @@ Results (seed 999):
 | 90              | 79.78604 /  80.52278      | (0.0286, 0.021, 0.015)   , (0.9742, 0.97, 0.9864)                      |
 | 100             | 80.08150 /  80.97030      | (0.0222, 0.0126, 0.0162) , (0.9896, 0.9866, 0.9894)                    |
 ```
+![mnli_seeds_graph](figs/mnli_seeds_graph.png)
+![hans_mm_seeds_graph](figs/mnli_mm_seeds_graph.png)
+![avg_acc_hans_seeds_graph](figs/avg_acc_hans_seeds_graph.png)
