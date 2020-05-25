@@ -4,7 +4,7 @@ Importance Sampling with Transformers
 - [x] Train Albert-base on MNLI
 - [x] Extract ['CLS'] representations on MNLI from Albert
 - [x] Random Sampling results on MNLI and Hans
-- [ ] Clustering Analysis
+- [x] Clustering Analysis
 - [ ] Re-train Albert-base models
 
 For code formatting, run
@@ -16,7 +16,7 @@ make style
 - [Pytorch >= 1.5](https://github.com/pytorch/pytorch)
 - [Transformers >= 2.9](https://github.com/huggingface/transformers)
 
-### Results for Albert-base on MNLI
+### 1. Results for Albert-base on MNLI
 ```
 mnli/mnli-mm eval_acc: 80.11207 / 81.16354
 epoch = 3.0
@@ -32,12 +32,12 @@ Training was performed with mixed precision. The following command was used:
 CUDA_VISIBLE_DEVICES=0 python3 run_glue.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/saved_models/   --fp16
 ```
 
-### Extracting embeddings from Albert
+### 2. Extracting embeddings from Albert
 ```
 CUDA_VISIBLE_DEVICES=0 python3 get_embeddings.py --model_name_or_path prajjwal1/albert-base-v1-mnli --task_name $TASK_NAME --data_dir $GLUE_DIR/$TASK_NAME --max_seq_len 128 --per_gpu_train_batch_size 512 --output_dir /home/nlp/experiments/
 ```
 
-### Random Sampling Results on MNLI (with 5 seeds)
+### 3. Random Sampling Results on MNLI (with 5 seeds)
 
 To run, random sampling tests, run the following command. You have to specify the percentage (`data_pct`). `0.1` means `10%`.
 Additionally, also modify the `output_dir` accordingly. By default, models were trained for 3 epochs.
@@ -48,7 +48,7 @@ CUDA_VISIBLE_DEVICES=0 python3 subsampling_mnli.py   --model_name_or_path albert
 
 To run evaluation on HANS:
 ```
-$ CUDA_VISIBLE_DEVICES=0 python3 test_hans.py   --model_name_or_path /home/nlp/experiments/albert-base-v1-mnli/  --do_eval   --data_dir /home/nlp/data/hans   --max_seq_length 128  --output_dir /home/nlp/experiments/hans/   --fp16 --task_name HANS --per_gpu_eval_batch_size 4096
+$ CUDA_VISIBLE_DEVICES=0 python3 test_hans.py   --model_name_or_path WEIGHTS_OBTAINED_FROM_PREVIOUS_STEP  --do_eval   --data_dir /home/nlp/data/hans   --max_seq_length 128  --output_dir /home/nlp/experiments/hans/   --fp16 --task_name HANS --per_gpu_eval_batch_size 4096
 
 $ cd /hans/directory
 $ python3 evaluate_heur_output.py /predictions_from_previous_step (output_dir)
@@ -139,3 +139,23 @@ Results (seed 999):
 ![hans_mm_seeds_graph](figs/mnli_mm_seeds_graph.png)
 ![avg_acc_hans_seeds_graph](figs/avg_acc_hans_seeds_graph.png)
 ![avg_acc_hans_seeds_error_graph](figs/avg_acc_hans_seeds_error_graph.png)
+
+### 4. Sampling from clustering
+You can create a clustering sklearn object, save its labels and load them. 
+
+If you're initially running this, it's better to save clustering labels
+```
+CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_output_path /home/nlp/experiments
+```
+After the cluster labels are saved, you can use this:
+```
+CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_labels_path /home/nlp/experiments/cluster_labels.npy
+```
+
+Results
+```
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
+|-----------------|---------------------------|------------------------------------------------------------------------|
+| 10              | 70.62659 /  72.73189      | --------------------------------------------------------               |
+| 20              | 74.69179 /  76.49511      | --------------------------------------------------------               |
+```

@@ -1,7 +1,13 @@
+import dataclasses
+import logging
+import os
+import sys
+from dataclasses import dataclass, field
 from typing import Dict, Optional
 
 import numpy as np
 import torch
+from sklearn.cluster import DBSCAN
 from transformers import (AutoConfig, AutoModelForSequenceClassification,
                           AutoTokenizer, EvalPrediction, GlueDataset)
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
@@ -13,9 +19,25 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class Arguments:
-    data_pct: float
-
+class Clustering_Arguments:
+    eps: float = field(
+        metadata={"help": "Threshold value to form clusters"}
+    )
+    min_samples: int = field(
+        metadata={"help": "Minimum samples for clustering"}
+    )
+    embedding_path: str = field(
+        metadata={"help": "Path from where embeddings will be loaded"}
+    )
+    data_pct: float = field(
+        metadata={"help": "specifies how much data will be used"}
+    )
+    cluster_output_path: str = field(
+        default=None, metadata={"help": "Path where embedding will be stored"}
+    )
+    cluster_labels_path: Optional[str] = field(
+        default = None, metadata={"help": "Path from there clustering labels will be loaded"}
+    )
 
 @dataclass
 class ModelArguments:
@@ -39,14 +61,12 @@ class ModelArguments:
 
 def main():
 
-    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments, Arguments))
+    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments, Clustering_Arguments))
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
-        # If we pass only one argument to the script and it's the path to a json file,
-        # let's parse it to get our arguments.
         model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
     else:
-        model_args, data_args, training_args, args = parser.parse_args_into_dataclasses()
+        model_args, data_args, training_args, clustering_args = parser.parse_args_into_dataclasses()
 
     if (
         os.path.exists(training_args.output_dir)
@@ -83,11 +103,20 @@ def main():
     except KeyError:
         raise ValueError("Task not found: %s" % (data_args.task_name))
 
+    logger.info("Loading embeddings")
+    try:
+        os.path.isfile(clustering_args.embedding_path)
+        if clustering_args.cluster_labels_path:
+            os.path.isfile(clustering_args.cluster_labels_path)
+        #else:
+        #    raise ValueError(f"Cluster labels not found at ({clustering_args.cluster_labels_path}")
+    except FileNotFoundError:
+        raise ValueError(f"Embeddings not found at ({clustering.embedding_path})")
+
+    embeddings = torch.load(clustering_args.embedding_path)
+    embeddings = np.concatenate(embeddings)
+    logging.info("*** Loaded ", len(embeddings), " samples ***")
     # Load pretrained model and tokenizer
-    #
-    # Distributed training:
-    # The .from_pretrained methods guarantee that only one local process can concurrently
-    # download model & vocab.
 
     config = AutoConfig.from_pretrained(
         model_args.config_name if model_args.config_name else model_args.model_name_or_path,
@@ -106,53 +135,41 @@ def main():
         cache_dir=model_args.cache_dir,
     )
 
-    # Get datasets
-    train_dataset = GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
+    logging.info("Forming clusters")
+    if clustering_args.cluster_labels_path is None:
+        clustering = DBSCAN(eps=clustering_args.eps, min_samples=clustering_args.min_samples).fit(embeddings)
+        with open(clustering_args.cluster_output_path + "/" + "cluster_labels.npy", 'wb') as f:
+            np.save(f, clustering.labels_)
+            logging.info("*** INFO: Clustering labels saved ***")
+    else:
+        cluster_labels = np.load(clustering_args.cluster_labels_path)
+        logging.info("INFO: Clustering labels loaded")
+        class cluster_labels_patch:
+            def __init__(self, cluster_labels):
+                self.labels_ = cluster_labels
+
+        clustering = cluster_labels_patch(cluster_labels)
+
+    def get_cluster_indices(cluster_num, labels_array):
+        return np.where(labels_array == cluster_num)[0]
+
+    def get_concat_cluster_indices(labels, data_pct, original_len):
+        current_len, cluster_indices = 0, []
+        for i in set(labels):
+            curr_cluster_indices = get_cluster_indices(i, labels)
+            current_len += len(curr_cluster_indices)
+            if current_len < int(original_len*data_pct):
+                cluster_indices.extend(curr_cluster_indices)
+            else:
+                return cluster_indices
+    
+    if training_args.do_train:
+        train_dataset = GlueDataset(data_args, tokenizer)
+        cluster_indices = get_concat_cluster_indices(clustering.labels_, clustering_args.data_pct, len(train_dataset))
+        train_dataset = torch.utils.data.Subset(train_dataset, cluster_indices)
+        if len(train_dataset) < 100:
+            sys.exit(0)
     eval_dataset = GlueDataset(data_args, tokenizer=tokenizer, evaluate=True) if training_args.do_eval else None
-
-    train_dataset_lengths = {
-        0.1: int(len(train_dataset) * 0.1),
-        0.2: int(len(train_dataset) * 0.2),
-        0.3: int(len(train_dataset) * 0.3),
-        0.4: int(len(train_dataset) * 0.4),
-        0.5: len(train_dataset) - int(len(train_dataset) * 0.5),
-        0.6: len(train_dataset) - int(len(train_dataset) * 0.4),
-        0.7: len(train_dataset) - int(len(train_dataset) * 0.3),
-        0.8: len(train_dataset) - int(len(train_dataset) * 0.2),
-        0.9: len(train_dataset) - int(len(train_dataset) * 0.1),
-    }
-
-    train_dataset_10_pct, train_dataset_90_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.1], train_dataset_lengths[0.9]]
-    )
-    train_dataset_20_pct, train_dataset_80_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.2], train_dataset_lengths[0.8]]
-    )
-    train_dataset_30_pct, train_dataset_70_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.3], train_dataset_lengths[0.7]]
-    )
-    train_dataset_40_pct, train_dataset_60_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.4], train_dataset_lengths[0.6]]
-    )
-    train_dataset_50_pct, _ = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.5], train_dataset_lengths[0.5]]
-    )
-
-    train_dataset_pct_dict = {
-        0.1: train_dataset_10_pct,
-        0.2: train_dataset_20_pct,
-        0.3: train_dataset_30_pct,
-        0.4: train_dataset_40_pct,
-        0.5: train_dataset_50_pct,
-        0.6: train_dataset_60_pct,
-        0.7: train_dataset_70_pct,
-        0.8: train_dataset_80_pct,
-        0.9: train_dataset_90_pct,
-    }
-    # Specify the percentage
-    train_dataset = train_dataset_pct_dict[args.data_pct]
-    log_data_pct = str(args.data_pct * 100)
-    logger.info("*** Using %f of the dataset ***", log_data_pct)
 
     def compute_metrics(p: EvalPrediction) -> Dict:
         if output_mode == "classification":
@@ -167,7 +184,7 @@ def main():
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
         compute_metrics=compute_metrics,
-    )
+     )
 
     # Training
     if training_args.do_train:
@@ -175,11 +192,6 @@ def main():
             model_path=model_args.model_name_or_path if os.path.isdir(model_args.model_name_or_path) else None
         )
         trainer.save_model()
-        # For convenience, we also re-save the tokenizer to the same directory,
-        # so that you can share your model easily on huggingface.co/models =)
-        if trainer.is_world_master():
-            tokenizer.save_pretrained(training_args.output_dir)
-
     # Evaluation
     results = {}
     if training_args.do_eval and training_args.local_rank in [-1, 0]:
