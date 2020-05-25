@@ -20,24 +20,15 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class Clustering_Arguments:
-    eps: float = field(
-        metadata={"help": "Threshold value to form clusters"}
-    )
-    min_samples: int = field(
-        metadata={"help": "Minimum samples for clustering"}
-    )
-    embedding_path: str = field(
-        metadata={"help": "Path from where embeddings will be loaded"}
-    )
-    data_pct: float = field(
-        metadata={"help": "specifies how much data will be used"}
-    )
-    cluster_output_path: str = field(
-        default=None, metadata={"help": "Path where embedding will be stored"}
-    )
+    eps: float = field(metadata={"help": "Threshold value to form clusters"})
+    min_samples: int = field(metadata={"help": "Minimum samples for clustering"})
+    embedding_path: str = field(metadata={"help": "Path from where embeddings will be loaded"})
+    data_pct: float = field(metadata={"help": "specifies how much data will be used"})
+    cluster_output_path: str = field(default=None, metadata={"help": "Path where embedding will be stored"})
     cluster_labels_path: Optional[str] = field(
-        default = None, metadata={"help": "Path from there clustering labels will be loaded"}
+        default=None, metadata={"help": "Path from there clustering labels will be loaded"}
     )
+
 
 @dataclass
 class ModelArguments:
@@ -108,7 +99,7 @@ def main():
         os.path.isfile(clustering_args.embedding_path)
         if clustering_args.cluster_labels_path:
             os.path.isfile(clustering_args.cluster_labels_path)
-        #else:
+        # else:
         #    raise ValueError(f"Cluster labels not found at ({clustering_args.cluster_labels_path}")
     except FileNotFoundError:
         raise ValueError(f"Embeddings not found at ({clustering.embedding_path})")
@@ -138,12 +129,13 @@ def main():
     logging.info("Forming clusters")
     if clustering_args.cluster_labels_path is None:
         clustering = DBSCAN(eps=clustering_args.eps, min_samples=clustering_args.min_samples).fit(embeddings)
-        with open(clustering_args.cluster_output_path + "/" + "cluster_labels.npy", 'wb') as f:
+        with open(clustering_args.cluster_output_path + "/" + "cluster_labels.npy", "wb") as f:
             np.save(f, clustering.labels_)
             logging.info("*** INFO: Clustering labels saved ***")
     else:
         cluster_labels = np.load(clustering_args.cluster_labels_path)
         logging.info("INFO: Clustering labels loaded")
+
         class cluster_labels_patch:
             def __init__(self, cluster_labels):
                 self.labels_ = cluster_labels
@@ -158,11 +150,11 @@ def main():
         for i in set(labels):
             curr_cluster_indices = get_cluster_indices(i, labels)
             current_len += len(curr_cluster_indices)
-            if current_len < int(original_len*data_pct):
+            if current_len < int(original_len * data_pct):
                 cluster_indices.extend(curr_cluster_indices)
             else:
                 return cluster_indices
-    
+
     if training_args.do_train:
         train_dataset = GlueDataset(data_args, tokenizer)
         cluster_indices = get_concat_cluster_indices(clustering.labels_, clustering_args.data_pct, len(train_dataset))
@@ -184,7 +176,7 @@ def main():
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
         compute_metrics=compute_metrics,
-     )
+    )
 
     # Training
     if training_args.do_train:
