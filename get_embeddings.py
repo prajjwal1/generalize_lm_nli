@@ -1,11 +1,8 @@
-import dataclasses
 from dataclasses import dataclass, field
-from typing import Dict, Optional
+from typing import Optional
 
 import torch
-from torch import nn
 from torch.utils.data.dataloader import DataLoader
-from torch.utils.data.sampler import RandomSampler
 from tqdm.auto import tqdm
 from transformers import AutoConfig, AutoModel, AutoTokenizer, GlueDataset
 from transformers import GlueDataTrainingArguments as DataTrainingArguments

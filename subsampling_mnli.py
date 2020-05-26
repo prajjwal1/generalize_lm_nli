@@ -1,3 +1,8 @@
+import dataclasses
+import logging
+import os
+import sys
+from dataclasses import dataclass, field
 from typing import Dict, Optional
 
 import numpy as np
@@ -110,47 +115,13 @@ def main():
     train_dataset = GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
     eval_dataset = GlueDataset(data_args, tokenizer=tokenizer, evaluate=True) if training_args.do_eval else None
 
-    train_dataset_lengths = {
-        0.1: int(len(train_dataset) * 0.1),
-        0.2: int(len(train_dataset) * 0.2),
-        0.3: int(len(train_dataset) * 0.3),
-        0.4: int(len(train_dataset) * 0.4),
-        0.5: len(train_dataset) - int(len(train_dataset) * 0.5),
-        0.6: len(train_dataset) - int(len(train_dataset) * 0.4),
-        0.7: len(train_dataset) - int(len(train_dataset) * 0.3),
-        0.8: len(train_dataset) - int(len(train_dataset) * 0.2),
-        0.9: len(train_dataset) - int(len(train_dataset) * 0.1),
-    }
+    pct_ds_len = int(len(train_dataset)*args.data_pct)
+    rem_ds_len = len(train_dataset)-pct_ds_len
 
-    train_dataset_10_pct, train_dataset_90_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.1], train_dataset_lengths[0.9]]
+    train_dataset, _ = torch.utils.data.random_split(
+        dataset=train_dataset, lengths=[pct_ds_len, rem_ds_len]
     )
-    train_dataset_20_pct, train_dataset_80_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.2], train_dataset_lengths[0.8]]
-    )
-    train_dataset_30_pct, train_dataset_70_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.3], train_dataset_lengths[0.7]]
-    )
-    train_dataset_40_pct, train_dataset_60_pct = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.4], train_dataset_lengths[0.6]]
-    )
-    train_dataset_50_pct, _ = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[train_dataset_lengths[0.5], train_dataset_lengths[0.5]]
-    )
-
-    train_dataset_pct_dict = {
-        0.1: train_dataset_10_pct,
-        0.2: train_dataset_20_pct,
-        0.3: train_dataset_30_pct,
-        0.4: train_dataset_40_pct,
-        0.5: train_dataset_50_pct,
-        0.6: train_dataset_60_pct,
-        0.7: train_dataset_70_pct,
-        0.8: train_dataset_80_pct,
-        0.9: train_dataset_90_pct,
-    }
     # Specify the percentage
-    train_dataset = train_dataset_pct_dict[args.data_pct]
     log_data_pct = str(args.data_pct * 100)
     logger.info("*** Using %f of the dataset ***", log_data_pct)
 

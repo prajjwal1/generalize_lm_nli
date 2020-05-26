@@ -17,10 +17,18 @@ make style
 - [Transformers >= 2.9](https://github.com/huggingface/transformers)
 
 ### 1. Results for Albert-base on MNLI
+
+Albert-base-v1
 ```
 mnli/mnli-mm eval_acc: 80.11207 / 81.16354
 epoch = 3.0
 ```
+Albert-base-v1
+```
+mnli/mnli-mm eval_acc: 84.84971 / 85.51668
+epoch = 3.0
+```
+
 The model has been made publicly available at:
 ```
 tokenizer = AutoTokenizer.from_pretrained("prajjwal1/albert-base-v1-mnli")
@@ -55,7 +63,7 @@ $ python3 evaluate_heur_output.py /predictions_from_previous_step (output_dir)
 ```
 
 
-Results (seed 42):
+Results with Albert-base-v1 (Default: seed 42):
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
@@ -74,7 +82,14 @@ Results (seed 42):
 ![hans_entailed](figs/hans_entailed.png)
 ![hans_non_entailed](figs/hans_non_entailed.png)
 
-Results (seed 0):
+Result with Albert-base-v2 (Default: seed 42)
+```
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
+|-----------------|---------------------------|------------------------------------------------------------------------|
+| 10             
+```
+
+Results with Albert-base-v1(seed 0):
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
@@ -89,7 +104,7 @@ Results (seed 0):
 | 90              | 80.06113 /  80.72620      | (0.3278, 0.3198, 0.3194), (0.7384, 0.6798, 0.8228)                     |
 | 100             | 80.15282 /  81.01098      | 0.3004, 0.3478, 0.2982) , (0.7402, 0.679, 0.802)                       |
 ```
-Results (seed 250):
+Results with Albert-base-v1(seed 250):
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
@@ -104,7 +119,7 @@ Results (seed 250):
 | 90              | 79.52114 /  80.72620      | (0.01, 0.0686, 0.0612)   , (0.9938, 0.9972, 0.9776)                    |
 | 100             | 80.08150 /  80.97030      |  0.057, 0.2076, 0.2072)  , (0.9288, 0.924, 0.8946)                     |
 ```
-Results (seed 500):
+Results with Albert-base-v1(seed 500):
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
@@ -120,7 +135,7 @@ Results (seed 500):
 | 100             | 80.99064 /  80.08150      | (0.0, 0.001, 0.0032)     , (1.0, 1.0, 1.0)                             |
 ```
 
-Results (seed 999):
+Results with Albert-base-v1(seed 999):
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
