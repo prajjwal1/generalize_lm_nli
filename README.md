@@ -42,7 +42,7 @@ CUDA_VISIBLE_DEVICES=0 python3 run_glue.py   --model_name_or_path albert-base-v1
 
 ### 2. Extracting embeddings from Albert
 ```
-CUDA_VISIBLE_DEVICES=0 python3 get_embeddings.py --model_name_or_path prajjwal1/albert-base-v1-mnli --task_name $TASK_NAME --data_dir $GLUE_DIR/$TASK_NAME --max_seq_len 128 --per_gpu_train_batch_size 512 --output_dir /home/nlp/experiments/
+CUDA_VISIBLE_DEVICES=0 python3 get_embeddings.py --model_name_or_path prajjwal1/albert-base-v2-mnli --task_name $TASK_NAME --data_dir $GLUE_DIR/$TASK_NAME --max_seq_len 128 --per_gpu_train_batch_size 512 --output_dir /home/nlp/experiments/
 ```
 
 ### 3. Random Sampling Results on MNLI (with 5 seeds)
@@ -86,7 +86,22 @@ Result with Albert-base-v2 (Default: seed 42)
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
-| 10             
+| 02              | 70.91186 / 72.34540       |
+| 04              | 76.73968 / 78.55980       |
+| 08              | 78.75700 / 80.17697       |
+| 10              | 79.98981 / 80.92961       |
+| 16              | 81.16148 / 81.79414       |
+| 20              | 81.49770 / 82.40439       |
+| 30              | 82.41467 / 83.17737       |
+| 32              | 82.00713 / 82.42473       |
+| 40              | 83.56597 / 84.02156       |
+| 50              | 83.62710 / 84.26566       |
+| 60              | 84.23841 / 84.69283       |
+| 64              | 84.31991 / 85.23189       |
+| 70              | 84.19765 / 85.07933       |
+| 80              | 84.63576 / 85.15052       |
+| 90              | 84.73764 / 85.20138       |
+| 100             | 84.84971 / 85.51668       |
 ```
 
 Results with Albert-base-v1(seed 0):
@@ -160,17 +175,30 @@ You can create a clustering sklearn object, save its labels and load them.
 
 If you're initially running this, it's better to save clustering labels
 ```
-CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_output_path /home/nlp/experiments
+CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_output_path /home/nlp/experiments
 ```
 After the cluster labels are saved, you can use this:
 ```
-CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_labels_path /home/nlp/experiments/cluster_labels.npy
+CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_labels_path /home/nlp/experiments/cluster_labels.npy
 ```
 
-Results
+Results (with Albert-base-v1)
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
 |-----------------|---------------------------|------------------------------------------------------------------------|
 | 10              | 70.62659 /  72.73189      | --------------------------------------------------------               |
 | 20              | 74.69179 /  76.49511      | --------------------------------------------------------               |
 ```
+Results (with Albert-base-v2)
+```
+| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
+|-----------------|---------------------------|------------------------------------------------------------------------|
+| 2               | 69.45491 / 70.90113       |
+| 4               | 76.66836 / 77.96989       |
+| 8               | 79.09322 / 80.37021       |
+| 10              | 80.12226 / 80.81773       |
+| 16              | 81.30412 / 82.09926       |
+| 32              | 82.72032 / 83.45199       |
+| 64              | 83.84105 / 84.63181       |
+```
+![clustering_vs_random_subsampling](figs/clustering_vs_random_albert_v2.png)
