@@ -63,7 +63,7 @@ model = (
 train_dataset = GlueDataset(data_args, tokenizer=tokenizer)
 eval_dataset = GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)
 data_collator = DefaultDataCollator()
-dataloader = DataLoader(train_dataset, batch_size=512, shuffle=False, collate_fn=data_collator.collate_batch,)
+dataloader = DataLoader(train_dataset, batch_size=training_args.per_gpu_train_batch_size, shuffle=False, collate_fn=data_collator.collate_batch,)
 print("Extraction of Embeddings in progress")
 cls_embeddings = []
 for i in tqdm(dataloader):
