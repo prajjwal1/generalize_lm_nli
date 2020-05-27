@@ -40,6 +40,8 @@ Training was performed with mixed precision. The following command was used:
 CUDA_VISIBLE_DEVICES=0 python3 run_glue.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/saved_models/   --fp16
 ```
 
+If you're loading a model from the local path, you're required to pass the `tokenizer_name` parameter explicitly.
+
 ### 2. Extracting embeddings from Albert
 ```
 CUDA_VISIBLE_DEVICES=0 python3 get_embeddings.py --model_name_or_path prajjwal1/albert-base-v2-mnli --task_name $TASK_NAME --data_dir $GLUE_DIR/$TASK_NAME --max_seq_len 128 --per_gpu_train_batch_size 512 --output_dir /home/nlp/experiments/
@@ -173,10 +175,17 @@ Results with Albert-base-v1(seed 999):
 ### 4. Sampling from clustering
 You can create a clustering sklearn object, save its labels and load them. 
 
+There are two modes to perform clustering:
+- `data_pct`: this mode will train on elements extracted from clusters equivalent to `len(dataset)*data_pct`
+- `num_clusters`: specify how many clusters you want to train on
+
+Both should not be used at a time.
+
 If you're initially running this, it's better to save clustering labels
 ```
 CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_output_path /home/nlp/experiments
 ```
+
 After the cluster labels are saved, you can use this:
 ```
 CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_labels_path /home/nlp/experiments/cluster_labels.npy
@@ -184,16 +193,16 @@ CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert
 
 Results (with Albert-base-v1)
 ```
-| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
-|-----------------|---------------------------|------------------------------------------------------------------------|
-| 10              | 70.62659 /  72.73189      | --------------------------------------------------------               |
-| 20              | 74.69179 /  76.49511      | --------------------------------------------------------               |
+| Data Percentage | eval_acc (mnli / mnli-mm) |
+|-----------------|---------------------------|
+| 10              | 70.62659 /  72.73189      |
+| 20              | 74.69179 /  76.49511      |
 ```
 Results (with Albert-base-v2)
 ```
-| Data Percentage | eval_acc (mnli / mnli-mm) | Hans entailed/non-entailed (lexical overlap, subsequence, constituent) |
+| Data Percentage | eval_acc (mnli / mnli-mm) with respective epochs
 |-----------------|---------------------------|------------------------------------------------------------------------|
-| 2               | 69.45491 / 70.90113       |
+| 2               | 69.45 / 70.90 (3), 71.29 / 73.34 (4), 71.85 / 73.83 (5), 72.01, 73.39 (6), 72.28 / 73.97 (7), 71.94 / 73.37 (8), 71.99 / 73.55 (9), 71.77 / 73.93 (10)     |
 | 4               | 76.66836 / 77.96989       |
 | 8               | 79.09322 / 80.37021       |
 | 10              | 80.12226 / 80.81773       |
@@ -202,3 +211,18 @@ Results (with Albert-base-v2)
 | 64              | 83.84105 / 84.63181       |
 ```
 ![clustering_vs_random_subsampling](figs/clustering_vs_random_albert_v2.png)
+![2_pct_data_acc_vs_epoch_clustering](figs/2_pct_data_eval_acc_epoch.png)
+
+Results with `num_clusters` = 16
+```
+| Epoch | eval_acc (mnli / mnli-mm) with respective epochs
+|-----------------|--------------------------------------|
+| 1     | 69.55 / 71.35                                  |
+| 2     | 76.89 / 78.40                                  |
+| 3     | 78.30 / 79.02                                  |
+| 4     | 78.23 / 78.88                                  |
+| 5     | 78.14 / 78.61                                  |
+| 6     | 77.63 / 78.18                                  |
+| 7     | 76.85 / 77.72                                  |
+```
+![16_clusters_epoch_acc](figs/16_clusters_epoch_acc.png)
