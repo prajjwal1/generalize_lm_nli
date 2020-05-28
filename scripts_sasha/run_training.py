@@ -2,7 +2,6 @@ import subprocess
 from pathlib import Path
 
 path_data = Path("/mnt/storage/Data/NLP/datasets/importance_sampling/")
-# TODO: iterate all subfolders
 model_name = "albert-base-v2"
 subsample_type = "subsample_rand"
 for dir_seed in (path_data / subsample_type).iterdir():
