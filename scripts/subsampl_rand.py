@@ -15,7 +15,7 @@ cnt_samples = 256
 # TODO: maybe N sample from each class??
 subsample = df.sample(n=cnt_samples, random_state=seed)
 print(subsample)
-path_out = path_data / "subsample_rand" / f"seed_{seed}" / f"{cnt_samples}" / "MNLI/"
+path_out = path_data / "subsample_rand" / f"seed_{seed}" / f"{cnt_samples}"
 path_out.mkdir(parents=True, exist_ok=True)
 df.to_csv(path_out / "train.tsv", sep="\t")
 # TODO: copy dev set
