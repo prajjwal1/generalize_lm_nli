@@ -9,6 +9,7 @@ for dir_seed in (path_data / subsample_type).iterdir():
     seed = int(str(dir_seed).split("_")[-1])
     print(seed)
     for cnt_samples in dir_seed.iterdir():
+        # TODO: skip if there are results in the destination folder
         command = ["python3", "run_glue.py",
                    "--model_name_or_path", model_name,
                    "--task_name", "MNLI",
