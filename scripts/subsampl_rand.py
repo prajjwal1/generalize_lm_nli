@@ -12,6 +12,7 @@ df = pandas.read_csv(path_data / "reference/MNLI/train.tsv",
 # TODO: iterate over seeds and sampe sizes
 seed = 42
 cnt_samples = 256
+# TODO: maybe N sample from each class??
 subsample = df.sample(n=cnt_samples, random_state=seed)
 print(subsample)
 path_out = path_data / "subsample_rand" / f"seed_{seed}" / f"{cnt_samples}" / "MNLI/"
