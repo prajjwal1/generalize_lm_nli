@@ -16,10 +16,7 @@ class Clustering_Processor:
     cluster_num: int
 
     def __init__(
-        self,
-        cluster: sklearn.cluster,
-        data_pct: Optional[float] = None,
-        num_clusters: Optional[int] = None,
+        self, cluster: sklearn.cluster, data_pct: Optional[float] = None, num_clusters: Optional[int] = None,
     ):
         self.labels = cluster["labels_"]
         self.data_pct = data_pct

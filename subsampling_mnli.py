@@ -60,7 +60,8 @@ def main():
         and not training_args.overwrite_output_dir
     ):
         raise ValueError(
-            f"Output directory ({training_args.output_dir}) already exists and is not empty. Use --overwrite_output_dir to overcome."
+            f"Output directory ({training_args.output_dir}) already exists and is not empty. Use"
+            " --overwrite_output_dir to overcome."
         )
 
     # Setup logging
@@ -115,12 +116,10 @@ def main():
     train_dataset = GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
     eval_dataset = GlueDataset(data_args, tokenizer=tokenizer, evaluate=True) if training_args.do_eval else None
 
-    pct_ds_len = int(len(train_dataset)*args.data_pct)
-    rem_ds_len = len(train_dataset)-pct_ds_len
+    pct_ds_len = int(len(train_dataset) * args.data_pct)
+    rem_ds_len = len(train_dataset) - pct_ds_len
 
-    train_dataset, _ = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[pct_ds_len, rem_ds_len]
-    )
+    train_dataset, _ = torch.utils.data.random_split(dataset=train_dataset, lengths=[pct_ds_len, rem_ds_len])
     # Specify the percentage
     log_data_pct = str(args.data_pct * 100)
     logger.info("*** Using %f of the dataset ***", log_data_pct)

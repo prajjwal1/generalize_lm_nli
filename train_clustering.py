@@ -160,7 +160,7 @@ def main():
                 f"Cluster labels not found at ({clustering_args.cluster_labels_path}"
             )
     except FileNotFoundError:
-        raise ValueError(f"Embeddings not found at ({clustering.embedding_path})")
+        raise ValueError(f"Embeddings not found at ({clustering_args.embedding_path})")
 
     embeddings = torch.load(clustering_args.embedding_path)
     embeddings = np.concatenate(embeddings)
