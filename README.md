@@ -186,9 +186,9 @@ If you're initially running this, it's better to save clustering labels
 CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_output_path /home/nlp/experiments
 ```
 
-After the cluster labels are saved, you can use this:
+After the cluster labels are saved, you can use this (`cluster_output_path` will become `cluster_input_path`:
 ```
-CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_labels_path /home/nlp/experiments/cluster_labels.npy
+CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_input_path /home/nlp/experiments/cluster_labels.npy
 ```
 
 Results (with Albert-base-v1)

@@ -3,7 +3,7 @@ import logging
 import os
 import sys
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional
+from typing import Dict, Optional
 
 import numpy as np
 import torch
@@ -25,6 +25,8 @@ from transformers import (
     glue_tasks_num_labels,
     set_seed,
 )
+
+from core import Clustering_Processor
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +53,7 @@ class Clustering_Arguments:
     cluster_output_path: str = field(
         default=None, metadata={"help": "Path where embedding will be stored"}
     )
-    cluster_labels_path: Optional[str] = field(
+    cluster_input_path: Optional[str] = field(
         default=None,
         metadata={"help": "Path from there clustering labels will be loaded"},
     )
@@ -151,16 +153,18 @@ def main():
     logger.info("Loading embeddings")
     try:
         os.path.isfile(clustering_args.embedding_path)
-        if clustering_args.cluster_labels_path:
-            os.path.isfile(clustering_args.cluster_labels_path)
-        # else:
-        #    raise ValueError(f"Cluster labels not found at ({clustering_args.cluster_labels_path}")
+        if clustering_args.cluster_input_path:
+            os.path.isfile(clustering_args.cluster_input_path)
+        else:
+            raise ValueError(
+                f"Cluster labels not found at ({clustering_args.cluster_labels_path}"
+            )
     except FileNotFoundError:
         raise ValueError(f"Embeddings not found at ({clustering.embedding_path})")
 
     embeddings = torch.load(clustering_args.embedding_path)
     embeddings = np.concatenate(embeddings)
-    logging.info("*** Loaded ", len(embeddings), " samples ***")
+    logging.info("*** Loaded %s samples ***", len(embeddings))
 
     # Load pretrained model and tokenizer
     config = AutoConfig.from_pretrained(
@@ -184,81 +188,40 @@ def main():
         cache_dir=model_args.cache_dir,
     )
 
-    logging.info("Forming clusters")
-    if clustering_args.cluster_labels_path is None:
+    if clustering_args.cluster_output_path and not clustering_args.cluster_input_path:
+        logging.info("Forming clusters")
         clustering = DBSCAN(
             eps=clustering_args.eps, min_samples=clustering_args.min_samples
         ).fit(embeddings)
-        with open(
-            clustering_args.cluster_output_path + "/" + "cluster_labels.npy", "wb"
-        ) as f:
-            np.save(f, clustering.labels_)
-            logging.info("*** INFO: Clustering labels saved ***")
+
+        torch.save(vars(clustering), clustering_args.cluster_output_path)
+
+        logging.info("*** INFO: Clustering labels saved ***")
     else:
-        cluster_labels = np.load(clustering_args.cluster_labels_path)
+        clustering = torch.load(clustering_args.cluster_input_path)
         logging.info("INFO: Clustering labels loaded")
-
-        class cluster_labels_patch:
-            def __init__(self, cluster_labels):
-                self.labels_ = cluster_labels
-
-        clustering = cluster_labels_patch(cluster_labels)
-
-    def get_cluster_indices(cluster_num, labels_array):
-        return np.where(labels_array == cluster_num)[0]
-
-    def get_cluster_indices_by_pct(
-        labels: np.array, data_pct: float, original_len: int
-    ) -> List:
-        """
-        Input:
-            labels: labels obtained from clustering object
-            data_pct: specify how many elements are required from clusters
-            original_len: length of the dataset
-        Output:
-            cluster_indices: cluster indices
-
-        This method return concatenated cluster indices whose propotion equals len(dataset)*data_percentage
-        """
-        current_len, cluster_indices = 0, []
-        for i in set(labels):
-            curr_cluster_indices = get_cluster_indices(i, labels)
-            current_len += len(curr_cluster_indices)
-            if current_len < int(original_len * data_pct):
-                cluster_indices.extend(curr_cluster_indices)
-            else:
-                return cluster_indices
-
-    def get_cluster_indices_by_num(labels: np.array, num_clusters: int) -> List:
-        """
-        Input:
-            labels: labels obtained from clustering object
-            num_clusters: specify how many clusters to return
-        Output:
-            cluster_indices: cluster indices
-
-        This method returns concatenated cluster indices whose propotion equals to that of number of elements in specified number of cluster
-        """
-        indices = []
-        for i in range(num_clusters):
-            indices.extend(get_cluster_indices(i, labels))
-        return indices
 
     if training_args.do_train:
         if clustering_args.data_pct and clustering_args.num_clusters:
             raise ValueError("You can either specify `data_pct` or `num_clusters`")
         train_dataset = GlueDataset(data_args, tokenizer)
+
+        clustering_proc = Clustering_Processor(clustering)
         if clustering_args.data_pct:
-            cluster_indices = get_cluster_indices_by_pct(
-                clustering.labels_, clustering_args.data_pct, len(train_dataset)
+            cluster_indices = clustering_proc.get_cluster_indices_by_pct(
+                clustering_args.data_pct, len(train_dataset)
             )
         if clustering_args.num_clusters:
-            cluster_indices = get_cluster_indices_by_num(
-                clustering.labels_, clustering_args.num_clusters
+            cluster_indices = clustering_proc.get_cluster_indices_by_num(
+                clustering_args.num_clusters
             )
+
         train_dataset = torch.utils.data.Subset(train_dataset, cluster_indices)
-        if len(train_dataset) < 100:
-            sys.exit(0)
+
+        # SANITY CHECK
+        if len(train_dataset) < 10:
+            raise ValueError("Length of Dataset is less than 10")
+
     eval_dataset = (
         GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)
         if training_args.do_eval
