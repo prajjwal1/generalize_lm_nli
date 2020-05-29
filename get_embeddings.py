@@ -6,8 +6,12 @@ from torch.utils.data.dataloader import DataLoader
 from tqdm.auto import tqdm
 from transformers import AutoConfig, AutoModel, AutoTokenizer, GlueDataset
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
-from transformers import (HfArgumentParser, TrainingArguments,
-                          glue_output_modes, glue_tasks_num_labels)
+from transformers import (
+    HfArgumentParser,
+    TrainingArguments,
+    glue_output_modes,
+    glue_tasks_num_labels,
+)
 from transformers.data.data_collator import DefaultDataCollator
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -20,16 +24,32 @@ class ModelArguments:
     """
 
     model_name_or_path: str = field(
-        metadata={"help": "Path to pretrained model or model identifier from huggingface.co/models"}
+        metadata={
+            "help": (
+                "Path to pretrained model or model identifier from"
+                " huggingface.co/models"
+            )
+        }
     )
     config_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"},
+        default=None,
+        metadata={
+            "help": "Pretrained config name or path if not the same as model_name"
+        },
     )
     tokenizer_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"},
+        default=None,
+        metadata={
+            "help": "Pretrained tokenizer name or path if not the same as model_name"
+        },
     )
     cache_dir: Optional[str] = field(
-        default=None, metadata={"help": "Where do you want to store the pretrained models downloaded from s3"},
+        default=None,
+        metadata={
+            "help": (
+                "Where do you want to store the pretrained models downloaded from s3"
+            )
+        },
     )
 
 
@@ -46,7 +66,9 @@ config = AutoConfig.from_pretrained(
     cache_dir=model_args.cache_dir,
 )
 tokenizer = AutoTokenizer.from_pretrained(
-    model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
+    model_args.tokenizer_name
+    if model_args.tokenizer_name
+    else model_args.model_name_or_path,
     cache_dir=model_args.cache_dir,
 )
 model = (
@@ -72,16 +94,18 @@ dataloader = DataLoader(
 print("Extraction of Embeddings in progress")
 cls_embeddings = []
 for inputs in tqdm(dataloader):
-    # inputs = next(iter(dataloader))
     inputs.pop("labels")
     for k, v in inputs.items():
         inputs[k] = v.to(device)
     output = model(**inputs)
-    cls_embeddings.append(output[0][:, 0, :].cpu().detach().numpy())  # CLS Token representation
+    cls_embeddings.append(
+        output[0][:, 0, :].cpu().detach().numpy()
+    )  # CLS Token representation
     del inputs, output
 
 print("Storing embeddings at ", training_args.output_dir)
 torch.save(
-    cls_embeddings, training_args.output_dir + "cls_embeddings_" + data_args.task_name + ".pth",
+    cls_embeddings,
+    training_args.output_dir + "cls_embeddings_" + data_args.task_name + ".pth",
 )
 print("Done")

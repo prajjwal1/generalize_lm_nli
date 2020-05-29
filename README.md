@@ -180,6 +180,8 @@ There are two modes to perform clustering:
 - `num_clusters`: specify how many clusters you want to train on
 
 Both should not be used at a time.
+If you want cluster object to be saved, pass in `--cluster_only True` flag
+
 
 If you're initially running this, it's better to save clustering labels
 ```
