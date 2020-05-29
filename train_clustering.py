@@ -57,6 +57,11 @@ class Clustering_Arguments:
         default=None,
         metadata={"help": "Path from there clustering labels will be loaded"},
     )
+    cluster_n_jobs: Optional[int] = field(
+        default=-1,
+        metdadata={"help": "Number of parallel processes to run for clustering"},
+    )
+    cluster_only: Optional[bool] = field(metadata={"help": "Run only clustering"})
 
 
 @dataclass
@@ -191,12 +196,19 @@ def main():
     if clustering_args.cluster_output_path and not clustering_args.cluster_input_path:
         logging.info("Forming clusters")
         clustering = DBSCAN(
-            eps=clustering_args.eps, min_samples=clustering_args.min_samples
+            eps=clustering_args.eps,
+            min_samples=clustering_args.min_samples,
+            n_jobs=clustering_args.cluster_n_jobs,
         ).fit(embeddings)
 
         torch.save(vars(clustering), clustering_args.cluster_output_path)
 
-        logging.info("*** INFO: Clustering labels saved ***")
+        logging.info(
+            "*** INFO: Clustering labels saved at"
+            " ({clustering_args.cluster_output_path})***"
+        )
+        if clustering_args.cluster_only:
+            sys.exit(0)
     else:
         clustering = torch.load(clustering_args.cluster_input_path)
         logging.info("INFO: Clustering labels loaded")

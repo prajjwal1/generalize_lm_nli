@@ -60,8 +60,6 @@ def evaluate(model_args, data_args, training_args, eval_dataset, model, tokenize
         if not os.path.exists(eval_output_dir) and training_args.local_rank in [-1, 0]:
             os.makedirs(eval_output_dir)
 
-        # args.eval_batch_size = training_args.per_gpu_eval_batch_size * max(1, training_args.n_gpu)
-        # Note that DistributedSampler samples randomly
         eval_sampler = SequentialSampler(eval_dataset)
         eval_dataloader = DataLoader(
             eval_dataset, sampler=eval_sampler, batch_size=training_args.per_gpu_eval_batch_size
@@ -164,12 +162,6 @@ def main():
     num_labels = glue_tasks_num_labels[data_args.task_name]
     output_mode = glue_output_modes[data_args.task_name]
 
-    # Load pretrained model and tokenizer
-    #
-    # Distributed training:
-    # The .from_pretrained methods guarantee that only one local process can concurrently
-    # download model & vocab.
-
     config = AutoConfig.from_pretrained(
         model_args.config_name if model_args.config_name else model_args.model_name_or_path,
         num_labels=num_labels,
@@ -187,16 +179,7 @@ def main():
         cache_dir=model_args.cache_dir,
     )
 
-    # Get datasets
-    #    train_dataset = GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
     eval_dataset = HansDataset(data_args, tokenizer=tokenizer, evaluate=True) if training_args.do_eval else None
-
-    # def compute_metrics(p: EvalPrediction) -> Dict:
-    #    if output_mode == "classification":
-    #        preds = np.argmax(p.predictions, axis=1)
-    #    elif output_mode == "regression":
-    #        preds = np.squeeze(p.predictions)
-    #    return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
 
     # Training
     if training_args.do_train:
@@ -209,14 +192,6 @@ def main():
 
         data_args.output_mode = output_mode
         result = evaluate(model_args, data_args, training_args, eval_dataset, model, tokenizer)
-        # Loop to handle MNLI double evaluation (matched, mis-matched)
-        #         eval_datasets = [eval_dataset]
-        #         if data_args.task_name == "mnli":
-        #             mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
-        #             eval_datasets.append(GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, evaluate=True))
-
-        #         for eval_dataset in eval_datasets:
-        #             result = trainer.evaluate(eval_dataset=eval_dataset)
 
         output_eval_file = os.path.join(training_args.output_dir, f"eval_results_{eval_dataset.args.task_name}.txt")
         with open(output_eval_file, "w") as writer:

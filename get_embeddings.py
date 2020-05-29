@@ -23,13 +23,13 @@ class ModelArguments:
         metadata={"help": "Path to pretrained model or model identifier from huggingface.co/models"}
     )
     config_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"},
     )
     tokenizer_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"}
+        default=None, metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"},
     )
     cache_dir: Optional[str] = field(
-        default=None, metadata={"help": "Where do you want to store the pretrained models downloaded from s3"}
+        default=None, metadata={"help": "Where do you want to store the pretrained models downloaded from s3"},
     )
 
 
@@ -71,8 +71,8 @@ dataloader = DataLoader(
 )
 print("Extraction of Embeddings in progress")
 cls_embeddings = []
-for i in tqdm(dataloader):
-    inputs = next(iter(dataloader))
+for inputs in tqdm(dataloader):
+    # inputs = next(iter(dataloader))
     inputs.pop("labels")
     for k, v in inputs.items():
         inputs[k] = v.to(device)
@@ -81,4 +81,7 @@ for i in tqdm(dataloader):
     del inputs, output
 
 print("Storing embeddings at ", training_args.output_dir)
-torch.save(cls_embeddings, training_args.output_dir + "cls_embeddings_" + data_args.task_name + ".pth")
+torch.save(
+    cls_embeddings, training_args.output_dir + "cls_embeddings_" + data_args.task_name + ".pth",
+)
+print("Done")
