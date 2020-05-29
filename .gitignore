@@ -28,6 +28,7 @@ share/python-wheels/
 MANIFEST
 runs/
 wandb/
+scripts/
 *.swp
 # PyInstaller
 #  Usually these files are written by a python script from a template
