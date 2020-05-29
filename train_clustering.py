@@ -53,9 +53,14 @@ class Clustering_Arguments:
     cluster_output_path: str = field(
         default=None, metadata={"help": "Path where embedding will be stored"}
     )
+    cluster_only: bool = field(default=False, metadata={"help": "Run only clustering"})
     cluster_input_path: Optional[str] = field(
         default=None,
         metadata={"help": "Path from there clustering labels will be loaded"},
+    )
+    cluster_n_jobs: Optional[int] = field(
+        default=-1,
+        metadata={"help": "Number of parallel processes to run for clustering"},
     )
 
 
@@ -153,14 +158,14 @@ def main():
     logger.info("Loading embeddings")
     try:
         os.path.isfile(clustering_args.embedding_path)
-        if clustering_args.cluster_input_path:
-            os.path.isfile(clustering_args.cluster_input_path)
-        else:
-            raise ValueError(
-                f"Cluster labels not found at ({clustering_args.cluster_labels_path}"
-            )
+        # if clustering_args.cluster_input_path and not clustering_args.output_path:
+        #    os.path.isfile(clustering_args.cluster_input_path)
+        # else:
+        #    raise ValueError(
+        #        f"Cluster labels not found at ({clustering_args.cluster_input_path}"
+        #    )
     except FileNotFoundError:
-        raise ValueError(f"Embeddings not found at ({clustering_args.embedding_path})")
+        raise ValueError(f"Embeddings not found at %s", clustering_args.embedding_path)
 
     embeddings = torch.load(clustering_args.embedding_path)
     embeddings = np.concatenate(embeddings)
@@ -191,12 +196,19 @@ def main():
     if clustering_args.cluster_output_path and not clustering_args.cluster_input_path:
         logging.info("Forming clusters")
         clustering = DBSCAN(
-            eps=clustering_args.eps, min_samples=clustering_args.min_samples
+            eps=clustering_args.eps,
+            min_samples=clustering_args.min_samples,
+            n_jobs=clustering_args.cluster_n_jobs,
         ).fit(embeddings)
 
         torch.save(vars(clustering), clustering_args.cluster_output_path)
 
-        logging.info("*** INFO: Clustering labels saved ***")
+        logging.info(
+            "*** INFO: Clustering labels saved at %s",
+            clustering_args.cluster_output_path,
+        )
+        if clustering_args.cluster_only:
+            sys.exit(0)
     else:
         clustering = torch.load(clustering_args.cluster_input_path)
         logging.info("INFO: Clustering labels loaded")
