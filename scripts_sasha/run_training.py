@@ -24,6 +24,7 @@ for dir_seed in (path_data / subsample_type).iterdir():
                    "--fp16",
                    "--cbt_samples", cnt_samples.name]
 
-
+        # TODO: instead of running locally, submit to a job scheduler
+        # if the platform supports
         proc = subprocess.Popen(command, shell=False)
         proc.communicate()
