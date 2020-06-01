@@ -73,7 +73,9 @@ def hans_convert_examples_to_features(
             logger.info("Using label list %s for task %s" % (label_list, task))
         if output_mode is None:
             output_mode = glue_output_modes[task]
-            logger.info("Using output mode %s for task %s" % (output_mode, task))
+            logger.info(
+                "Using output mode %s for task %s" % (output_mode, task)
+            )
 
     label_map = {label: i for i, label in enumerate(label_list)}
 
@@ -85,8 +87,16 @@ def hans_convert_examples_to_features(
             example = processor.get_example_from_tensor_dict(example)
             example = processor.tfds_map(example)
 
-        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length,)
-        input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
+        inputs = tokenizer.encode_plus(
+            example.text_a,
+            example.text_b,
+            add_special_tokens=True,
+            max_length=max_length,
+        )
+        input_ids, token_type_ids = (
+            inputs["input_ids"],
+            inputs["token_type_ids"],
+        )
 
         # The mask has 1 for real tokens and 0 for padding tokens. Only real
         # tokens are attended to.
@@ -96,23 +106,41 @@ def hans_convert_examples_to_features(
         padding_length = max_length - len(input_ids)
         if pad_on_left:
             input_ids = ([pad_token] * padding_length) + input_ids
-            attention_mask = ([0 if mask_padding_with_zero else 1] * padding_length) + attention_mask
-            token_type_ids = ([pad_token_segment_id] * padding_length) + token_type_ids
+            attention_mask = (
+                [0 if mask_padding_with_zero else 1] * padding_length
+            ) + attention_mask
+            token_type_ids = (
+                [pad_token_segment_id] * padding_length
+            ) + token_type_ids
         else:
             input_ids = input_ids + ([pad_token] * padding_length)
-            attention_mask = attention_mask + ([0 if mask_padding_with_zero else 1] * padding_length)
-            token_type_ids = token_type_ids + ([pad_token_segment_id] * padding_length)
+            attention_mask = attention_mask + (
+                [0 if mask_padding_with_zero else 1] * padding_length
+            )
+            token_type_ids = token_type_ids + (
+                [pad_token_segment_id] * padding_length
+            )
 
-        assert len(input_ids) == max_length, "Error with input length {} vs {}".format(len(input_ids), max_length)
-        assert len(attention_mask) == max_length, "Error with input length {} vs {}".format(
+        assert (
+            len(input_ids) == max_length
+        ), "Error with input length {} vs {}".format(
+            len(input_ids), max_length
+        )
+        assert (
+            len(attention_mask) == max_length
+        ), "Error with input length {} vs {}".format(
             len(attention_mask), max_length
         )
-        assert len(token_type_ids) == max_length, "Error with input length {} vs {}".format(
+        assert (
+            len(token_type_ids) == max_length
+        ), "Error with input length {} vs {}".format(
             len(token_type_ids), max_length
         )
 
         if output_mode == "classification":
-            label = label_map[example.label] if example.label in label_map else 0
+            label = (
+                label_map[example.label] if example.label in label_map else 0
+            )
         elif output_mode == "regression":
             label = float(example.label)
         else:
@@ -124,9 +152,17 @@ def hans_convert_examples_to_features(
             logger.info("text_a: %s" % (example.text_a))
             logger.info("text_b: %s" % (example.text_b))
             logger.info("guid: %s" % (example.guid))
-            logger.info("input_ids: %s" % " ".join([str(x) for x in input_ids]))
-            logger.info("attention_mask: %s" % " ".join([str(x) for x in attention_mask]))
-            logger.info("token_type_ids: %s" % " ".join([str(x) for x in token_type_ids]))
+            logger.info(
+                "input_ids: %s" % " ".join([str(x) for x in input_ids])
+            )
+            logger.info(
+                "attention_mask: %s"
+                % " ".join([str(x) for x in attention_mask])
+            )
+            logger.info(
+                "token_type_ids: %s"
+                % " ".join([str(x) for x in token_type_ids])
+            )
             logger.info("label: %s (id = %d)" % (example.label, label))
 
         features.append(
@@ -154,7 +190,14 @@ def hans_convert_examples_to_features(
 
         return tf.data.Dataset.from_generator(
             gen,
-            ({"input_ids": tf.int32, "attention_mask": tf.int32, "token_type_ids": tf.int32}, tf.int64),
+            (
+                {
+                    "input_ids": tf.int32,
+                    "attention_mask": tf.int32,
+                    "token_type_ids": tf.int32,
+                },
+                tf.int64,
+            ),
             (
                 {
                     "input_ids": tf.TensorShape([None]),
@@ -182,11 +225,19 @@ class HansProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "heuristics_train_set.txt")), "train")
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "heuristics_train_set.txt")),
+            "train",
+        )
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "heuristics_evaluation_set.txt")), "dev")
+        return self._create_examples(
+            self._read_tsv(
+                os.path.join(data_dir, "heuristics_evaluation_set.txt")
+            ),
+            "dev",
+        )
 
     def get_labels(self):
         """See base class."""
@@ -203,7 +254,15 @@ class HansProcessor(DataProcessor):
             text_b = line[6]
             pairID = line[7][2:] if line[7].startswith("ex") else line[7]
             label = line[-1]
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label, pairID=pairID))
+            examples.append(
+                InputExample(
+                    guid=guid,
+                    text_a=text_a,
+                    text_b=text_b,
+                    label=label,
+                    pairID=pairID,
+                )
+            )
         return examples
 
 
@@ -220,7 +279,9 @@ glue_output_modes = {
 }
 
 
-def load_and_cache_examples(model_args, data_args, training_args, task, tokenizer, evaluate=False):
+def load_and_cache_examples(
+    model_args, data_args, training_args, task, tokenizer, evaluate=False
+):
     if training_args.local_rank not in [-1, 0] and not evaluate:
         torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
 
@@ -240,11 +301,17 @@ def load_and_cache_examples(model_args, data_args, training_args, task, tokenize
     label_list = processor.get_labels()
 
     if os.path.exists(cached_features_file):
-        logger.info("Loading features from cached file %s", cached_features_file)
+        logger.info(
+            "Loading features from cached file %s", cached_features_file
+        )
         features = torch.load(cached_features_file)
     else:
-        logger.info("Creating features from dataset file at %s", data_args.data_dir)
-        if task in ["mnli", "mnli-mm"] and model_args.model_type in ["roberta"]:
+        logger.info(
+            "Creating features from dataset file at %s", data_args.data_dir
+        )
+        if task in ["mnli", "mnli-mm"] and model_args.model_type in [
+            "roberta"
+        ]:
             # HACK(label indices are swapped in RoBERTa pretrained model)
             label_list[1], label_list[2] = label_list[2], label_list[1]
         examples = (
@@ -263,21 +330,41 @@ def load_and_cache_examples(model_args, data_args, training_args, task, tokenize
             pad_token_segment_id=tokenizer.pad_token_type_id,
         )
         if training_args.local_rank in [-1, 0]:
-            logger.info("Saving features into cached file %s", cached_features_file)
+            logger.info(
+                "Saving features into cached file %s", cached_features_file
+            )
             torch.save(features, cached_features_file)
 
     if training_args.local_rank == 0 and not evaluate:
         torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
 
     # Convert to Tensors and build dataset
-    all_input_ids = torch.tensor([f.input_ids for f in features], dtype=torch.long)
-    all_attention_mask = torch.tensor([f.attention_mask for f in features], dtype=torch.long)
-    all_token_type_ids = torch.tensor([f.token_type_ids for f in features], dtype=torch.long)
+    all_input_ids = torch.tensor(
+        [f.input_ids for f in features], dtype=torch.long
+    )
+    all_attention_mask = torch.tensor(
+        [f.attention_mask for f in features], dtype=torch.long
+    )
+    all_token_type_ids = torch.tensor(
+        [f.token_type_ids for f in features], dtype=torch.long
+    )
     if output_mode == "classification":
-        all_labels = torch.tensor([f.label for f in features], dtype=torch.long)
+        all_labels = torch.tensor(
+            [f.label for f in features], dtype=torch.long
+        )
     elif output_mode == "regression":
-        all_labels = torch.tensor([f.label for f in features], dtype=torch.float)
-    all_pair_ids = torch.tensor([int(f.pairID) for f in features], dtype=torch.long)
+        all_labels = torch.tensor(
+            [f.label for f in features], dtype=torch.float
+        )
+    all_pair_ids = torch.tensor(
+        [int(f.pairID) for f in features], dtype=torch.long
+    )
 
-    dataset = TensorDataset(all_input_ids, all_attention_mask, all_token_type_ids, all_labels, all_pair_ids)
+    dataset = TensorDataset(
+        all_input_ids,
+        all_attention_mask,
+        all_token_type_ids,
+        all_labels,
+        all_pair_ids,
+    )
     return dataset, label_list

@@ -29,19 +29,26 @@ class HansDataTrainingArguments:
     """
 
     data_dir: str = field(
-        metadata={"help": "The input data dir. Should contain the .tsv files (or other data files) for the task."}
+        metadata={
+            "help": (
+                "The input data dir. Should contain the .tsv files (or other"
+                " data files) for the task."
+            )
+        }
     )
     max_seq_length: int = field(
         default=128,
         metadata={
             "help": (
-                "The maximum total input sequence length after tokenization. Sequences longer "
-                "than this will be truncated, sequences shorter will be padded."
+                "The maximum total input sequence length after tokenization."
+                " Sequences longer than this will be truncated, sequences"
+                " shorter will be padded."
             )
         },
     )
     overwrite_cache: bool = field(
-        default=False, metadata={"help": "Overwrite the cached training and evaluation sets"}
+        default=False,
+        metadata={"help": "Overwrite the cached training and evaluation sets"},
     )
 
     def __post_init__(self):
@@ -72,7 +79,10 @@ class HansDataset(Dataset):
         cached_features_file = os.path.join(
             args.data_dir,
             "cached_{}_{}_{}_{}".format(
-                "dev" if evaluate else "train", tokenizer.__class__.__name__, str(args.max_seq_length), args.task_name,
+                "dev" if evaluate else "train",
+                tokenizer.__class__.__name__,
+                str(args.max_seq_length),
+                args.task_name,
             ),
         )
 
@@ -81,16 +91,26 @@ class HansDataset(Dataset):
         lock_path = cached_features_file + ".lock"
         with FileLock(lock_path):
 
-            if os.path.exists(cached_features_file) and not args.overwrite_cache:
+            if (
+                os.path.exists(cached_features_file)
+                and not args.overwrite_cache
+            ):
                 start = time.time()
                 self.features = torch.load(cached_features_file)
                 logger.info(
-                    f"Loading features from cached file {cached_features_file} [took %.3f s]", time.time() - start
+                    f"Loading features from cached file {cached_features_file}"
+                    " [took %.3f s]",
+                    time.time() - start,
                 )
             else:
-                logger.info(f"Creating features from dataset file at {args.data_dir}")
+                logger.info(
+                    f"Creating features from dataset file at {args.data_dir}"
+                )
                 label_list = processor.get_labels()
-                if args.task_name in ["mnli", "mnli-mm"] and tokenizer.__class__ in (
+                if args.task_name in [
+                    "mnli",
+                    "mnli-mm",
+                ] and tokenizer.__class__ in (
                     RobertaTokenizer,
                     RobertaTokenizerFast,
                     XLMRobertaTokenizer,
@@ -115,7 +135,9 @@ class HansDataset(Dataset):
                 torch.save(self.features, cached_features_file)
                 # ^ This seems to take a lot of time so I want to investigate why and how we can improve.
                 logger.info(
-                    "Saving features into cached file %s [took %.3f s]", cached_features_file, time.time() - start
+                    "Saving features into cached file %s [took %.3f s]",
+                    cached_features_file,
+                    time.time() - start,
                 )
 
     def __len__(self):
