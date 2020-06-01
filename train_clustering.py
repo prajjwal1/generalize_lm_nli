@@ -7,7 +7,7 @@ from typing import Dict, Optional
 
 import numpy as np
 import torch
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import MiniBatchKMeans
 from transformers import (
     AutoConfig,
     AutoModelForSequenceClassification,
@@ -33,20 +33,20 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class Clustering_Arguments:
-    eps: float = field(metadata={"help": "Threshold value to form clusters"})
-    min_samples: int = field(metadata={"help": "Minimum samples for clustering"})
+    batch_size: int = field(metadata={"help": "Batch size to use for MiniBatchKMeans"})
+    num_clusters: int = field(metadata={"help": "number of clusters to obtain"})
     embedding_path: str = field(
         metadata={"help": "Path from where embeddings will be loaded"}
     )
     data_pct: Optional[float] = field(
         default=None, metadata={"help": "specifies how much data will be used"}
     )
-    num_clusters: Optional[int] = field(
+    num_clusters_elements: Optional[int] = field(
         default=None,
         metadata={
             "help": (
-                "specifies the number of clusters that will be used. If this is"
-                " enabled, `data_pct` should be set to None"
+                "specifies the number of clusters that will be used. If this"
+                " is enabled, `data_pct` should be set to None"
             )
         },
     )
@@ -54,6 +54,10 @@ class Clustering_Arguments:
         default=None, metadata={"help": "Path where embedding will be stored"}
     )
     cluster_only: bool = field(default=False, metadata={"help": "Run only clustering"})
+    random_state: int = field(
+        default=0,
+        metadata={"help": "for producing deterministic results with MiniBatchKMeans"},
+    )
     cluster_input_path: Optional[str] = field(
         default=None,
         metadata={"help": "Path from there clustering labels will be loaded"},
@@ -61,6 +65,10 @@ class Clustering_Arguments:
     cluster_n_jobs: Optional[int] = field(
         default=-1,
         metadata={"help": "Number of parallel processes to run for clustering"},
+    )
+    centroid_elements_only: bool = field(
+        default=False,
+        metadata={"help": "Specify to use cluster centroid elements for training"},
     )
 
 
@@ -103,7 +111,12 @@ class ModelArguments:
 def main():
 
     parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, TrainingArguments, Clustering_Arguments)
+        (
+            ModelArguments,
+            DataTrainingArguments,
+            TrainingArguments,
+            Clustering_Arguments,
+        )
     )
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
@@ -125,8 +138,8 @@ def main():
         and not training_args.overwrite_output_dir
     ):
         raise ValueError(
-            f"Output directory ({training_args.output_dir}) already exists and is not"
-            " empty. Use --overwrite_output_dir to overcome."
+            f"Output directory ({training_args.output_dir}) already exists and"
+            " is not empty. Use --overwrite_output_dir to overcome."
         )
 
     # Setup logging
@@ -136,8 +149,8 @@ def main():
         level=logging.INFO if training_args.local_rank in [-1, 0] else logging.WARN,
     )
     logger.warning(
-        "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits"
-        " training: %s",
+        "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s,"
+        " 16-bits training: %s",
         training_args.local_rank,
         training_args.device,
         training_args.n_gpu,
@@ -195,10 +208,10 @@ def main():
 
     if clustering_args.cluster_output_path and not clustering_args.cluster_input_path:
         logging.info("Forming clusters")
-        clustering = DBSCAN(
-            eps=clustering_args.eps,
-            min_samples=clustering_args.min_samples,
-            n_jobs=clustering_args.cluster_n_jobs,
+        clustering = MiniBatchKMeans(
+            n_clusters=clustering_args.num_clusters,
+            batch_size=clustering_args.batch_size,
+            random_state=clustering_args.random_state,
         ).fit(embeddings)
 
         torch.save(vars(clustering), clustering_args.cluster_output_path)
@@ -214,18 +227,26 @@ def main():
         logging.info("INFO: Clustering labels loaded")
 
     if training_args.do_train:
-        if clustering_args.data_pct and clustering_args.num_clusters:
+        if clustering_args.data_pct and clustering_args.num_clusters_elements:
             raise ValueError("You can either specify `data_pct` or `num_clusters`")
+        if clustering_args.num_clusters_elements:
+            assert clustering_args.num_clusters >= clustering_args.num_clusters_elements
+
         train_dataset = GlueDataset(data_args, tokenizer)
 
         clustering_proc = Clustering_Processor(clustering)
+
         if clustering_args.data_pct:
             cluster_indices = clustering_proc.get_cluster_indices_by_pct(
                 clustering_args.data_pct, len(train_dataset)
             )
-        if clustering_args.num_clusters:
+        if clustering_args.num_clusters_elements:
             cluster_indices = clustering_proc.get_cluster_indices_by_num(
-                clustering_args.num_clusters
+                clustering_args.num_clusters_elements
+            )
+        if clustering_args.centroid_elements_only:
+            cluster_indices = clustering_proc.get_cluster_indices_from_centroid(
+                embeddings
             )
 
         train_dataset = torch.utils.data.Subset(train_dataset, cluster_indices)

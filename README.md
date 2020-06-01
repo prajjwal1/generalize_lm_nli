@@ -167,6 +167,27 @@ Results with Albert-base-v1(seed 999):
 | 90              | 79.78604 /  80.52278      | (0.0286, 0.021, 0.015)   , (0.9742, 0.97, 0.9864)                      |
 | 100             | 80.08150 /  80.97030      | (0.0222, 0.0126, 0.0162) , (0.9896, 0.9866, 0.9894)                    |
 ```
+Results from 512 random samples to compare with centroid clusters
+```
+| Epoch | eval_acc (mnli / mnli-mm) with respective epochs
+|-----------------|--------------------------------------|
+| 1     | 38.33 / 37.47                                  |
+| 2     | 38.69 / 41.06                                  |
+| 3     | 40.53 / 40.35                                  |
+| 4     | 39.54 / 42.47                                  |
+| 5     | 39.82 / 39.82                                  |
+| 6     | 41.53 / 42.00                                  |
+| 7     | 42.06 / 44.44                                  |
+| 8     | 43.61 / 44.96                                  |
+| 9     | 42.07 / 43.60                                  |
+| 10    | 43.73 / 44.44                                  |
+| 11    | 42.54 / 44.33                                  |
+| 12    | 42.54 / 42.25                                  |
+| 13    | 42.54 / 42.25                                  |
+| 14    | 42.54 / 42.25                                  |
+| 15    | 42.54 / 42.25
+```
+[/home/nlp/transformers-importance-sampling/figs/512_centroids_epoch_acc.png](/home/nlp/transformers-importance-sampling/figs/512_centroids_epoch_acc.png)
 ![mnli_seeds_graph](figs/mnli_seeds_graph.png)
 ![hans_mm_seeds_graph](figs/mnli_mm_seeds_graph.png)
 ![avg_acc_hans_seeds_graph](figs/avg_acc_hans_seeds_graph.png)
@@ -174,10 +195,9 @@ Results with Albert-base-v1(seed 999):
 
 ### 4. Sampling from clustering
 You can create a clustering sklearn object, save its labels and load them. 
-
 There are two modes to perform clustering:
 - `data_pct`: this mode will train on elements extracted from clusters equivalent to `len(dataset)*data_pct`
-- `num_clusters`: specify how many clusters you want to train on
+- `num_clusters_elements`: specify how many clusters you want to train on.
 
 Both should not be used at a time.
 If you want cluster object to be saved, pass in `--cluster_only True` flag
@@ -185,7 +205,7 @@ If you want cluster object to be saved, pass in `--cluster_only True` flag
 
 If you're initially running this, it's better to save clustering labels
 ```
-CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --data_pct 0.1 --cluster_output_path /home/nlp/experiments
+CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 256   --learning_rate 2e-5   --num_train_epochs 1.0   --output_dir /home/nlp/experiments/clustering/0   --fp16 --eps 0.2 --min_samples 50 --embedding_path /home/nlp/experiments/cls_embeddings_mnli.pth --batch_size 2048 --num_clusters 512 --centroid_elements_only --cluster_output_path /home/nlp/experiments/cluster_output.pth
 ```
 
 After the cluster labels are saved, you can use this (`cluster_output_path` will become `cluster_input_path`:
@@ -200,7 +220,7 @@ Results (with Albert-base-v1)
 | 10              | 70.62659 /  72.73189      |
 | 20              | 74.69179 /  76.49511      |
 ```
-Results (with Albert-base-v2)
+Results (with Albert-base-v2) (with bug and DBSCAN)
 ```
 | Data Percentage | eval_acc (mnli / mnli-mm) with respective epochs
 |-----------------|---------------------------|------------------------------------------------------------------------|
@@ -215,7 +235,7 @@ Results (with Albert-base-v2)
 ![clustering_vs_random_subsampling](figs/clustering_vs_random_albert_v2.png)
 ![2_pct_data_acc_vs_epoch_clustering](figs/2_pct_data_eval_acc_epoch.png)
 
-Results with `num_clusters` = 16
+Results with `num_clusters` = 16 around 22k samples (with bug and DBSCAN)
 ```
 | Epoch | eval_acc (mnli / mnli-mm) with respective epochs
 |-----------------|--------------------------------------|
@@ -228,3 +248,26 @@ Results with `num_clusters` = 16
 | 7     | 76.85 / 77.72                                  |
 ```
 ![16_clusters_epoch_acc](figs/16_clusters_epoch_acc.png)
+
+Not using DBSCAN at this point.
+Results with `centroids` = 512 (MiniBatchKMeans)
+```
+| Epoch | eval_acc (mnli / mnli-mm) with respective epochs
+|-----------------|--------------------------------------|
+| 1     | 37.74 / 37.53                                  |
+| 2     | 36.53 / 38.39                                  |
+| 3     | 40.29 / 39.86                                  |
+| 4     | 39.36 / 40.81                                  |
+| 5     | 41.10 / 40.89                                  |
+| 6     | 40.79 / 42.07                                  |
+| 7     | 41.54 / 40.72                                  |
+| 8     | 40.99 / 42.44                                  |
+| 9     | 41.98 / 41.85                                  |
+| 10    | 42.66 / 43.37                                  |
+| 11    | 42.17 / 43.61                                  |
+| 12    | 43.31 / 44.38                                  |
+| 13    | 42.48 / 43.64                                  |
+| 14    | 43.52 / 44.37                                  |
+| 15    | 42.43 / 43.44                                  |
+```
+![512_centroids_epoch_acc.png]('/home/nlp/transformers-importance-sampling/figs/512_centroids_epoch_acc.png')

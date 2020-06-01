@@ -7,12 +7,23 @@ from typing import Dict, Optional
 
 import numpy as np
 import torch
-from transformers import (AutoConfig, AutoModelForSequenceClassification,
-                          AutoTokenizer, EvalPrediction, GlueDataset)
+from transformers import (
+    AutoConfig,
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    EvalPrediction,
+    GlueDataset,
+)
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
-from transformers import (HfArgumentParser, Trainer, TrainingArguments,
-                          glue_compute_metrics, glue_output_modes,
-                          glue_tasks_num_labels, set_seed)
+from transformers import (
+    HfArgumentParser,
+    Trainer,
+    TrainingArguments,
+    glue_compute_metrics,
+    glue_output_modes,
+    glue_tasks_num_labels,
+    set_seed,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -29,29 +40,52 @@ class ModelArguments:
     """
 
     model_name_or_path: str = field(
-        metadata={"help": "Path to pretrained model or model identifier from huggingface.co/models"}
+        metadata={
+            "help": (
+                "Path to pretrained model or model identifier from"
+                " huggingface.co/models"
+            )
+        }
     )
     config_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+        default=None,
+        metadata={
+            "help": "Pretrained config name or path if not the same as model_name"
+        },
     )
     tokenizer_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"}
+        default=None,
+        metadata={
+            "help": "Pretrained tokenizer name or path if not the same as model_name"
+        },
     )
     cache_dir: Optional[str] = field(
-        default=None, metadata={"help": "Where do you want to store the pretrained models downloaded from s3"}
+        default=None,
+        metadata={
+            "help": (
+                "Where do you want to store the pretrained models downloaded from s3"
+            )
+        },
     )
 
 
 def main():
 
-    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments, Arguments))
+    parser = HfArgumentParser(
+        (ModelArguments, DataTrainingArguments, TrainingArguments, Arguments)
+    )
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
-        # If we pass only one argument to the script and it's the path to a json file,
-        # let's parse it to get our arguments.
-        model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
+        model_args, data_args, training_args = parser.parse_json_file(
+            json_file=os.path.abspath(sys.argv[1])
+        )
     else:
-        model_args, data_args, training_args, args = parser.parse_args_into_dataclasses()
+        (
+            model_args,
+            data_args,
+            training_args,
+            args,
+        ) = parser.parse_args_into_dataclasses()
 
     if (
         os.path.exists(training_args.output_dir)
@@ -60,8 +94,8 @@ def main():
         and not training_args.overwrite_output_dir
     ):
         raise ValueError(
-            f"Output directory ({training_args.output_dir}) already exists and is not empty. Use"
-            " --overwrite_output_dir to overcome."
+            f"Output directory ({training_args.output_dir}) already exists and"
+            " is not empty. Use --overwrite_output_dir to overcome."
         )
 
     # Setup logging
@@ -71,7 +105,8 @@ def main():
         level=logging.INFO if training_args.local_rank in [-1, 0] else logging.WARN,
     )
     logger.warning(
-        "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits training: %s",
+        "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s,"
+        " 16-bits training: %s",
         training_args.local_rank,
         training_args.device,
         training_args.n_gpu,
@@ -89,20 +124,18 @@ def main():
     except KeyError:
         raise ValueError("Task not found: %s" % (data_args.task_name))
 
-    # Load pretrained model and tokenizer
-    #
-    # Distributed training:
-    # The .from_pretrained methods guarantee that only one local process can concurrently
-    # download model & vocab.
-
     config = AutoConfig.from_pretrained(
-        model_args.config_name if model_args.config_name else model_args.model_name_or_path,
+        model_args.config_name
+        if model_args.config_name
+        else model_args.model_name_or_path,
         num_labels=num_labels,
         finetuning_task=data_args.task_name,
         cache_dir=model_args.cache_dir,
     )
     tokenizer = AutoTokenizer.from_pretrained(
-        model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
+        model_args.tokenizer_name
+        if model_args.tokenizer_name
+        else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
     )
     model = AutoModelForSequenceClassification.from_pretrained(
@@ -113,13 +146,21 @@ def main():
     )
 
     # Get datasets
-    train_dataset = GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
-    eval_dataset = GlueDataset(data_args, tokenizer=tokenizer, evaluate=True) if training_args.do_eval else None
+    train_dataset = (
+        GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
+    )
+    eval_dataset = (
+        GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)
+        if training_args.do_eval
+        else None
+    )
 
     pct_ds_len = int(len(train_dataset) * args.data_pct)
     rem_ds_len = len(train_dataset) - pct_ds_len
 
-    train_dataset, _ = torch.utils.data.random_split(dataset=train_dataset, lengths=[pct_ds_len, rem_ds_len])
+    train_dataset, _ = torch.utils.data.random_split(
+        dataset=train_dataset, lengths=[pct_ds_len, rem_ds_len]
+    )
     # Specify the percentage
     log_data_pct = str(args.data_pct * 100)
     logger.info("*** Using %f of the dataset ***", log_data_pct)
@@ -142,7 +183,9 @@ def main():
     # Training
     if training_args.do_train:
         trainer.train(
-            model_path=model_args.model_name_or_path if os.path.isdir(model_args.model_name_or_path) else None
+            model_path=model_args.model_name_or_path
+            if os.path.isdir(model_args.model_name_or_path)
+            else None
         )
         trainer.save_model()
         # For convenience, we also re-save the tokenizer to the same directory,
@@ -159,16 +202,21 @@ def main():
         eval_datasets = [eval_dataset]
         if data_args.task_name == "mnli":
             mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
-            eval_datasets.append(GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, evaluate=True))
+            eval_datasets.append(
+                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, evaluate=True)
+            )
 
         for eval_dataset in eval_datasets:
             result = trainer.evaluate(eval_dataset=eval_dataset)
 
             output_eval_file = os.path.join(
-                training_args.output_dir, f"eval_results_{eval_dataset.args.task_name}.txt"
+                training_args.output_dir,
+                f"eval_results_{eval_dataset.args.task_name}.txt",
             )
             with open(output_eval_file, "w") as writer:
-                logger.info("***** Eval results {} *****".format(eval_dataset.args.task_name))
+                logger.info(
+                    "***** Eval results {} *****".format(eval_dataset.args.task_name)
+                )
                 for key, value in result.items():
                     logger.info("  %s = %s", key, value)
                     writer.write("%s = %s\n" % (key, value))

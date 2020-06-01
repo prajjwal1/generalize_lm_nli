@@ -2,6 +2,8 @@ from typing import Dict, List, Optional
 
 import numpy as np
 import sklearn
+import torch
+from sklearn.metrics import pairwise_distances_argmin_min
 
 
 class Clustering_Processor:
@@ -15,12 +17,9 @@ class Clustering_Processor:
     num_clusters: int
     cluster_num: int
 
-    def __init__(
-        self, cluster: sklearn.cluster, data_pct: Optional[float] = None, num_clusters: Optional[int] = None,
-    ):
+    def __init__(self, cluster: sklearn.cluster):
         self.labels = cluster["labels_"]
-        self.data_pct = data_pct
-        self.num_clusters = num_clusters
+        self.kmeans_cluster_centers = cluster["cluster_centers_"]
 
     def get_cluster_indices(self, cluster_num: int):
         return np.where(self.labels == cluster_num)[0]
@@ -57,3 +56,6 @@ class Clustering_Processor:
         for i in range(num_clusters):
             indices.extend(self.get_cluster_indices(i))
         return indices
+
+    def get_cluster_indices_from_centroid(self, embeddings: torch.tensor) -> np.array:
+        return pairwise_distances_argmin_min(self.kmeans_cluster_centers, embeddings)[0]

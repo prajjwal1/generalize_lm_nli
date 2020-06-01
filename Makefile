@@ -4,6 +4,6 @@ quality:
 	isort --check-only --recursive .
 
 style:
-	black --line-length 119 --target-version py35 .
+	black --line-length 79 --target-version py35 .
 	isort --recursive .
 
