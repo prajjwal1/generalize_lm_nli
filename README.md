@@ -5,7 +5,7 @@ Importance Sampling with Transformers
 - [x] Extract ['CLS'] representations on MNLI from Albert
 - [x] Random Sampling results on MNLI and Hans
 - [x] Clustering Analysis
-- [ ] Re-train Albert-base models
+- [ ] Freezing model
 
 For code formatting, run
 ```
@@ -31,20 +31,22 @@ epoch = 3.0
 
 The model has been made publicly available at:
 ```
-tokenizer = AutoTokenizer.from_pretrained("prajjwal1/albert-base-v1-mnli")
+tokenizer = AutoTokenizer.from_pretrained("prajjwal1/albert-base-v1-mnli") # v1 and v2
 
-model = AutoModelForSequenceClassification.from_pretrained("prajjwal1/albert-base-v1-mnli")
+model = AutoModelForSequenceClassification.from_pretrained("prajjwal1/albert-base-v1-mnli") # v1 and v2
 ```
 Training was performed with mixed precision. The following command was used:
 ```
-CUDA_VISIBLE_DEVICES=0 python3 run_glue.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/saved_models/   --fp16
+CUDA_VISIBLE_DEVICES=0 python3 run_glue.py   --model_name_or_path albert-base-v2   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_device_train_batch_size 256  --per_device_eval_batch_size 4096 --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/saved_models/   --fp16
 ```
+
+You can freeze the base model by passing in `--freeze_base`.
 
 If you're loading a model from the local path, you're required to pass the `tokenizer_name` parameter explicitly.
 
 ### 2. Extracting embeddings from Albert
 ```
-CUDA_VISIBLE_DEVICES=0 python3 get_embeddings.py --model_name_or_path prajjwal1/albert-base-v2-mnli --task_name $TASK_NAME --data_dir $GLUE_DIR/$TASK_NAME --max_seq_len 128 --per_gpu_train_batch_size 512 --output_dir /home/nlp/experiments/
+CUDA_VISIBLE_DEVICES=0 python3 get_embeddings.py --model_name_or_path prajjwal1/albert-base-v2-mnli --task_name $TASK_NAME --data_dir $GLUE_DIR/$TASK_NAME --max_seq_len 128 --per_device_train_batch_size 512 --output_dir /home/nlp/experiments/
 ```
 
 ### 3. Random Sampling Results on MNLI (with 5 seeds)
@@ -58,7 +60,7 @@ CUDA_VISIBLE_DEVICES=0 python3 subsampling_mnli.py   --model_name_or_path albert
 
 To run evaluation on HANS:
 ```
-$ CUDA_VISIBLE_DEVICES=0 python3 test_hans.py   --model_name_or_path WEIGHTS_OBTAINED_FROM_PREVIOUS_STEP  --do_eval   --data_dir /home/nlp/data/hans   --max_seq_length 128  --output_dir /home/nlp/experiments/hans/   --fp16 --task_name HANS --per_gpu_eval_batch_size 4096
+$ CUDA_VISIBLE_DEVICES=0 python3 hans/test_hans.py --task_name hans --model_type albert --do_eval --data_dir $HANS_DIR --model_name_or_path $MODEL_PATH --max_seq_length 128 --output_dir $MODEL_PATH --per_gpu_eval_batch_size 4096
 
 $ cd /hans/directory
 $ python3 evaluate_heur_output.py /predictions_from_previous_step (output_dir)
@@ -270,4 +272,14 @@ Results with `centroids` = 512 (MiniBatchKMeans)
 | 14    | 43.52 / 44.37                                  |
 | 15    | 42.43 / 43.44                                  |
 ```
-![512_centroids_epoch_acc.png]('/home/nlp/transformers-importance-sampling/figs/512_centroids_epoch_acc.png')
+![512_centroids_epoch_acc.png](/home/nlp/transformers-importance-sampling/figs/512_centroids_epoch_acc.png)
+
+###  Freezing experiments
+Results with Albert-base-v1(seed 999):
+```
+| Model information |  mnli/mnli-mm (epoch) | HANS (E/NE) (LO,SUB,CONS)) |
+|-|-|-|
+| albert-base-v2-mnli | 84.88 / 85.55 | (0.0, 0.0, 0.0), (1.0, 1.0, 1.0) |
+| albert-base-v2-pretrained | 32.02 / 32.03 | (0.0, 0.0, 0.0), (1.0, 1.0, 1.0) |
+| frozen albert-base-v2 | 41.7  / 42.7  (1) 44.08 / 45.03 (2) 45.39 / 46.64 (3) 46.41 / 47.81 (4) 47.34 / 48.87 (5) 48.19 / 49.83 (6) 48.76 / 50.26 (7) 49.22 / 50.77 (8) 49.64 / 51.12 (9) 50.56 / 51.94 (10)  |  |
+```
