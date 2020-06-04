@@ -7,12 +7,10 @@ from typing import List, Optional
 import torch
 from filelock import FileLock
 from torch.utils.data.dataset import Dataset
-from transformers import (RobertaTokenizer, RobertaTokenizerFast,
-                          XLMRobertaTokenizer)
 from transformers.tokenization_utils import PreTrainedTokenizer
-
-from .processors import (HansProcessor, InputFeatures, glue_output_modes,
-                         hans_convert_examples_to_features)
+from transformers import GlueDataTrainingArguments as DataTrainingArguments
+from .hans_processors import (HansProcessor as Processor, InputFeatures, glue_output_modes)
+from .hans_processors import hans_convert_examples_to_features as convert_examples_to_features
 
 # from .utils import load_and_cache_examples
 
@@ -20,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class HansDataTrainingArguments:
+class TrainingArguments:
     """
     Arguments pertaining to what data we are going to input our model for training and eval.
     Using `HfArgumentParser` we can turn this class
@@ -61,19 +59,19 @@ class HansDataset(Dataset):
     soon.
     """
 
-    args: HansDataTrainingArguments
+    args: DataTrainingArguments
     output_mode: str
     features: List[InputFeatures]
 
     def __init__(
         self,
-        args: HansDataTrainingArguments,
+        args: DataTrainingArguments,
         tokenizer: PreTrainedTokenizer,
         limit_length: Optional[int] = None,
         evaluate=False,
     ):
         self.args = args
-        processor = HansProcessor()
+        processor = Processor()
         self.output_mode = glue_output_modes[args.task_name]
         # Load data features from cache or dataset file
         cached_features_file = os.path.join(
@@ -124,7 +122,7 @@ class HansDataset(Dataset):
                 )
                 if limit_length is not None:
                     examples = examples[:limit_length]
-                self.features = hans_convert_examples_to_features(
+                self.features = convert_examples_to_features(
                     examples,
                     tokenizer,
                     max_length=args.max_seq_length,

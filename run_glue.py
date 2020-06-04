@@ -3,17 +3,35 @@ import logging
 import os
 import sys
 from dataclasses import dataclass, field
-from typing import Dict, Optional
+from typing import Callable, Dict, Optional
 
 import numpy as np
-from transformers import (AutoConfig, AutoModelForSequenceClassification,
-                          AutoTokenizer, EvalPrediction, GlueDataset)
+from transformers import (
+    AutoConfig,
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    EvalPrediction,
+    GlueDataset,
+)
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
-from transformers import (HfArgumentParser, Trainer, TrainingArguments,
-                          glue_compute_metrics, glue_output_modes,
-                          glue_tasks_num_labels, set_seed)
+from transformers import (
+    HfArgumentParser,
+    Trainer,
+    TrainingArguments,
+    glue_compute_metrics,
+    glue_output_modes,
+    glue_tasks_num_labels,
+    set_seed,
+)
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class SpecificArguments:
+    freeze_base: bool = field(
+        default=False, metadata={"help": "freeze the base model if enabled"}
+    )
 
 
 @dataclass
@@ -33,26 +51,20 @@ class ModelArguments:
     config_name: Optional[str] = field(
         default=None,
         metadata={
-            "help": (
-                "Pretrained config name or path if not the same as model_name"
-            )
+            "help": "Pretrained config name or path if not the same as model_name"
         },
     )
     tokenizer_name: Optional[str] = field(
         default=None,
         metadata={
-            "help": (
-                "Pretrained tokenizer name or path if not the same as"
-                " model_name"
-            )
+            "help": "Pretrained tokenizer name or path if not the same as model_name"
         },
     )
     cache_dir: Optional[str] = field(
         default=None,
         metadata={
             "help": (
-                "Where do you want to store the pretrained models downloaded"
-                " from s3"
+                "Where do you want to store the pretrained models downloaded from s3"
             )
         },
     )
@@ -64,7 +76,7 @@ def main():
     # We now keep distinct sets of args, for a cleaner separation of concerns.
 
     parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, TrainingArguments)
+        (ModelArguments, DataTrainingArguments, TrainingArguments, SpecificArguments)
     )
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
@@ -78,6 +90,7 @@ def main():
             model_args,
             data_args,
             training_args,
+            specific_args,
         ) = parser.parse_args_into_dataclasses()
 
     if (
@@ -95,9 +108,7 @@ def main():
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
         datefmt="%m/%d/%Y %H:%M:%S",
-        level=logging.INFO
-        if training_args.local_rank in [-1, 0]
-        else logging.WARN,
+        level=logging.INFO if training_args.local_rank in [-1, 0] else logging.WARN,
     )
     logger.warning(
         "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s,"
@@ -146,24 +157,41 @@ def main():
         cache_dir=model_args.cache_dir,
     )
 
+    if specific_args.freeze_base:
+        logging.info("Freezing the base network")
+        for param in getattr(
+            model, str(list(vars(model)["_modules"].keys())[0])
+        ).parameters():
+            param.requires_grad = False
+
     # Get datasets
     train_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer)
-        if training_args.do_train
-        else None
+        GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
     )
     eval_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)
+        GlueDataset(
+            data_args, tokenizer=tokenizer, mode="dev", cache_dir=model_args.cache_dir
+        )
         if training_args.do_eval
         else None
     )
+    test_dataset = (
+        GlueDataset(
+            data_args, tokenizer=tokenizer, mode="test", cache_dir=model_args.cache_dir
+        )
+        if training_args.do_predict
+        else None
+    )
 
-    def compute_metrics(p: EvalPrediction) -> Dict:
-        if output_mode == "classification":
-            preds = np.argmax(p.predictions, axis=1)
-        elif output_mode == "regression":
-            preds = np.squeeze(p.predictions)
-        return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
+    def build_compute_metrics_fn(task_name: str) -> Callable[[EvalPrediction], Dict]:
+        def compute_metrics_fn(p: EvalPrediction) -> Dict:
+            if output_mode == "classification":
+                preds = np.argmax(p.predictions, axis=1)
+            elif output_mode == "regression":
+                preds = np.squeeze(p.predictions)
+            return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
+
+        return compute_metrics_fn
 
     # Initialize our Trainer
     trainer = Trainer(
@@ -171,7 +199,7 @@ def main():
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
-        compute_metrics=compute_metrics,
+        compute_metrics=build_compute_metrics_fn(data_args.task_name),
     )
 
     # Training
@@ -188,19 +216,20 @@ def main():
             tokenizer.save_pretrained(training_args.output_dir)
 
     # Evaluation
-    results = {}
+    eval_results = {}
     if training_args.do_eval and training_args.local_rank in [-1, 0]:
         logger.info("*** Evaluate ***")
 
         # Loop to handle MNLI double evaluation (matched, mis-matched)
         eval_datasets = [eval_dataset]
         if data_args.task_name == "mnli":
-            mnli_mm_data_args = dataclasses.replace(
-                data_args, task_name="mnli-mm"
-            )
+            mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
             eval_datasets.append(
                 GlueDataset(
-                    mnli_mm_data_args, tokenizer=tokenizer, evaluate=True
+                    mnli_mm_data_args,
+                    tokenizer=tokenizer,
+                    mode="dev",
+                    cache_dir=model_args.cache_dir,
                 )
             )
 
@@ -213,17 +242,52 @@ def main():
             )
             with open(output_eval_file, "w") as writer:
                 logger.info(
-                    "***** Eval results {} *****".format(
-                        eval_dataset.args.task_name
-                    )
+                    "***** Eval results {} *****".format(eval_dataset.args.task_name)
                 )
                 for key, value in result.items():
                     logger.info("  %s = %s", key, value)
                     writer.write("%s = %s\n" % (key, value))
 
-            results.update(result)
+            eval_results.update(result)
 
-    return results
+    if training_args.do_predict:
+        logging.info("*** Test ***")
+        test_datasets = [test_dataset]
+        if data_args.task_name == "mnli":
+            mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
+            test_datasets.append(
+                GlueDataset(
+                    mnli_mm_data_args,
+                    tokenizer=tokenizer,
+                    mode="test",
+                    cache_dir=model_args.cache_dir,
+                )
+            )
+
+        for test_dataset in test_datasets:
+            predictions = trainer.predict(test_dataset=test_dataset).predictions
+            if output_mode == "classification":
+                predictions = np.argmax(predictions, axis=1)
+
+            output_test_file = os.path.join(
+                training_args.output_dir,
+                f"test_results_{test_dataset.args.task_name}.txt",
+            )
+            if trainer.is_world_master():
+                with open(output_test_file, "w") as writer:
+                    logger.info(
+                        "***** Test results {} *****".format(
+                            test_dataset.args.task_name
+                        )
+                    )
+                    writer.write("index\tprediction\n")
+                    for index, item in enumerate(predictions):
+                        if output_mode == "regression":
+                            writer.write("%d\t%3.3f\n" % (index, item))
+                        else:
+                            item = test_dataset.get_labels()[item]
+                            writer.write("%d\t%s\n" % (index, item))
+    return eval_results
 
 
 def _mp_fn(index):
