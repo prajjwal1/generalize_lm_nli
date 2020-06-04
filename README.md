@@ -277,9 +277,17 @@ Results with `centroids` = 512 (MiniBatchKMeans)
 ###  Freezing experiments
 Results with Albert-base-v1(seed 999):
 ```
-| Model information |  mnli/mnli-mm (epoch) | HANS (E/NE) (LO,SUB,CONS)) |
-|-|-|-|
-| albert-base-v2-mnli | 84.88 / 85.55 | (0.0, 0.0, 0.0), (1.0, 1.0, 1.0) |
-| albert-base-v2-pretrained | 32.02 / 32.03 | (0.0, 0.0, 0.0), (1.0, 1.0, 1.0) |
-| frozen albert-base-v2 | 41.7  / 42.7  (1) 44.08 / 45.03 (2) 45.39 / 46.64 (3) 46.41 / 47.81 (4) 47.34 / 48.87 (5) 48.19 / 49.83 (6) 48.76 / 50.26 (7) 49.22 / 50.77 (8) 49.64 / 51.12 (9) 50.56 / 51.94 (10)  |  |
+| Model information         |  mnli/mnli-mm (epoch) | HANS (E/NE) (LO,SUB,CONS))      |
+| albert-base-v2-mnli       | 84.88 / 85.55          | (0.0, 0.0, 0.0), (1.0, 1.0, 1.0) |
+| albert-base-v2-pretrained | 32.02 / 32.03          | (0.0, 0.0, 0.0), (1.0, 1.0, 1.0) |
+| frozen albert-base-v2     | 41.7  / 42.7  (1) 
+                              44.08 / 45.03 (2) 
+                              45.39 / 46.64 (3) 
+                              46.41 / 47.81 (4) 
+                              47.34 / 48.87 (5)
+                              48.19 / 49.83 (6) 
+                              48.76 / 50.26 (7)
+                              49.22 / 50.77 (8) 
+                              49.64 / 51.12 (9) 
+                              50.56 / 51.94 (10)
 ```
