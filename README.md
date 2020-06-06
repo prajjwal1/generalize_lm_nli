@@ -272,7 +272,7 @@ Results with `centroids` = 512 (MiniBatchKMeans)
 | 14    | 43.52 / 44.37                                  |
 | 15    | 42.43 / 43.44                                  |
 ```
-![512_centroids_epoch_acc.png](/home/nlp/transformers-importance-sampling/figs/512_centroids_epoch_acc.png)
+![512_centroids_epoch_acc.png](figs/512_centroids_epoch_acc.png)
 
 ###  Freezing experiments
 Results with Albert-base-v1(seed 999):
@@ -290,4 +290,19 @@ Results with Albert-base-v1(seed 999):
                               49.22 / 50.77 (8) 
                               49.64 / 51.12 (9) 
                               50.56 / 51.94 (10)
+                              51.04 / 52.50 (11)
+                              51.60 / 52.88 (12)
+                              51.77 / 53.15 (13)
+                              52.09 / 53.56 (14)
+                              52.40 / 53.85 (15)
+                              52.59 / 54.18 (16)
+                              52.75 / 54.40 (17)
+                              52.89 / 54.62 (18)
+                              52.99 / 54.79 (19)
+                              53.19 / 54.92 (20)
+                              53.26 / 55.07 (21)
+                              53.25 / 55.20 (22)
+                              53.40 / 55.36 (23)
+                              53.49 / 55.47 (24)
+                              53.70 / 55.63 (25)
 ```
