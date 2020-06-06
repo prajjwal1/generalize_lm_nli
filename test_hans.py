@@ -132,11 +132,6 @@ def evaluate(
                     "attention_mask": batch[1],
                     "labels": batch[3],
                 }
-                # Model_type is not an argument of model_args
-                # if args.model_type != "distilbert":
-                #    inputs["token_type_ids"] = (
-                #        batch[2] if args.model_type in ["bert", "xlnet"] else None
-                #    )  # XLM, DistilBERT and RoBERTa don't use segment_ids
                 inputs["token_type_ids"] = None
                 outputs = model(**inputs)
                 tmp_eval_loss, logits = outputs[:2]
