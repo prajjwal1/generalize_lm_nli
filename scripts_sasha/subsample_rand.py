@@ -4,11 +4,12 @@ from pathlib import Path
 
 # TODO: set data path specific to the node user
 # read from ~/.config/something or at least hard-code by host-name
-path_data = Path("/mnt/storage/Data/NLP/datasets/importance_sampling/")
+path_data = Path("/mnt/storage/Data/NLP/importance_sampling/")
 df = pandas.read_csv(path_data / "reference/MNLI/train.tsv",
                      sep="\t",
                      header=0,
-                     quoting=3)
+                     quoting=3,
+                     keep_default_na=False)
 
 print("loaded", df.shape)
 for seed in range(42, 52):
