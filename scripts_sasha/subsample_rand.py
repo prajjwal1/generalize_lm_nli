@@ -8,6 +8,7 @@ path_data = Path("/mnt/storage/Data/NLP/importance_sampling/")
 df = pandas.read_csv(path_data / "reference/MNLI/train.tsv",
                      sep="\t",
                      header=0,
+                     index_col=0,
                      quoting=3,
                      keep_default_na=False)
 
