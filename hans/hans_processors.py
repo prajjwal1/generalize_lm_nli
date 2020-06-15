@@ -19,8 +19,8 @@ import logging
 import os
 
 from transformers.file_utils import is_tf_available
-from utils_hans import DataProcessor, InputExample, InputFeatures
 
+from utils_hans import DataProcessor, InputExample, InputFeatures
 
 if is_tf_available():
     import tensorflow as tf
@@ -83,8 +83,16 @@ def hans_convert_examples_to_features(
             example = processor.get_example_from_tensor_dict(example)
             example = processor.tfds_map(example)
 
-        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length,)
-        input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
+        inputs = tokenizer.encode_plus(
+            example.text_a,
+            example.text_b,
+            add_special_tokens=True,
+            max_length=max_length,
+        )
+        input_ids, token_type_ids = (
+            inputs["input_ids"],
+            inputs["token_type_ids"],
+        )
 
         # The mask has 1 for real tokens and 0 for padding tokens. Only real
         # tokens are attended to.
@@ -94,20 +102,26 @@ def hans_convert_examples_to_features(
         padding_length = max_length - len(input_ids)
         if pad_on_left:
             input_ids = ([pad_token] * padding_length) + input_ids
-            attention_mask = ([0 if mask_padding_with_zero else 1] * padding_length) + attention_mask
+            attention_mask = (
+                [0 if mask_padding_with_zero else 1] * padding_length
+            ) + attention_mask
             token_type_ids = ([pad_token_segment_id] * padding_length) + token_type_ids
         else:
             input_ids = input_ids + ([pad_token] * padding_length)
-            attention_mask = attention_mask + ([0 if mask_padding_with_zero else 1] * padding_length)
+            attention_mask = attention_mask + (
+                [0 if mask_padding_with_zero else 1] * padding_length
+            )
             token_type_ids = token_type_ids + ([pad_token_segment_id] * padding_length)
 
-        assert len(input_ids) == max_length, "Error with input length {} vs {}".format(len(input_ids), max_length)
-        assert len(attention_mask) == max_length, "Error with input length {} vs {}".format(
-            len(attention_mask), max_length
+        assert len(input_ids) == max_length, "Error with input length {} vs {}".format(
+            len(input_ids), max_length
         )
-        assert len(token_type_ids) == max_length, "Error with input length {} vs {}".format(
-            len(token_type_ids), max_length
-        )
+        assert (
+            len(attention_mask) == max_length
+        ), "Error with input length {} vs {}".format(len(attention_mask), max_length)
+        assert (
+            len(token_type_ids) == max_length
+        ), "Error with input length {} vs {}".format(len(token_type_ids), max_length)
 
         if output_mode == "classification":
             label = label_map[example.label] if example.label in label_map else 0
@@ -123,8 +137,12 @@ def hans_convert_examples_to_features(
             logger.info("text_b: %s" % (example.text_b))
             logger.info("guid: %s" % (example.guid))
             logger.info("input_ids: %s" % " ".join([str(x) for x in input_ids]))
-            logger.info("attention_mask: %s" % " ".join([str(x) for x in attention_mask]))
-            logger.info("token_type_ids: %s" % " ".join([str(x) for x in token_type_ids]))
+            logger.info(
+                "attention_mask: %s" % " ".join([str(x) for x in attention_mask])
+            )
+            logger.info(
+                "token_type_ids: %s" % " ".join([str(x) for x in token_type_ids])
+            )
             logger.info("label: %s (id = %d)" % (example.label, label))
 
         features.append(
@@ -152,7 +170,14 @@ def hans_convert_examples_to_features(
 
         return tf.data.Dataset.from_generator(
             gen,
-            ({"input_ids": tf.int32, "attention_mask": tf.int32, "token_type_ids": tf.int32}, tf.int64),
+            (
+                {
+                    "input_ids": tf.int32,
+                    "attention_mask": tf.int32,
+                    "token_type_ids": tf.int32,
+                },
+                tf.int64,
+            ),
             (
                 {
                     "input_ids": tf.TensorShape([None]),
@@ -180,11 +205,16 @@ class HansProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "heuristics_train_set.txt")), "train")
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "heuristics_train_set.txt")), "train",
+        )
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "heuristics_evaluation_set.txt")), "dev")
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "heuristics_evaluation_set.txt")),
+            "dev",
+        )
 
     def get_labels(self):
         """See base class."""
@@ -201,7 +231,11 @@ class HansProcessor(DataProcessor):
             text_b = line[6]
             pairID = line[7][2:] if line[7].startswith("ex") else line[7]
             label = line[-1]
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label, pairID=pairID))
+            examples.append(
+                InputExample(
+                    guid=guid, text_a=text_a, text_b=text_b, label=label, pairID=pairID,
+                )
+            )
         return examples
 
 
@@ -216,4 +250,3 @@ glue_processors = {
 glue_output_modes = {
     "hans": "classification",
 }
-
