@@ -6,13 +6,15 @@ from torch.utils.data.dataloader import DataLoader
 from tqdm.auto import tqdm
 from transformers import AutoConfig, AutoModel, AutoTokenizer, GlueDataset
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
-from transformers import (HfArgumentParser, TrainingArguments,
-                          glue_output_modes, glue_tasks_num_labels)
+from transformers import (
+    HfArgumentParser,
+    TrainingArguments,
+    glue_output_modes,
+    glue_tasks_num_labels,
+)
 from transformers.data.data_collator import DefaultDataCollator
 
-device = (
-    torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-)
+device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
 @dataclass
@@ -32,43 +34,33 @@ class ModelArguments:
     config_name: Optional[str] = field(
         default=None,
         metadata={
-            "help": (
-                "Pretrained config name or path if not the same as model_name"
-            )
+            "help": "Pretrained config name or path if not the same as model_name"
         },
     )
     tokenizer_name: Optional[str] = field(
         default=None,
         metadata={
-            "help": (
-                "Pretrained tokenizer name or path if not the same as"
-                " model_name"
-            )
+            "help": "Pretrained tokenizer name or path if not the same as model_name"
         },
     )
     cache_dir: Optional[str] = field(
         default=None,
         metadata={
             "help": (
-                "Where do you want to store the pretrained models downloaded"
-                " from s3"
+                "Where do you want to store the pretrained models downloaded from s3"
             )
         },
     )
 
 
-parser = HfArgumentParser(
-    (ModelArguments, DataTrainingArguments, TrainingArguments)
-)
+parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments))
 model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
 num_labels = glue_tasks_num_labels[data_args.task_name]
 output_mode = glue_output_modes[data_args.task_name]
 
 config = AutoConfig.from_pretrained(
-    model_args.config_name
-    if model_args.config_name
-    else model_args.model_name_or_path,
+    model_args.config_name if model_args.config_name else model_args.model_name_or_path,
     num_labels=num_labels,
     finetuning_task=data_args.task_name,
     cache_dir=model_args.cache_dir,
@@ -114,9 +106,6 @@ for inputs in tqdm(dataloader):
 print("Storing embeddings at ", training_args.output_dir)
 torch.save(
     cls_embeddings,
-    training_args.output_dir
-    + "cls_embeddings_"
-    + data_args.task_name
-    + ".pth",
+    training_args.output_dir + "cls_embeddings_" + data_args.task_name + ".pth",
 )
 print("Done")

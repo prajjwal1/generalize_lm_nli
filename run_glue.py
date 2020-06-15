@@ -76,7 +76,7 @@ def main():
     # We now keep distinct sets of args, for a cleaner separation of concerns.
 
     parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, TrainingArguments, SpecificArguments)
+        (ModelArguments, DataTrainingArguments, TrainingArguments, SpecificArguments,)
     )
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
@@ -170,20 +170,20 @@ def main():
     )
     eval_dataset = (
         GlueDataset(
-            data_args, tokenizer=tokenizer, mode="dev", cache_dir=model_args.cache_dir
+            data_args, tokenizer=tokenizer, mode="dev", cache_dir=model_args.cache_dir,
         )
         if training_args.do_eval
         else None
     )
     test_dataset = (
         GlueDataset(
-            data_args, tokenizer=tokenizer, mode="test", cache_dir=model_args.cache_dir
+            data_args, tokenizer=tokenizer, mode="test", cache_dir=model_args.cache_dir,
         )
         if training_args.do_predict
         else None
     )
 
-    def build_compute_metrics_fn(task_name: str) -> Callable[[EvalPrediction], Dict]:
+    def build_compute_metrics_fn(task_name: str,) -> Callable[[EvalPrediction], Dict]:
         def compute_metrics_fn(p: EvalPrediction) -> Dict:
             if output_mode == "classification":
                 preds = np.argmax(p.predictions, axis=1)

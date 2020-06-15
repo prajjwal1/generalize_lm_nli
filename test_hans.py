@@ -10,14 +10,21 @@ import torch
 from torch.utils.data.dataloader import DataLoader
 from torch.utils.data.sampler import SequentialSampler
 from tqdm.auto import tqdm, trange
-from transformers import (AutoConfig, AutoModelForSequenceClassification,
-                          AutoTokenizer, EvalPrediction)
+from transformers import (
+    AutoConfig,
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    EvalPrediction,
+)
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
 from transformers import HfArgumentParser, TrainingArguments, set_seed
 
 from hans.dataset import HansDataset
-from hans.processors import (glue_output_modes, glue_tasks_num_labels,
-                             load_and_cache_examples)
+from hans.processors import (
+    glue_output_modes,
+    glue_tasks_num_labels,
+    load_and_cache_examples,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -39,45 +46,31 @@ class ModelArguments:
     config_name: Optional[str] = field(
         default=None,
         metadata={
-            "help": (
-                "Pretrained config name or path if not the same as model_name"
-            )
+            "help": "Pretrained config name or path if not the same as model_name"
         },
     )
     tokenizer_name: Optional[str] = field(
         default=None,
         metadata={
-            "help": (
-                "Pretrained tokenizer name or path if not the same as"
-                " model_name"
-            )
+            "help": "Pretrained tokenizer name or path if not the same as model_name"
         },
     )
     cache_dir: Optional[str] = field(
         default=None,
         metadata={
             "help": (
-                "Where do you want to store the pretrained models downloaded"
-                " from s3"
+                "Where do you want to store the pretrained models downloaded from s3"
             )
         },
     )
 
 
 def evaluate(
-    model_args,
-    data_args,
-    training_args,
-    eval_dataset,
-    model,
-    tokenizer,
-    prefix="",
+    model_args, data_args, training_args, eval_dataset, model, tokenizer, prefix="",
 ):
     # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_task_names = (
-        ("mnli", "mnli-mm")
-        if data_args.task_name == "mnli"
-        else (data_args.task_name,)
+        ("mnli", "mnli-mm") if data_args.task_name == "mnli" else (data_args.task_name,)
     )
     eval_outputs_dirs = (
         (training_args.output_dir, training_args.output_dir + "-MM")
@@ -88,17 +81,10 @@ def evaluate(
     results = {}
     for eval_task, eval_output_dir in zip(eval_task_names, eval_outputs_dirs):
         eval_dataset, label_list = load_and_cache_examples(
-            model_args,
-            data_args,
-            training_args,
-            eval_task,
-            tokenizer,
-            evaluate=True,
+            model_args, data_args, training_args, eval_task, tokenizer, evaluate=True,
         )
 
-        if not os.path.exists(
-            eval_output_dir
-        ) and training_args.local_rank in [-1, 0]:
+        if not os.path.exists(eval_output_dir) and training_args.local_rank in [-1, 0]:
             os.makedirs(eval_output_dir)
 
         eval_sampler = SequentialSampler(eval_dataset)
@@ -109,9 +95,7 @@ def evaluate(
         )
 
         # multi-gpu eval
-        if training_args.n_gpu > 1 and not isinstance(
-            model, torch.nn.DataParallel
-        ):
+        if training_args.n_gpu > 1 and not isinstance(model, torch.nn.DataParallel):
             model = torch.nn.DataParallel(model)
 
         # Eval!
@@ -145,13 +129,9 @@ def evaluate(
             else:
                 preds = np.append(preds, logits.detach().cpu().numpy(), axis=0)
                 out_label_ids = np.append(
-                    out_label_ids,
-                    inputs["labels"].detach().cpu().numpy(),
-                    axis=0,
+                    out_label_ids, inputs["labels"].detach().cpu().numpy(), axis=0,
                 )
-                pair_ids = np.append(
-                    pair_ids, batch[4].detach().cpu().numpy(), axis=0
-                )
+                pair_ids = np.append(pair_ids, batch[4].detach().cpu().numpy(), axis=0)
 
         eval_loss = eval_loss / nb_eval_steps
         if data_args.output_mode == "classification":
@@ -159,15 +139,11 @@ def evaluate(
         elif data_args.output_mode == "regression":
             preds = np.squeeze(preds)
 
-        output_eval_file = os.path.join(
-            eval_output_dir, "hans_predictions.txt"
-        )
+        output_eval_file = os.path.join(eval_output_dir, "hans_predictions.txt")
         with open(output_eval_file, "w") as writer:
             writer.write("pairID,gld_label\n")
             for pid, pred in zip(pair_ids, preds):
-                writer.write(
-                    "ex" + str(pid) + "," + label_list[int(pred)] + "\n"
-                )
+                writer.write("ex" + str(pid) + "," + label_list[int(pred)] + "\n")
 
     return results
 
@@ -185,11 +161,7 @@ def main():
             json_file=os.path.abspath(sys.argv[1])
         )
     else:
-        (
-            model_args,
-            data_args,
-            training_args,
-        ) = parser.parse_args_into_dataclasses()
+        (model_args, data_args, training_args,) = parser.parse_args_into_dataclasses()
 
     if (
         os.path.exists(training_args.output_dir)
@@ -206,9 +178,7 @@ def main():
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
         datefmt="%m/%d/%Y %H:%M:%S",
-        level=logging.INFO
-        if training_args.local_rank in [-1, 0]
-        else logging.WARN,
+        level=logging.INFO if training_args.local_rank in [-1, 0] else logging.WARN,
     )
     logger.warning(
         "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s,"
@@ -257,8 +227,7 @@ def main():
     # Training
     if training_args.do_train:
         print(
-            "Please turn training_args.do_train off. Only evaluation supported"
-            " on HANS."
+            "Please turn training_args.do_train off. Only evaluation supported on HANS."
         )
 
     # Evaluation
@@ -268,23 +237,15 @@ def main():
 
         data_args.output_mode = output_mode
         result = evaluate(
-            model_args,
-            data_args,
-            training_args,
-            eval_dataset,
-            model,
-            tokenizer,
+            model_args, data_args, training_args, eval_dataset, model, tokenizer,
         )
 
         output_eval_file = os.path.join(
-            training_args.output_dir,
-            f"eval_results_{eval_dataset.args.task_name}.txt",
+            training_args.output_dir, f"eval_results_{eval_dataset.args.task_name}.txt",
         )
         with open(output_eval_file, "w") as writer:
             logger.info(
-                "***** Eval results {} *****".format(
-                    eval_dataset.args.task_name
-                )
+                "***** Eval results {} *****".format(eval_dataset.args.task_name)
             )
             for key, value in result.items():
                 logger.info("  %s = %s", key, value)

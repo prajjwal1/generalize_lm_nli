@@ -17,7 +17,7 @@ class Clustering_Processor:
     num_clusters: int
     cluster_num: int
 
-    def __init__(self, cluster: sklearn.cluster):
+    def __init__(self, cluster):
         self.labels = cluster["labels_"]
         self.kmeans_cluster_centers = cluster["cluster_centers_"]
 
