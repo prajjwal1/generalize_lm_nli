@@ -2,13 +2,14 @@ import logging
 import math
 import os
 import sys
+import dataclasses
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional
 
 import numpy as np
 import torch
 from torch.utils.data.dataloader import DataLoader
-from torch.utils.data.sampler import RandomSampler, SequentialSampler
+from torch.utils.data.sampler import SequentialSampler, SubsetRandomSampler
 from tqdm.auto import tqdm, trange
 from transformers import (
     AutoConfig,
@@ -25,22 +26,11 @@ from transformers import (
     glue_tasks_num_labels,
     set_seed,
 )
-from transformers.data.processors.glue import (
-    ColaProcessor,
-    MnliProcessor,
-    MrpcProcessor,
-    QnliProcessor,
-    QqpProcessor,
-    RteProcessor,
-    Sst2Processor,
-    StsbProcessor,
-    WnliProcessor,
-)
 from transformers.trainer import SequentialDistributedSampler
-
-from core.meta import MetaTrainer
-
-sys.path.append("..")
+from core.meta_fs import MetaTrainer
+from hans.utils_hans import HansDataset, InputFeatures
+from dataset_utils import processor_dict, get_dataset_dict
+from core.meta_dataset import MetaDataset
 
 
 logger = logging.getLogger(__name__)
@@ -70,7 +60,6 @@ class MetaTrainingArguments(TrainingArguments):
     task_list: str = field(default=None)
     eval_task_list: str = field(default=None)
     total_task_list: str = field(default=None)
-    target_task: str = field(default="mrpc", metadata={"help": "Target Task"})
     task_shared: bool = field(default=True)
     num_update_steps: int = field(default=5)
     num_sample_tasks: int = field(default=5)
@@ -78,6 +67,9 @@ class MetaTrainingArguments(TrainingArguments):
         default=100, metadata={"help": "Steps after which evaluation will be run"},
     )
     output_file_name: str = field(default=None)
+    # num_samples: int = field(default=None)
+    max_sample_limit: int = field(default=None)
+    num_tasks: int = field(default=None)
 
 
 @dataclass
@@ -116,6 +108,15 @@ class ModelArguments:
     )
 
 
+def hans_data_collator(features: List[InputFeatures]) -> Dict[str, torch.Tensor]:
+    """
+    Data collator that removes the "pairID" key if present.
+    """
+    batch = default_data_collator(features)
+    _ = batch.pop("pairID", None)
+    return batch
+
+
 def main():
 
     # py_parser = argparse.ArgumentParser()
@@ -149,9 +150,12 @@ def main():
     training_args.eval_task_list = list(
         map(str, training_args.eval_task_list.split(","))
     )
+
     training_args.total_task_list = (
         training_args.task_list + training_args.eval_task_list
     )
+    if "mnli" in training_args.total_task_list:
+        training_args.total_task_list.append("mnli-mm")
 
     # Setup logging
     logging.basicConfig(
@@ -191,77 +195,46 @@ def main():
 
         return compute_metrics_fn
 
-    processor_dict = {
-        "mrpc": MrpcProcessor,
-        "cola": ColaProcessor,
-        "mnli": MnliProcessor,
-        "sst-2": Sst2Processor,
-        "rte": RteProcessor,
-        "wnli": WnliProcessor,
-        "qqp": QqpProcessor,
-        "qnli": QnliProcessor,
-        "sts-b": StsbProcessor,
-    }
     processors = [processor_dict[task]() for task in training_args.task_list]
 
-    dataset_dict = {
-        "mrpc": data_args.data_dir + "/MRPC",
-        "cola": data_args.data_dir + "/CoLA",
-        "mnli": data_args.data_dir + "/MNLI",
-        "sst-2": data_args.data_dir + "/SST-2",
-        "rte": data_args.data_dir + "/RTE",
-        "wnli": data_args.data_dir + "/WNLI",
-        "qqp": data_args.data_dir + "/QQP",
-        "qnli": data_args.data_dir + "/QNLI",
-        "sts-b": data_args.data_dir + "/STS-B",
-    }
-    data_dirs = [dataset_dict[task] for task in training_args.task_list]
+    dataset_dict = get_dataset_dict(data_args)
 
-    task_cluster_dict = {
-        "mrpc": 0,
-        "cola": 1,
-        "mnli": 0,
-        "sst-2": 1,
-        "rte": 0,
-        "wnli": 0,
-        "qqp": 0,
-        "qnli": 2,
-        "sts-b": 3,
-    }
-    task_clusters = (
-        [task_cluster_dict[task] for task in training_args.task_list]
-        if training_args.task_shared
-        else None
-    )
+    data_dirs = [dataset_dict[task] for task in training_args.task_list]
 
     label_lists = [processor.get_labels() for processor in processors]
 
-    if not training_args.task_shared:
-        num_labels = [len(label_list) for label_list in label_lists]
-    else:
-        cluster_num_labels = {0: 3, 1: 2, 2: 2, 3: 1}
-        num_labels = [
-            cluster_num_labels[task_cluster] for task_cluster in task_clusters
-        ]
+    num_labels = [len(label_list) for label_list in label_lists]
 
     train_dataset_list, eval_dataset_list = [], []
-    seen_eval_data = []
-    for task, data_dir in zip(training_args.task_list, data_dirs):
+    for task in training_args.task_list:
         data_args.task_name = task
         data_args.data_dir = dataset_dict[task]
-        seen_eval_data.append(task)
-        train_dataset_list.append(GlueDataset(data_args, tokenizer))
-        eval_dataset_list.append(GlueDataset(data_args, tokenizer, mode="dev"))
+        train_dataset_list.append(MetaDataset(GlueDataset(data_args, tokenizer)))
 
-    # Run evaluation on unseen data
-    if training_args.eval_task_list:
-        for task, data_dir in zip(training_args.eval_task_list, data_dirs):
-            data_args.task_name = task
-            data_args.data_dir = dataset_dict[task]
-            if task not in seen_eval_data:
-                eval_dataset_list.append(GlueDataset(data_args, tokenizer, mode="dev"))
+    # This to to avoid repetition for additional_dataset_list
+    if "hans" in training_args.total_task_list:
+        data_args.task_name = "hans"
+        data_args.data_dir = dataset_dict["hans"]
+        hans_dataset = HansDataset(
+            data_dir=data_args.data_dir,
+            tokenizer=tokenizer,
+            task="hans",
+            max_seq_length=data_args.max_seq_length,
+            overwrite_cache=data_args.overwrite_cache,
+            evaluate=True,
+        )
 
-    assert len(eval_dataset_list) == len(training_args.total_task_list)
+    for task in training_args.total_task_list:
+        data_args.task_name = task
+        data_args.data_dir = dataset_dict[task]
+        if task != "hans":
+            eval_dataset_list.append(GlueDataset(data_args, tokenizer, mode="dev"))
+        if task == "hans":
+            eval_dataset_list.append(hans_dataset)
+    try:
+        assert len(eval_dataset_list) == len(training_args.total_task_list)
+    except AssertionError:
+        print(len(eval_dataset_list), len(training_args.total_task_list))
 
     # TODO: Make it work on variable number of classes
     try:
@@ -284,10 +257,19 @@ def main():
         config=config,
         cache_dir=model_args.cache_dir,
     )
+
+    # Compute indices of dataset for subsampling
+    indices_train_dataset = []
+    for dataset in train_dataset_list:
+        cur_len = len(dataset)
+        indices = np.arange(cur_len)
+        np.random.shuffle(indices)
+        indices_train_dataset.append(indices[: training_args.max_sample_limit])
+
     # Samplers for each train and eval datasets
     train_sampler_list, eval_sampler_list = [], []
-    for dataset in train_dataset_list:
-        train_sampler_list.append(RandomSampler(dataset))
+    for indices, dataset in zip(indices_train_dataset, train_dataset_list):
+        train_sampler_list.append(SubsetRandomSampler(indices))
 
     for dataset in eval_dataset_list:
         if training_args.local_rank != -1:
@@ -305,18 +287,21 @@ def main():
         train_dataloader_list.append(
             DataLoader(
                 train_dataset,
-                batch_size=training_args.train_batch_size,
+                batch_size=training_args.per_device_train_batch_size,
                 sampler=train_sampler,
-                collate_fn=data_collator,
+                #         collate_fn=data_collator,
                 drop_last=True,
             )
         )
 
-    for eval_dataset, eval_sampler in tqdm(zip(eval_dataset_list, eval_sampler_list)):
+    for task, eval_dataset, eval_sampler in tqdm(
+        zip(training_args.total_task_list, eval_dataset_list, eval_sampler_list)
+    ):
+        data_collator = hans_data_collator if task == "hans" else default_data_collator
         eval_dataloader_list.append(
             DataLoader(
                 eval_dataset,
-                batch_size=training_args.train_batch_size,
+                batch_size=training_args.per_device_eval_batch_size,
                 sampler=eval_sampler,
                 collate_fn=data_collator,
                 drop_last=True,
@@ -335,6 +320,9 @@ def main():
         )
         for train_example in train_examples
     ]
+
+    additional_dataset_list = {"hans": hans_dataset}
+
     total_steps = sum(train_steps_per_task) * training_args.num_train_epochs
     logging.info("***** Total steps: {} *****".format(total_steps))
 
@@ -345,6 +333,7 @@ def main():
         eval_dataloader_list,
         compute_metrics=build_compute_metrics_fn,
         train_steps_per_task=train_steps_per_task,
+        additional_dataset_list=additional_dataset_list,
     )
 
     trainer.train()

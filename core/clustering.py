@@ -1,3 +1,5 @@
+# coding=utf-8
+# Author: Prajjwal Bhargava
 from typing import Dict, List, Optional
 
 import numpy as np

@@ -1,7 +1,10 @@
-import logging
+# coding=utf-8
+# Author: Prajjwal Bhargava
+
 import os
+import logging
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -15,23 +18,26 @@ from transformers import (
     AutoConfig,
     AutoModelForSequenceClassification,
     AutoTokenizer,
-    DefaultDataCollator,
     EvalPrediction,
     GlueDataset,
     Trainer,
+    default_data_collator,
     get_linear_schedule_with_warmup,
     glue_compute_metrics,
     glue_output_modes,
     glue_tasks_num_labels,
     set_seed,
 )
+from transformers.data.data_collator import DataCollator
+from transformers.modeling_utils import PreTrainedModel
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
+from transformers.training_args import TrainingArguments
 
 try:
     from apex import amp
 
     _has_apex = True
-except:
+except ImportError:
     _has_apex = False
 
 
@@ -46,36 +52,62 @@ logger = logging.getLogger(__name__)
 class MetaTrainer(Trainer):
     def __init__(
         self,
-        model,
-        args,
-        train_dataloader_list,
-        eval_dataloader_list,
-        compute_metrics,
-        train_steps_per_task,
+        model: PreTrainedModel,
+        args: TrainingArguments,
+        train_dataloader_list: [DataLoader],
+        eval_dataloader_list: [DataLoader],
+        train_steps_per_task: List,
+        data_collator: Optional[DataCollator] = None,
+        compute_metrics: Optional[Callable[[EvalPrediction], Dict]] = None,
         prediction_loss_only=False,
+        optimizers: Tuple[
+            torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR
+        ] = None,
     ):
 
         self.model = model.to(args.device)
         self.args = args
         self.compute_metrics_list = [
-            compute_metrics(task) for task in self.args.task_list
+            compute_metrics(task) for task in self.args.total_task_list
         ]
         self.train_dataloader_list = train_dataloader_list
         self.eval_dataloader_list = eval_dataloader_list
-        self.data_collator = DefaultDataCollator()
+        self.data_collator = (
+            data_collator if data_collator is not None else default_data_collator
+        )
         self.prediction_loss_only = prediction_loss_only
+        self.optimizers = optimizers
         self.eval_results = {}
         self.train_steps_per_task = train_steps_per_task
+        self.num_tasks = len(self.eval_dataloader_list)
         self._setup_wandb()
+        if self.args.fp16:
+            self.scaler = torch.cuda.amp.GradScaler()
 
     def update_model_params(self, model, fast_params):
         for idx, param in enumerate(model.parameters()):
             param.data = fast_params[idx]
         return model
 
+    def compute_grad(self, loss, params, optimizer):
+        if self.args.fp16:
+            with amp.scale_loss(loss, optimizer) as scaled_loss:
+                scaled_grad_params = torch.autograd.grad(
+                    self.scaler.scale(scaled_loss), params, allow_unused=True,
+                )
+            inv_scale = 1.0 / self.scaler.get_scale()
+            grad_params = [p * inv_scale for p in scaled_grad_params]
+            return grad_params
+
+        grad_params = torch.autograd.grad(loss, params, allow_unused=True)
+        return grad_params
+
+    def get_loss_mean(self, loss):
+        return loss.mean() if self.args.n_gpu > 1 else loss
+
     def train(self):
         # Plotting data support
-        columns = self.args.task_list
+        columns = self.args.total_task_list
         metrics = ["eval_loss", "eval_acc", "eval_f1", "eval_acc_and_f1"]
         df = pd.DataFrame(columns=columns, index=metrics)
         for i in range(len(df.columns)):
@@ -92,7 +124,7 @@ class MetaTrainer(Trainer):
             )
         )
         # FP-16, Multi-GPU, Distributed Training
-        # TODO: Make FP-16 work, scaled_loss issue
+        # TODO: Make FP-16 work, scaled_loss, OOM issue
         if self.args.fp16:
             if is_apex_available:
                 model, optimizer = amp.initialize(
@@ -106,7 +138,10 @@ class MetaTrainer(Trainer):
 
         if self.args.local_rank != -1:
             model = torch.nn.parallel.DistributedDataParallel(
-                model, device=[self.args.local_rank], find_unused_parameters=True
+                model,
+                device=[self.args.local_rank],
+                output_device=self.args.local_rank,
+                find_unused_parameters=True,
             )
         # TODO: Make calculation of num_epochs with HF
         num_train_epochs = self.args.num_train_epochs
@@ -192,23 +227,16 @@ class MetaTrainer(Trainer):
                     # MAML specific
                     if update_step == 0:
                         tr_loss = model(**inputs)[0]
-                        if self.args.n_gpu > 1:
-                            tr_loss = tr_loss.mean()
-                        if self.args.fp16:
-                            with amp.scale_loss(tr_loss, optimizer) as scaled_loss:
-                                grad = torch.autograd.grad(
-                                    scaled_loss, model.parameters(), allow_unused=True
-                                )
-                        else:
-                            grad = torch.autograd.grad(
-                                tr_loss, model.parameters(), allow_unused=True
-                            )
+                        tr_loss = self.get_loss_mean(tr_loss)
+                        grad_params = self.compute_grad(
+                            tr_loss, model.parameters(), optimizer
+                        )
                         fast_params = list(
                             map(
                                 lambda p: p[1] - self.args.learning_rate * p[0]
                                 if p[0] is not None
                                 else p[1],
-                                zip(grad, model.parameters()),
+                                zip(grad_params, model.parameters()),
                             )
                         )
 
@@ -231,31 +259,22 @@ class MetaTrainer(Trainer):
                     elif update_step < self.args.num_update_steps:
                         model = self.update_model_params(model, fast_params)
                         tr_loss = model(**inputs)[0]
-
-                        if self.args.n_gpu > 1:
-                            tr_loss = tr_loss.mean()
-
-                        if self.args.fp16:
-                            with amp.scale_loss(tr_loss, optimizer) as scaled_loss:
-                                grad = torch.autograd.grad(
-                                    tr_loss, fast_params, allow_unused=True
-                                )
-                        else:
-                            grad = torch.autograd.grad(
-                                tr_loss, fast_params, allow_unused=True
-                            )
+                        tr_loss = self.get_loss_mean(tr_loss)
+                        grad_params = self.compute_grad(tr_loss, fast_params, optimizer)
                         fast_params = list(
                             map(
                                 lambda p: p[1] - self.args.learning_rate * p[0]
                                 if p[0] is not None
                                 else p[1],
-                                zip(grad, fast_params),
+                                zip(grad_params, fast_params),
                             )
                         )
 
-                if i % self.args.num_sample_tasks == (self.args.num_sample_tasks - 1):
+                if step % self.num_tasks == (self.args.num_sample_tasks - 1):
                     optimizer.step()
                     optimizer.zero_grad()
+                    scheduler.step()
+                    model.zero_grad()
 
                 self.global_step += 1
 
@@ -267,10 +286,13 @@ class MetaTrainer(Trainer):
 
                         for key, value in result.items():
                             logger.info(
-                                "%s  %s = %s", self.args.task_list[idx], key, value
+                                "%s  %s = %s",
+                                self.args.total_task_list[idx],
+                                key,
+                                value,
                             )
-                            df[self.args.task_list[idx]][key].append(value)
-                # Save model
+                            df[self.args.total_task_list[idx]][key].append(value)
+                    # Save model
                 if (
                     self.args.save_steps > 0
                     and self.global_step % self.args.save_steps == 0
@@ -287,5 +309,5 @@ class MetaTrainer(Trainer):
 
                     self.save_model(output_dir)
 
-        logging.info("*** Results have been saved at {self.args.output_dir} ***")
-        df.to_csv(self.args.output_dir + "results.csv")
+        logging.info("*** Results have been saved at %s ***", self.args.output_dir)
+        df.to_csv(self.args.output_dir + self.args.output_file_name + ".csv")
