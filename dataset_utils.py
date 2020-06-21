@@ -9,6 +9,7 @@ from transformers.data.processors.glue import (
     StsbProcessor,
     WnliProcessor,
 )
+
 from hans.utils_hans import HansProcessor
 
 processor_dict = {

@@ -6,23 +6,17 @@ import os
 from dataclasses import dataclass
 from typing import Callable, Dict, List, Optional, Tuple
 
+import higher
 import numpy as np
 import pandas as pd
 import torch
-import higher
 from torch.utils.data.dataloader import DataLoader
 from tqdm.auto import tqdm
-from transformers import (
-    EvalPrediction,
-    Trainer,
-    default_data_collator,
-    set_seed,
-)
-from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
-from transformers.modeling_utils import PreTrainedModel
-from transformers.training_args import TrainingArguments
+from transformers import EvalPrediction, Trainer, default_data_collator, set_seed
 from transformers.data.data_collator import DataCollator
-
+from transformers.modeling_utils import PreTrainedModel
+from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
+from transformers.training_args import TrainingArguments
 
 try:
     from apex import amp
