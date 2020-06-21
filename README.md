@@ -306,3 +306,11 @@ Results with Albert-base-v1(seed 999):
                               53.49 / 55.47 (24)
                               53.70 / 55.63 (25)
 ```
+
+## Meta Learning
+`MetaTrainer` provides Meta Learning capability to `Trainer()`
+
+#### Usage
+```bash
+python3 reptile_glue.py --model_name_or_path albert-base-v2 --do_train --do_eval --max_seq_length 128 --per_device_train_batch_size 64 --learning_rate 2e-5 --output_dir /home/nlp/experiments/meta/ --per_device_eval_batch_size 512 --learning_rate 2e-5 --data_dir $GLUE_DIR --task_list mrpc, cola, sst-2, --eval_task_list rte,qqp --eval_steps=20 --save_steps=200 --num_train_epochs=25 --output_file_name results --overwrite_output_dir 
+```
