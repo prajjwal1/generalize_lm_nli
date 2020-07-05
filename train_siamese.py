@@ -18,8 +18,8 @@ from transformers import (
     set_seed,
 )
 
-from core.siamese_dataset import SiameseGlueDataset, siamese_data_collator
-from core.siamese_model import SiameseTransformer
+from datasets.siamese_dataset import SiameseGlueDataset, siamese_data_collator
+from models.siamese_model import SiameseTransformer
 from core.siamese_trainer import SiameseTrainer
 
 logger = logging.getLogger(__name__)
