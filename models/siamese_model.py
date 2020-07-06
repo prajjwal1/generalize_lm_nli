@@ -45,8 +45,8 @@ class SiameseTransformer(nn.Module):
     def forward(self, a, b):
         labels = a["labels"]
         # assert a["labels"].tolist() == b["labels"].tolist()
-        #input_a = inputs["a"]
-        #input_b = inputs["b"]
+        # input_a = inputs["a"]
+        # input_b = inputs["b"]
         a.pop("labels")
         b.pop("labels")
         output_a = self.model_a(**a)[0]  # [bs, seq_len, 768]
