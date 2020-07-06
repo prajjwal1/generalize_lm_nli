@@ -316,5 +316,6 @@ python3 reptile_glue.py --model_name_or_path albert-base-v2 --do_train --do_eval
 ```
 
 ## Siamese Transformer (WIP)
-```python3 train_siamese.py   --model_name bert-base-uncased   --linear_dim=4096 --task_name $TASK_NAME   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 32   --per_device_train_batch_size 1024  --learning_rate 2e-5  --num_train_epochs 5.0   --output_dir /home/nlp/experiments/siamese   --overwrite_output_dir --per_device_eval_batch_size 1024 --do_train --input_dim 12 --config_name bert-base-uncased --tokenizer_name bert-base-uncased --fp16 --evaluate_during_training
+```bash
+python3 train_siamese.py   --model_name bert-base-uncased   --linear_dim=4096 --task_name $TASK_NAME   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 32   --per_device_train_batch_size 1024  --learning_rate 2e-5  --num_train_epochs 5.0   --output_dir /home/nlp/experiments/siamese   --overwrite_output_dir --per_device_eval_batch_size 1024 --do_train --input_dim 12 --config_name bert-base-uncased --tokenizer_name bert-base-uncased --fp16 --evaluate_during_training
 ```
