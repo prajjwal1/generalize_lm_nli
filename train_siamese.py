@@ -16,10 +16,12 @@ from transformers import (
     glue_output_modes,
     glue_tasks_num_labels,
     set_seed,
+    Trainer,
 )
 
 from datasets.siamese_dataset import SiameseGlueDataset, siamese_data_collator
 from models.siamese_model import SiameseTransformer
+
 from core.siamese_trainer import SiameseTrainer
 
 logger = logging.getLogger(__name__)

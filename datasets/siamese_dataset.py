@@ -21,10 +21,16 @@ logger = logging.getLogger(__name__)
 
 
 def siamese_data_collator(batch):
-    batch = np.concatenate(batch)
+    features_a, features_b = [], []
+    for item in batch:
+        for k, v in item.items():
+            if k=='a':
+                features_a.append(v)
+            else:
+                features_b.append(v)
     return {
-        "a": default_data_collator(batch[::2]),
-        "b": default_data_collator(batch[1::2]),
+        "a": default_data_collator(features_a),
+        "b": default_data_collator(features_b),
     }
 
 
@@ -89,7 +95,7 @@ def siamese_glue_convert_examples_to_features(
         logger.info("guid: %s" % (example.guid))
         logger.info("features: %s" % features_a[i])
 
-    return features_a, features_b
+    return [features_a, features_b]
 
 
 class Split(Enum):
@@ -194,7 +200,7 @@ class SiameseGlueDataset(Dataset):
         return len(self.features_a)
 
     def __getitem__(self, i) -> InputFeatures:
-        return [self.features_a[i], self.features_b[i]]
+        return {"a": self.features_a[i], "b":self.features_b[i]}
 
     def get_labels(self):
         return self.label_list, self.label_list
