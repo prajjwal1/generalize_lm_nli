@@ -24,7 +24,7 @@ def siamese_data_collator(batch):
     features_a, features_b = [], []
     for item in batch:
         for k, v in item.items():
-            if k=='a':
+            if k == "a":
                 features_a.append(v)
             else:
                 features_b.append(v)
@@ -200,7 +200,7 @@ class SiameseGlueDataset(Dataset):
         return len(self.features_a)
 
     def __getitem__(self, i) -> InputFeatures:
-        return {"a": self.features_a[i], "b":self.features_b[i]}
+        return {"a": self.features_a[i], "b": self.features_b[i]}
 
     def get_labels(self):
         return self.label_list, self.label_list

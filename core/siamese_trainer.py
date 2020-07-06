@@ -1,36 +1,40 @@
 import logging
 import os
-from typing import Optional, Dict, Union, Any
+from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
 import torch
 from torch import nn
 from torch.utils.data.dataloader import DataLoader
-from transformers import Trainer, EvalPrediction
+from tqdm import tqdm
+from transformers import EvalPrediction, Trainer
 from transformers.file_utils import is_apex_available, is_torch_tpu_available
 from transformers.trainer_utils import PredictionOutput
-from tqdm import tqdm
 
 if is_apex_available():
     from apex import amp
-    
+
 logger = logging.getLogger(__name__)
+
 
 class SiameseTrainer(Trainer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
     def _training_step(
-        self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]], optimizer: torch.optim.Optimizer
+        self,
+        model: nn.Module,
+        inputs: Dict[str, Union[torch.Tensor, Any]],
+        optimizer: torch.optim.Optimizer,
     ) -> float:
         model.train()
-        for k, v in inputs['a'].items():
+        for k, v in inputs["a"].items():
             if isinstance(v, torch.Tensor):
-                inputs['a'][k] = v.to(self.args.device)
+                inputs["a"][k] = v.to(self.args.device)
 
-        for k, v in inputs['b'].items():
+        for k, v in inputs["b"].items():
             if isinstance(v, torch.Tensor):
-                inputs['b'][k] = v.to(self.args.device)
+                inputs["b"][k] = v.to(self.args.device)
 
         if self.args.past_index >= 0 and self._past is not None:
             inputs["mems"] = self._past
@@ -53,16 +57,23 @@ class SiameseTrainer(Trainer):
             loss.backward()
 
         return loss.item()
-    
+
     def _prediction_loop(
-        self, dataloader: DataLoader, description: str, prediction_loss_only: Optional[bool] = None
+        self,
+        dataloader: DataLoader,
+        description: str,
+        prediction_loss_only: Optional[bool] = None,
     ) -> PredictionOutput:
         """
         Prediction/evaluation loop, shared by `evaluate()` and `predict()`.
         Works both with or without labels.
         """
 
-        prediction_loss_only = prediction_loss_only if prediction_loss_only is not None else self.prediction_loss_only
+        prediction_loss_only = (
+            prediction_loss_only
+            if prediction_loss_only is not None
+            else self.prediction_loss_only
+        )
 
         model = self.model
         # multi-gpu eval
@@ -83,24 +94,29 @@ class SiameseTrainer(Trainer):
         model.eval()
 
         if is_torch_tpu_available():
-            dataloader = pl.ParallelLoader(dataloader, [self.args.device]).per_device_loader(self.args.device)
+            dataloader = pl.ParallelLoader(
+                dataloader, [self.args.device]
+            ).per_device_loader(self.args.device)
 
         if self.args.past_index >= 0:
             past = None
 
         for inputs in tqdm(dataloader, desc=description):
-            has_labels = any(inputs['a'].get(k) is not None for k in ["labels", "lm_labels", "masked_lm_labels"])
+            has_labels = any(
+                inputs["a"].get(k) is not None
+                for k in ["labels", "lm_labels", "masked_lm_labels"]
+            )
 
-            for k, v in inputs['a'].items():
+            for k, v in inputs["a"].items():
                 if isinstance(v, torch.Tensor):
-                    inputs['a'][k] = v.to(self.args.device)
+                    inputs["a"][k] = v.to(self.args.device)
 
-            for k, v in inputs['b'].items():
+            for k, v in inputs["b"].items():
                 if isinstance(v, torch.Tensor):
-                    inputs['b'][k] = v.to(self.args.device)
+                    inputs["b"][k] = v.to(self.args.device)
 
             if self.args.past_index >= 0:
-                inputs['a']["mems"] = past
+                inputs["a"]["mems"] = past
 
             with torch.no_grad():
                 outputs = model(**inputs)
@@ -110,25 +126,33 @@ class SiameseTrainer(Trainer):
                 else:
                     logits = outputs[0]
                 if self.args.past_index >= 0:
-                    past = outputs[self.args.past_index if has_labels else self.args.past_index - 1]
+                    past = outputs[
+                        self.args.past_index if has_labels else self.args.past_index - 1
+                    ]
 
             if not prediction_loss_only:
                 if preds is None:
                     preds = logits.detach()
                 else:
                     preds = torch.cat((preds, logits.detach()), dim=0)
-                if inputs['a'].get("labels") is not None:
+                if inputs["a"].get("labels") is not None:
                     if label_ids is None:
-                        label_ids = inputs['a']["labels"].detach()
+                        label_ids = inputs["a"]["labels"].detach()
                     else:
-                        label_ids = torch.cat((label_ids, inputs['a']["labels"].detach()), dim=0)
+                        label_ids = torch.cat(
+                            (label_ids, inputs["a"]["labels"].detach()), dim=0
+                        )
 
         if self.args.local_rank != -1:
             # In distributed mode, concatenate all results from all nodes:
             if preds is not None:
-                preds = self.distributed_concat(preds, num_total_examples=self.num_examples(dataloader))
+                preds = self.distributed_concat(
+                    preds, num_total_examples=self.num_examples(dataloader)
+                )
             if label_ids is not None:
-                label_ids = self.distributed_concat(label_ids, num_total_examples=self.num_examples(dataloader))
+                label_ids = self.distributed_concat(
+                    label_ids, num_total_examples=self.num_examples(dataloader)
+                )
         elif is_torch_tpu_available():
             # tpu-comment: Get all predictions and labels from all worker shards of eval dataset
             if preds is not None:
@@ -143,8 +167,14 @@ class SiameseTrainer(Trainer):
         if label_ids is not None:
             label_ids = label_ids.cpu().numpy()
 
-        if self.compute_metrics is not None and preds is not None and label_ids is not None:
-            metrics = self.compute_metrics(EvalPrediction(predictions=preds, label_ids=label_ids))
+        if (
+            self.compute_metrics is not None
+            and preds is not None
+            and label_ids is not None
+        ):
+            metrics = self.compute_metrics(
+                EvalPrediction(predictions=preds, label_ids=label_ids)
+            )
         else:
             metrics = {}
         if len(eval_losses) > 0:
@@ -168,5 +198,3 @@ class SiameseTrainer(Trainer):
             os.path.join(output_dir, "pytorch_model.bin"),
         )
         torch.save(self.args, os.path.join(output_dir, "training_args.bin"))
-
-

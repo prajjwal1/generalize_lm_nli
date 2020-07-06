@@ -11,18 +11,17 @@ from transformers import AutoConfig, AutoModel, AutoTokenizer, EvalPrediction
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
 from transformers import (
     HfArgumentParser,
+    Trainer,
     TrainingArguments,
     glue_compute_metrics,
     glue_output_modes,
     glue_tasks_num_labels,
     set_seed,
-    Trainer,
 )
 
+from core.siamese_trainer import SiameseTrainer
 from datasets.siamese_dataset import SiameseGlueDataset, siamese_data_collator
 from models.siamese_model import SiameseTransformer
-
-from core.siamese_trainer import SiameseTrainer
 
 logger = logging.getLogger(__name__)
 
