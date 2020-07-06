@@ -2,7 +2,7 @@ import logging
 
 import torch
 from torch import nn
-from transformers import AutoModel
+from transformers import AutoModel, AutoModelForSequenceClassification
 
 logger = logging.getLogger(__name__)
 
@@ -42,15 +42,20 @@ class SiameseTransformer(nn.Module):
         #    for param in self.model_b.encoder.parameters():
         #        param.requires_grad = False
 
-    def forward(self, input_a, input_b):
-        labels = input_a["labels"]
-        input_a.pop("labels")
-        input_b.pop("labels")
-        output_a = self.model_a(**input_a)[0]  # [bs, seq_len, 768]
-        output_b = self.model_a(**input_b)[0]
+    def forward(self, a, b):
+        labels = a["labels"]
+        # assert a["labels"].tolist() == b["labels"].tolist()
+        #input_a = inputs["a"]
+        #input_b = inputs["b"]
+        a.pop("labels")
+        b.pop("labels")
+        output_a = self.model_a(**a)[0]  # [bs, seq_len, 768]
+        output_b = self.model_a(**b)[0]
         concat_output = torch.cat(
             [output_a, output_b, (output_a - output_b), (output_a * output_b)]
         )
         logits = self.cls(concat_output)
         loss = self.loss_fct(logits, labels)
+        # output = self.model_a(**a)
+        # return output
         return loss, logits
