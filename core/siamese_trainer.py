@@ -24,7 +24,7 @@ class SiameseTrainer(Trainer):
     def _training_step(
         self,
         model: nn.Module,
-        inputs: Dict[str, Union[torch.Tensor, Any]],
+        inputs: Dict[str, Dict[str, Union[torch.Tensor, Any]]],
         optimizer: torch.optim.Optimizer,
     ) -> float:
         model.train()
@@ -35,9 +35,13 @@ class SiameseTrainer(Trainer):
         for k, v in inputs["b"].items():
             if isinstance(v, torch.Tensor):
                 inputs["b"][k] = v.to(self.args.device)
+        # for k, v in inputs.items():
+        #    if isinstance(v, torch.Tensor):
+        #        inputs[k] = v.to(self.args.device)
 
         if self.args.past_index >= 0 and self._past is not None:
-            inputs["mems"] = self._past
+            inputs["a"]["mems"] = self._past
+            # inputs["mems"] = self._past
 
         outputs = model(**inputs)
         loss = outputs[0]  # model outputs are always tuple in transformers (see doc)
@@ -92,11 +96,6 @@ class SiameseTrainer(Trainer):
         preds: torch.Tensor = None
         label_ids: torch.Tensor = None
         model.eval()
-
-        if is_torch_tpu_available():
-            dataloader = pl.ParallelLoader(
-                dataloader, [self.args.device]
-            ).per_device_loader(self.args.device)
 
         if self.args.past_index >= 0:
             past = None
@@ -153,12 +152,6 @@ class SiameseTrainer(Trainer):
                 label_ids = self.distributed_concat(
                     label_ids, num_total_examples=self.num_examples(dataloader)
                 )
-        elif is_torch_tpu_available():
-            # tpu-comment: Get all predictions and labels from all worker shards of eval dataset
-            if preds is not None:
-                preds = xm.mesh_reduce("eval_preds", preds, torch.cat)
-            if label_ids is not None:
-                label_ids = xm.mesh_reduce("eval_label_ids", label_ids, torch.cat)
 
         # Finally, turn the aggregated tensors into numpy arrays.
         if preds is not None:
@@ -172,6 +165,7 @@ class SiameseTrainer(Trainer):
             and preds is not None
             and label_ids is not None
         ):
+            print(len(preds), len(label_ids))
             metrics = self.compute_metrics(
                 EvalPrediction(predictions=preds, label_ids=label_ids)
             )
