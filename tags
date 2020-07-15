@@ -1,0 +1,235 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+-multi-line	Makefile	/^	isort --check-only --recursive --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 .$/;"	m
+-multi-line	Makefile	/^	isort --recursive --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 .$/;"	m
+Arguments	subsampling_mnli.py	/^class Arguments:$/;"	c
+Clustering_Arguments	train_clustering.py	/^class Clustering_Arguments:$/;"	c
+Clustering_Processor	core/clustering.py	/^class Clustering_Processor:$/;"	c
+DataTrainingArguments	hans/run_hans.py	/^class DataTrainingArguments:$/;"	c
+DataTrainingArguments	hans/run_siamese_hans.py	/^class DataTrainingArguments:$/;"	c
+DataTrainingArguments	reptile_few_shot.py	/^class DataTrainingArguments:$/;"	c
+DataTrainingArguments	reptile_glue.py	/^class DataTrainingArguments:$/;"	c
+HansDataset	hans/utils_hans.py	/^class HansDataset(Dataset):$/;"	c
+HansProcessor	hans/utils_hans.py	/^class HansProcessor(DataProcessor):$/;"	c
+HansProcessor	hans/utils_siamese_hans.py	/^class HansProcessor(DataProcessor):$/;"	c
+InputExample	hans/utils_hans.py	/^class InputExample:$/;"	c
+InputExample	hans/utils_siamese_hans.py	/^class InputExample:$/;"	c
+InputFeatures	hans/utils_hans.py	/^class InputFeatures:$/;"	c
+InputFeatures	hans/utils_siamese_hans.py	/^class InputFeatures:$/;"	c
+MetaDataset	datasets/meta_dataset.py	/^class MetaDataset(torch.utils.data.Dataset):$/;"	c
+MetaTrainer	core/meta.py	/^class MetaTrainer(Trainer):$/;"	c
+MetaTrainer	core/meta_fs.py	/^class MetaTrainer(Trainer):$/;"	c
+MetaTrainingArguments	reptile_few_shot.py	/^class MetaTrainingArguments(TrainingArguments):$/;"	c
+MetaTrainingArguments	reptile_glue.py	/^class MetaTrainingArguments(TrainingArguments):$/;"	c
+ModelArguments	get_embeddings.py	/^class ModelArguments:$/;"	c
+ModelArguments	hans/run_hans.py	/^class ModelArguments:$/;"	c
+ModelArguments	reptile_few_shot.py	/^class ModelArguments:$/;"	c
+ModelArguments	reptile_glue.py	/^class ModelArguments:$/;"	c
+ModelArguments	run_glue.py	/^class ModelArguments:$/;"	c
+ModelArguments	subsampling_mnli.py	/^class ModelArguments:$/;"	c
+ModelArguments	test_hans.py	/^class ModelArguments:$/;"	c
+ModelArguments	train_clustering.py	/^class ModelArguments:$/;"	c
+PredictionHeadTransform	models/siamese_model.py	/^class PredictionHeadTransform(nn.Module):$/;"	c
+SiameseGlueDataset	datasets/siamese_dataset.py	/^class SiameseGlueDataset(Dataset):$/;"	c
+SiameseHansDataset	hans/utils_siamese_hans.py	/^class SiameseHansDataset(Dataset):$/;"	c
+SiameseModelArguments	hans/run_siamese_hans.py	/^class SiameseModelArguments:$/;"	c
+SiameseModelArguments	train_siamese.py	/^class SiameseModelArguments:$/;"	c
+SiameseTrainer	core/siamese_trainer.py	/^class SiameseTrainer(Trainer):$/;"	c
+SiameseTransformer	models/siamese_model.py	/^class SiameseTransformer(nn.Module):$/;"	c
+SpecificArguments	run_glue.py	/^class SpecificArguments:$/;"	c
+Split	datasets/siamese_dataset.py	/^class Split(Enum):$/;"	c
+__getitem__	datasets/meta_dataset.py	/^    def __getitem__(self, idx):$/;"	m	class:MetaDataset	file:
+__getitem__	datasets/siamese_dataset.py	/^    def __getitem__(self, i) -> InputFeatures:$/;"	m	class:SiameseGlueDataset	file:
+__getitem__	hans/utils_hans.py	/^    def __getitem__(self, i) -> InputFeatures:$/;"	m	class:HansDataset	file:
+__getitem__	hans/utils_siamese_hans.py	/^    def __getitem__(self, i) -> InputFeatures:$/;"	m	class:SiameseHansDataset	file:
+__init__	core/clustering.py	/^    def __init__(self, cluster):$/;"	m	class:Clustering_Processor
+__init__	core/meta.py	/^    def __init__($/;"	m	class:MetaTrainer
+__init__	core/meta_fs.py	/^    def __init__($/;"	m	class:MetaTrainer
+__init__	core/siamese_trainer.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:SiameseTrainer
+__init__	datasets/meta_dataset.py	/^    def __init__(self, dataset):$/;"	m	class:MetaDataset
+__init__	datasets/siamese_dataset.py	/^    def __init__($/;"	m	class:SiameseGlueDataset
+__init__	hans/utils_hans.py	/^    def __init__($/;"	m	class:HansDataset
+__init__	hans/utils_siamese_hans.py	/^    def __init__($/;"	m	class:SiameseHansDataset
+__init__	models/siamese_model.py	/^    def __init__(self, args, config):$/;"	m	class:SiameseTransformer
+__init__	models/siamese_model.py	/^    def __init__(self, config):$/;"	m	class:PredictionHeadTransform
+__len__	datasets/meta_dataset.py	/^    def __len__(self):$/;"	m	class:MetaDataset	file:
+__len__	datasets/siamese_dataset.py	/^    def __len__(self):$/;"	m	class:SiameseGlueDataset	file:
+__len__	hans/utils_hans.py	/^    def __len__(self):$/;"	m	class:HansDataset	file:
+__len__	hans/utils_siamese_hans.py	/^    def __len__(self):$/;"	m	class:SiameseHansDataset	file:
+_create_examples	hans/utils_hans.py	/^    def _create_examples(self, lines, set_type):$/;"	m	class:HansProcessor
+_create_examples	hans/utils_siamese_hans.py	/^    def _create_examples(self, lines, set_type):$/;"	m	class:HansProcessor
+_get_indices_mapping	datasets/meta_dataset.py	/^    def _get_indices_mapping(self):$/;"	m	class:MetaDataset
+_has_apex	core/meta.py	/^    _has_apex = False$/;"	v
+_has_apex	core/meta.py	/^    _has_apex = True$/;"	v
+_has_apex	core/meta_fs.py	/^    _has_apex = False$/;"	v
+_has_apex	core/meta_fs.py	/^    _has_apex = True$/;"	v
+_mp_fn	hans/run_hans.py	/^def _mp_fn(index):$/;"	f
+_mp_fn	hans/run_siamese_hans.py	/^def _mp_fn(index):$/;"	f
+_mp_fn	run_glue.py	/^def _mp_fn(index):$/;"	f
+_mp_fn	subsampling_mnli.py	/^def _mp_fn(index):$/;"	f
+_mp_fn	test_hans.py	/^def _mp_fn(index):$/;"	f
+_mp_fn	train_clustering.py	/^def _mp_fn(index):$/;"	f
+_prediction_loop	core/siamese_trainer.py	/^    def _prediction_loop($/;"	m	class:SiameseTrainer
+_save	core/siamese_trainer.py	/^    def _save(self, output_dir: Optional[str] = None):$/;"	m	class:SiameseTrainer
+_training_step	core/siamese_trainer.py	/^    def _training_step($/;"	m	class:SiameseTrainer
+batch_encoding_a	datasets/siamese_dataset.py	/^    batch_encoding_a = tokenizer($/;"	v
+batch_encoding_b	datasets/siamese_dataset.py	/^    batch_encoding_b = tokenizer($/;"	v
+batch_size	get_embeddings.py	/^    batch_size=training_args.per_gpu_train_batch_size,$/;"	v
+build_compute_metrics_fn	reptile_few_shot.py	/^    def build_compute_metrics_fn(task_name: str,) -> Callable[[EvalPrediction], Dict]:$/;"	f	function:main
+build_compute_metrics_fn	reptile_glue.py	/^    def build_compute_metrics_fn(task_name: str,) -> Callable[[EvalPrediction], Dict]:$/;"	f	function:main
+build_compute_metrics_fn	run_glue.py	/^    def build_compute_metrics_fn(task_name: str,) -> Callable[[EvalPrediction], Dict]:$/;"	f	function:main
+build_compute_metrics_fn	train_siamese.py	/^    def build_compute_metrics_fn(task_name: str,) -> Callable[[EvalPrediction], Dict]:$/;"	f	function:main
+cache_dir	get_embeddings.py	/^        cache_dir=model_args.cache_dir,$/;"	v
+cache_dir	get_embeddings.py	/^    cache_dir=model_args.cache_dir,$/;"	v
+cls_embeddings	get_embeddings.py	/^cls_embeddings = []$/;"	v
+collate_fn	get_embeddings.py	/^    collate_fn=data_collator.collate_batch,$/;"	v
+compute_grad	core/meta.py	/^    def compute_grad(self, loss, params, optimizer):$/;"	m	class:MetaTrainer
+compute_metrics	subsampling_mnli.py	/^    def compute_metrics(p: EvalPrediction) -> Dict:$/;"	f	function:main
+compute_metrics	train_clustering.py	/^    def compute_metrics(p: EvalPrediction) -> Dict:$/;"	f	function:main
+compute_metrics_fn	reptile_few_shot.py	/^        def compute_metrics_fn(p: EvalPrediction) -> Dict:$/;"	f	function:main.build_compute_metrics_fn
+compute_metrics_fn	reptile_glue.py	/^        def compute_metrics_fn(p: EvalPrediction) -> Dict:$/;"	f	function:main.build_compute_metrics_fn
+compute_metrics_fn	run_glue.py	/^        def compute_metrics_fn(p: EvalPrediction) -> Dict:$/;"	f	function:main.build_compute_metrics_fn
+compute_metrics_fn	train_siamese.py	/^        def compute_metrics_fn(p: EvalPrediction) -> Dict:$/;"	f	function:main.build_compute_metrics_fn
+config	get_embeddings.py	/^        config=config,$/;"	v
+config	get_embeddings.py	/^config = AutoConfig.from_pretrained($/;"	v
+data_collator	get_embeddings.py	/^data_collator = DefaultDataCollator()$/;"	v
+dataloader	get_embeddings.py	/^dataloader = DataLoader($/;"	v
+default	get_embeddings.py	/^        default=None,$/;"	v	class:ModelArguments
+default	hans/run_hans.py	/^        default=128,$/;"	v	class:DataTrainingArguments
+default	hans/run_hans.py	/^        default=False,$/;"	v	class:DataTrainingArguments
+default	hans/run_hans.py	/^        default=None,$/;"	v	class:ModelArguments
+default	hans/run_siamese_hans.py	/^        default=128,$/;"	v	class:DataTrainingArguments
+default	hans/run_siamese_hans.py	/^        default=False,$/;"	v	class:DataTrainingArguments
+default	hans/run_siamese_hans.py	/^        default=None,$/;"	v	class:SiameseModelArguments
+default	reptile_few_shot.py	/^        default=128,$/;"	v	class:DataTrainingArguments
+default	reptile_few_shot.py	/^        default=None,$/;"	v	class:ModelArguments
+default	reptile_glue.py	/^        default=128,$/;"	v	class:DataTrainingArguments
+default	reptile_glue.py	/^        default=None,$/;"	v	class:ModelArguments
+default	run_glue.py	/^        default=None,$/;"	v	class:ModelArguments
+default	subsampling_mnli.py	/^        default=None,$/;"	v	class:ModelArguments
+default	test_hans.py	/^        default=None,$/;"	v	class:ModelArguments
+default	train_clustering.py	/^        default=-1,$/;"	v	class:Clustering_Arguments
+default	train_clustering.py	/^        default=0,$/;"	v	class:Clustering_Arguments
+default	train_clustering.py	/^        default=False,$/;"	v	class:Clustering_Arguments
+default	train_clustering.py	/^        default=None,$/;"	v	class:Clustering_Arguments
+default	train_clustering.py	/^        default=None,$/;"	v	class:ModelArguments
+default	train_siamese.py	/^        default=None,$/;"	v	class:SiameseModelArguments
+dev	datasets/siamese_dataset.py	/^    dev = "dev"$/;"	v	class:Split
+device	get_embeddings.py	/^device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")$/;"	v
+eval_dataset	get_embeddings.py	/^eval_dataset = GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)$/;"	v
+evaluate	test_hans.py	/^def evaluate($/;"	f
+finetuning_task	get_embeddings.py	/^    finetuning_task=data_args.task_name,$/;"	v
+format_label	nbs/hans_prediction.py	/^def format_label(label):$/;"	f
+forward	models/siamese_model.py	/^    def forward(self, a, b):$/;"	m	class:SiameseTransformer
+forward	models/siamese_model.py	/^    def forward(self, features):$/;"	m	class:PredictionHeadTransform
+from_tf	get_embeddings.py	/^        from_tf=bool(".ckpt" in model_args.model_name_or_path),$/;"	v
+get_cluster_indices	core/clustering.py	/^    def get_cluster_indices(self, cluster_num: int):$/;"	m	class:Clustering_Processor
+get_cluster_indices_by_num	core/clustering.py	/^    def get_cluster_indices_by_num(self, num_clusters: int) -> List:$/;"	m	class:Clustering_Processor
+get_cluster_indices_by_pct	core/clustering.py	/^    def get_cluster_indices_by_pct(self, data_pct: float, original_len: int) -> List:$/;"	m	class:Clustering_Processor
+get_cluster_indices_from_centroid	core/clustering.py	/^    def get_cluster_indices_from_centroid(self, embeddings: torch.tensor) -> np.array:$/;"	m	class:Clustering_Processor
+get_dataset_dict	dataset_utils.py	/^def get_dataset_dict(data_args):$/;"	f
+get_dev_examples	hans/utils_hans.py	/^    def get_dev_examples(self, data_dir):$/;"	m	class:HansProcessor
+get_dev_examples	hans/utils_siamese_hans.py	/^    def get_dev_examples(self, data_dir):$/;"	m	class:HansProcessor
+get_hans_preds_main	nbs/hans_prediction.py	/^def get_hans_preds_main(hans_evaluation_set_file_path, hans_prediction_file_path):$/;"	f
+get_hans_results	nbs/hans_prediction.py	/^def get_hans_results($/;"	f
+get_labels	datasets/siamese_dataset.py	/^    def get_labels(self):$/;"	m	class:SiameseGlueDataset
+get_labels	hans/utils_hans.py	/^    def get_labels(self):$/;"	m	class:HansProcessor
+get_labels	hans/utils_siamese_hans.py	/^    def get_labels(self):$/;"	m	class:HansProcessor
+get_len	datasets/meta_dataset.py	/^    def get_len(self):$/;"	m	class:MetaDataset
+get_loss_mean	core/meta.py	/^    def get_loss_mean(self, loss):$/;"	m	class:MetaTrainer
+get_loss_mean	core/meta_fs.py	/^    def get_loss_mean(self, loss):$/;"	m	class:MetaTrainer
+get_predictions	nbs/hans_prediction.py	/^def get_predictions(file_path):$/;"	f
+get_tensorized_data	datasets/meta_dataset.py	/^    def get_tensorized_data(self):$/;"	m	class:MetaDataset
+get_train_examples	hans/utils_hans.py	/^    def get_train_examples(self, data_dir):$/;"	m	class:HansProcessor
+get_train_examples	hans/utils_siamese_hans.py	/^    def get_train_examples(self, data_dir):$/;"	m	class:HansProcessor
+hans_convert_examples_to_features	hans/utils_hans.py	/^def hans_convert_examples_to_features($/;"	f
+hans_data_collator	core/meta_fs.py	/^def hans_data_collator(features) -> Dict[str, torch.Tensor]:$/;"	f
+hans_data_collator	hans/run_hans.py	/^def hans_data_collator(features: List[InputFeatures]) -> Dict[str, torch.Tensor]:$/;"	f
+hans_data_collator	reptile_few_shot.py	/^def hans_data_collator(features: List[InputFeatures]) -> Dict[str, torch.Tensor]:$/;"	f
+hans_processors	hans/utils_hans.py	/^hans_processors = {$/;"	v
+hans_processors	hans/utils_siamese_hans.py	/^hans_processors = {$/;"	v
+hans_tasks_num_labels	hans/utils_hans.py	/^hans_tasks_num_labels = {$/;"	v
+hans_tasks_num_labels	hans/utils_siamese_hans.py	/^hans_tasks_num_labels = {$/;"	v
+init_dicts	nbs/hans_prediction.py	/^def init_dicts(heuristic_list, subcase_list, template_list):$/;"	f
+is_apex_available	core/meta.py	/^def is_apex_available():$/;"	f
+is_apex_available	core/meta_fs.py	/^def is_apex_available():$/;"	f
+label_from_example	datasets/siamese_dataset.py	/^    def label_from_example(example: InputExample) -> Union[int, float, None]:$/;"	f
+label_list	datasets/siamese_dataset.py	/^            label_list = processor.get_labels()$/;"	v
+label_map	datasets/siamese_dataset.py	/^    label_map = {label: i for i, label in enumerate(label_list)}$/;"	v
+labels	datasets/siamese_dataset.py	/^    labels = [label_from_example(example) for example in examples]$/;"	v
+logger	core/meta.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	core/meta_fs.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	core/siamese_trainer.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	datasets/meta_dataset.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	datasets/siamese_dataset.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	hans/run_hans.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	hans/run_siamese_hans.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	hans/utils_hans.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	hans/utils_siamese_hans.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	models/siamese_model.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	reptile_few_shot.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	reptile_glue.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	run_glue.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	subsampling_mnli.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	test_hans.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	train_clustering.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	train_siamese.py	/^logger = logging.getLogger(__name__)$/;"	v
+main	hans/run_hans.py	/^def main():$/;"	f
+main	hans/run_siamese_hans.py	/^def main():$/;"	f
+main	reptile_few_shot.py	/^def main():$/;"	f
+main	reptile_glue.py	/^def main():$/;"	f
+main	run_glue.py	/^def main():$/;"	f
+main	subsampling_mnli.py	/^def main():$/;"	f
+main	test_hans.py	/^def main():$/;"	f
+main	train_clustering.py	/^def main():$/;"	f
+main	train_siamese.py	/^def main():$/;"	f
+max_length	datasets/siamese_dataset.py	/^        max_length = tokenizer.max_len$/;"	v
+metadata	get_embeddings.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	hans/run_hans.py	/^        metadata={"help": "Overwrite the cached training and evaluation sets"},$/;"	v	class:DataTrainingArguments
+metadata	hans/run_hans.py	/^        metadata={$/;"	v	class:DataTrainingArguments
+metadata	hans/run_hans.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	hans/run_siamese_hans.py	/^        metadata={"help": "Overwrite the cached training and evaluation sets"},$/;"	v	class:DataTrainingArguments
+metadata	hans/run_siamese_hans.py	/^        metadata={$/;"	v	class:DataTrainingArguments
+metadata	hans/run_siamese_hans.py	/^        metadata={$/;"	v	class:SiameseModelArguments
+metadata	reptile_few_shot.py	/^        metadata={$/;"	v	class:DataTrainingArguments
+metadata	reptile_few_shot.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	reptile_glue.py	/^        metadata={$/;"	v	class:DataTrainingArguments
+metadata	reptile_glue.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	run_glue.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	subsampling_mnli.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	test_hans.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	train_clustering.py	/^        metadata={"help": "Number of parallel processes to run for clustering"},$/;"	v	class:Clustering_Arguments
+metadata	train_clustering.py	/^        metadata={"help": "Path from there clustering labels will be loaded"},$/;"	v	class:Clustering_Arguments
+metadata	train_clustering.py	/^        metadata={"help": "Path from where embeddings will be loaded"}$/;"	v	class:Clustering_Arguments
+metadata	train_clustering.py	/^        metadata={"help": "Specify to use cluster centroid elements for training"},$/;"	v	class:Clustering_Arguments
+metadata	train_clustering.py	/^        metadata={"help": "for producing deterministic results with MiniBatchKMeans"},$/;"	v	class:Clustering_Arguments
+metadata	train_clustering.py	/^        metadata={$/;"	v	class:Clustering_Arguments
+metadata	train_clustering.py	/^        metadata={$/;"	v	class:ModelArguments
+metadata	train_siamese.py	/^        metadata={$/;"	v	class:SiameseModelArguments
+model	get_embeddings.py	/^model = ($/;"	v
+num_labels	get_embeddings.py	/^    num_labels=num_labels,$/;"	v
+num_labels	get_embeddings.py	/^num_labels = glue_tasks_num_labels[data_args.task_name]$/;"	v
+output	get_embeddings.py	/^    output = model(**inputs)$/;"	v
+output_mode	datasets/siamese_dataset.py	/^            output_mode = glue_output_modes[task]$/;"	v
+output_mode	get_embeddings.py	/^output_mode = glue_output_modes[data_args.task_name]$/;"	v
+parser	get_embeddings.py	/^parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments))$/;"	v
+process_actual_preds	nbs/hans_prediction.py	/^def process_actual_preds(file_path):$/;"	f
+process_preds	nbs/hans_prediction.py	/^def process_preds($/;"	f
+processor	datasets/siamese_dataset.py	/^        processor = glue_processors[task]()$/;"	v
+processor_dict	dataset_utils.py	/^processor_dict = {$/;"	v
+shuffle	get_embeddings.py	/^    shuffle=False,$/;"	v
+siamese_data_collator	datasets/siamese_dataset.py	/^def siamese_data_collator(batch):$/;"	f
+siamese_glue_convert_examples_to_features	datasets/siamese_dataset.py	/^def siamese_glue_convert_examples_to_features($/;"	f
+siamese_hans_convert_examples_to_features	hans/utils_siamese_hans.py	/^def siamese_hans_convert_examples_to_features($/;"	f
+siamese_hans_data_collator	hans/utils_siamese_hans.py	/^def siamese_hans_data_collator(batch):$/;"	f
+test	datasets/siamese_dataset.py	/^    test = "test"$/;"	v	class:Split
+tokenizer	get_embeddings.py	/^tokenizer = AutoTokenizer.from_pretrained($/;"	v
+train	core/meta.py	/^    def train(self):$/;"	m	class:MetaTrainer
+train	core/meta_fs.py	/^    def train(self):$/;"	m	class:MetaTrainer
+train	datasets/siamese_dataset.py	/^    train = "train"$/;"	v	class:Split
+train_dataset	get_embeddings.py	/^train_dataset = GlueDataset(data_args, tokenizer=tokenizer)$/;"	v
+update_model_params	core/meta.py	/^    def update_model_params(self, model, fast_params):$/;"	m	class:MetaTrainer

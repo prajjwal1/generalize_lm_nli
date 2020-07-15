@@ -7,12 +7,19 @@ from typing import Callable, Dict, List, Optional, Union
 import numpy as np
 import torch
 from torch.utils.data.dataloader import DataLoader
-from transformers import AutoConfig, AutoModel, AutoTokenizer, EvalPrediction
+from transformers import (
+    AutoConfig,
+    AutoModel,
+    AutoTokenizer,
+    EvalPrediction,
+    GlueDataset,
+)
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
 from transformers import (
     HfArgumentParser,
     Trainer,
     TrainingArguments,
+    default_data_collator,
     glue_compute_metrics,
     glue_output_modes,
     glue_tasks_num_labels,
@@ -39,12 +46,6 @@ class SiameseModelArguments:
                 " huggingface.co/models"
             )
         }
-    )
-    input_dim: int = field(
-        default=None, metadata={"help": "Input dimension of linear layer"}
-    )
-    linear_dim: int = field(
-        default=None, metadata={"help": "Dimension of linear layer"}
     )
     load_model_path: str = field(
         default=None, metadata={"help": "Path from where weights will be loaded"}
@@ -121,7 +122,6 @@ def main():
         finetuning_task=data_args.task_name,
         cache_dir=model_args.cache_dir,
     )
-    model_args.num_labels = num_labels
 
     model = SiameseTransformer(model_args, config)
 
@@ -169,7 +169,7 @@ def main():
         data_collator=siamese_data_collator,
         compute_metrics=build_compute_metrics_fn(data_args.task_name),
     )
-
+    trainer.evaluate()
     if training_args.do_train:
         if model_args.load_model_path:
             trainer.train(model_args.load_model_path)
