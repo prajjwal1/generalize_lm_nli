@@ -28,6 +28,8 @@ share/python-wheels/
 MANIFEST
 runs/
 wandb/
+figs/
+heatmaps/
 *.swp
 *.nfs
 # PyInstaller
