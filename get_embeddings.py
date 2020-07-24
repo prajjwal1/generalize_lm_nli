@@ -12,7 +12,7 @@ from transformers import (
     glue_output_modes,
     glue_tasks_num_labels,
 )
-from transformers.data.data_collator import DefaultDataCollator
+from transformers import default_data_collator
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -83,14 +83,13 @@ model = (
 )
 
 train_dataset = GlueDataset(data_args, tokenizer=tokenizer)
-eval_dataset = GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)
-data_collator = DefaultDataCollator()
 dataloader = DataLoader(
     train_dataset,
-    batch_size=training_args.per_gpu_train_batch_size,
+    batch_size=training_args.per_device_train_batch_size,
     shuffle=False,
-    collate_fn=data_collator.collate_batch,
+    collate_fn=default_data_collator,
 )
+print(train_dataset[0])
 print("Extraction of Embeddings in progress")
 cls_embeddings = []
 for inputs in tqdm(dataloader):

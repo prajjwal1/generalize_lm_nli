@@ -240,11 +240,11 @@ def main():
             cluster_indices = clustering_proc.get_cluster_indices_by_pct(
                 clustering_args.data_pct, len(train_dataset)
             )
-        if clustering_args.num_clusters_elements:
+        elif clustering_args.num_clusters_elements:
             cluster_indices = clustering_proc.get_cluster_indices_by_num(
                 clustering_args.num_clusters_elements
             )
-        if clustering_args.centroid_elements_only:
+        elif clustering_args.centroid_elements_only:
             cluster_indices = clustering_proc.get_cluster_indices_from_centroid(
                 embeddings
             )
@@ -256,7 +256,7 @@ def main():
             raise ValueError("Length of Dataset is less than 10")
 
     eval_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)
+        GlueDataset(data_args, tokenizer=tokenizer, mode="dev")
         if training_args.do_eval
         else None
     )
@@ -294,7 +294,7 @@ def main():
         if data_args.task_name == "mnli":
             mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
             eval_datasets.append(
-                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, evaluate=True)
+                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, mode="dev")
             )
 
         for eval_dataset in eval_datasets:

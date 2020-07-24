@@ -150,20 +150,22 @@ def main():
         GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
     )
     eval_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer, evaluate=True)
+        GlueDataset(data_args, tokenizer=tokenizer, mode="dev")
         if training_args.do_eval
         else None
     )
 
-    pct_ds_len = int(len(train_dataset) * args.data_pct)
-    rem_ds_len = len(train_dataset) - pct_ds_len
+    if training_args.do_train:
+        pct_ds_len = int(len(train_dataset) * args.data_pct)
+        rem_ds_len = len(train_dataset) - pct_ds_len
 
-    train_dataset, _ = torch.utils.data.random_split(
-        dataset=train_dataset, lengths=[pct_ds_len, rem_ds_len]
-    )
-    # Specify the percentage
-    log_data_pct = str(args.data_pct * 100)
-    logger.info("*** Using %f of the dataset ***", log_data_pct)
+    if training_args.do_train:
+        train_dataset, _ = torch.utils.data.random_split(
+            dataset=train_dataset, lengths=[pct_ds_len, rem_ds_len]
+        )
+        # Specify the percentage
+        log_data_pct = str(args.data_pct * 100)
+        logger.info("*** Using {} % of the dataset ***".format(log_data_pct))
 
     def compute_metrics(p: EvalPrediction) -> Dict:
         if output_mode == "classification":
@@ -203,7 +205,7 @@ def main():
         if data_args.task_name == "mnli":
             mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
             eval_datasets.append(
-                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, evaluate=True)
+                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, mode="dev")
             )
 
         for eval_dataset in eval_datasets:
