@@ -40,7 +40,7 @@ class Clustering_Processor:
         for i in set(self.labels):
             curr_cluster_indices = self.get_cluster_indices(i)
             current_len += len(curr_cluster_indices)
-            if current_len < int(original_len * data_pct):
+            if current_len <= int(original_len * data_pct):
                 cluster_indices.extend(curr_cluster_indices)
             else:
                 return cluster_indices

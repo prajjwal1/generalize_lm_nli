@@ -3,13 +3,15 @@ import logging
 import os
 import sys
 from dataclasses import dataclass, field
-from typing import Dict, Optional
+from types import MethodType
+from typing import Callable, Dict, Optional
 
 import numpy as np
 import torch
-from sklearn.cluster import MiniBatchKMeans
+from torch.utils.data.dataloader import DataLoader
 from transformers import (
     AutoConfig,
+    AutoModel,
     AutoModelForSequenceClassification,
     AutoTokenizer,
     EvalPrediction,
@@ -20,56 +22,17 @@ from transformers import (
     HfArgumentParser,
     Trainer,
     TrainingArguments,
+    default_data_collator,
     glue_compute_metrics,
     glue_output_modes,
     glue_tasks_num_labels,
     set_seed,
 )
 
-from core import Clustering_Processor
+from models.cbow import CBOW
+from models.orthogonal_transformer import OrthogonalTransformer
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class Clustering_Arguments:
-    batch_size: int = field(metadata={"help": "Batch size to use for MiniBatchKMeans"})
-    num_clusters: int = field(metadata={"help": "number of clusters to obtain"})
-    embedding_path: str = field(
-        metadata={"help": "Path from where embeddings will be loaded"}
-    )
-    data_pct: Optional[float] = field(
-        default=None, metadata={"help": "specifies how much data will be used"}
-    )
-    num_clusters_elements: Optional[int] = field(
-        default=None,
-        metadata={
-            "help": (
-                "specifies the number of clusters that will be used. If this"
-                " is enabled, `data_pct` should be set to None"
-            )
-        },
-    )
-    cluster_output_path: str = field(
-        default=None, metadata={"help": "Path where embedding will be stored"}
-    )
-    cluster_only: bool = field(default=False, metadata={"help": "Run only clustering"})
-    random_state: int = field(
-        default=0,
-        metadata={"help": "for producing deterministic results with MiniBatchKMeans"},
-    )
-    cluster_input_path: Optional[str] = field(
-        default=None,
-        metadata={"help": "Path from there clustering labels will be loaded"},
-    )
-    cluster_n_jobs: Optional[int] = field(
-        default=-1,
-        metadata={"help": "Number of parallel processes to run for clustering"},
-    )
-    centroid_elements_only: bool = field(
-        default=False,
-        metadata={"help": "Specify to use cluster centroid elements for training"},
-    )
 
 
 @dataclass
@@ -106,30 +69,39 @@ class ModelArguments:
             )
         },
     )
+    model_weights_path: Optional[str] = field(default=None)
+
+
+def _save(self, output_dir: Optional[str] = None):
+    output_dir = output_dir if output_dir is not None else self.args.output_dir
+    os.makedirs(output_dir, exist_ok=True)
+    logger.info("Saving model checkpoint to %s", output_dir)
+
+    # Good practice: save your training arguments together with the trained model
+    torch.save(
+        {"model_state_dict": self.model.state_dict()},
+        os.path.join(output_dir, "pytorch_model.bin"),
+    )
+    torch.save(self.args, os.path.join(output_dir, "training_args.bin"))
 
 
 def main():
+    # See all possible arguments in src/transformers/training_args.py
+    # or by passing the --help flag to this script.
+    # We now keep distinct sets of args, for a cleaner separation of concerns.
 
     parser = HfArgumentParser(
-        (
-            ModelArguments,
-            DataTrainingArguments,
-            TrainingArguments,
-            Clustering_Arguments,
-        )
+        (ModelArguments, DataTrainingArguments, TrainingArguments)
     )
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
+        # If we pass only one argument to the script and it's the path to a json file,
+        # let's parse it to get our arguments.
         model_args, data_args, training_args = parser.parse_json_file(
             json_file=os.path.abspath(sys.argv[1])
         )
     else:
-        (
-            model_args,
-            data_args,
-            training_args,
-            clustering_args,
-        ) = parser.parse_args_into_dataclasses()
+        (model_args, data_args, training_args,) = parser.parse_args_into_dataclasses()
 
     if (
         os.path.exists(training_args.output_dir)
@@ -168,23 +140,12 @@ def main():
     except KeyError:
         raise ValueError("Task not found: %s" % (data_args.task_name))
 
-    logger.info("Loading embeddings")
-    try:
-        os.path.isfile(clustering_args.embedding_path)
-        # if clustering_args.cluster_input_path and not clustering_args.output_path:
-        #    os.path.isfile(clustering_args.cluster_input_path)
-        # else:
-        #    raise ValueError(
-        #        f"Cluster labels not found at ({clustering_args.cluster_input_path}"
-        #    )
-    except FileNotFoundError:
-        raise ValueError(f"Embeddings not found at %s", clustering_args.embedding_path)
-
-    embeddings = torch.load(clustering_args.embedding_path)
-    embeddings = np.concatenate(embeddings)
-    logging.info("*** Loaded %s samples ***", len(embeddings))
-
     # Load pretrained model and tokenizer
+    #
+    # Distributed training:
+    # The .from_pretrained methods guarantee that only one local process can concurrently
+    # download model & vocab.
+
     config = AutoConfig.from_pretrained(
         model_args.config_name
         if model_args.config_name
@@ -199,82 +160,64 @@ def main():
         else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
     )
-    model = AutoModelForSequenceClassification.from_pretrained(
+    tfmr = AutoModel.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
         cache_dir=model_args.cache_dir,
     )
 
-    if clustering_args.cluster_output_path and not clustering_args.cluster_input_path:
-        logging.info("Forming clusters")
-        clustering = MiniBatchKMeans(
-            n_clusters=clustering_args.num_clusters,
-            batch_size=clustering_args.batch_size,
-            random_state=clustering_args.random_state,
-        ).fit(embeddings)
-
-        torch.save(vars(clustering), clustering_args.cluster_output_path)
-
-        logging.info(
-            "*** INFO: Clustering labels saved at %s",
-            clustering_args.cluster_output_path,
-        )
-        if clustering_args.cluster_only:
-            sys.exit(0)
-    else:
-        clustering = torch.load(clustering_args.cluster_input_path)
-        logging.info("INFO: Clustering labels loaded")
-
-    if training_args.do_train:
-        if clustering_args.data_pct and clustering_args.num_clusters_elements:
-            raise ValueError("You can either specify `data_pct` or `num_clusters`")
-        if clustering_args.num_clusters_elements:
-            assert clustering_args.num_clusters >= clustering_args.num_clusters_elements
-
-        train_dataset = GlueDataset(data_args, tokenizer)
-
-        clustering_proc = Clustering_Processor(clustering)
-
-        if clustering_args.data_pct:
-            cluster_indices = clustering_proc.get_cluster_indices_by_pct(
-                clustering_args.data_pct, len(train_dataset)
-            )
-        elif clustering_args.num_clusters_elements:
-            cluster_indices = clustering_proc.get_cluster_indices_by_num(
-                clustering_args.num_clusters_elements
-            )
-        elif clustering_args.centroid_elements_only:
-            cluster_indices = clustering_proc.get_cluster_indices_from_centroid(
-                embeddings
-            )
-
-        train_dataset = torch.utils.data.Subset(train_dataset, cluster_indices)
-
-        # SANITY CHECK
-        if len(train_dataset) < 10:
-            raise ValueError("Length of Dataset is less than 10")
-
+    # Get datasets
+    train_dataset = (
+        GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
+    )
     eval_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer, mode="dev")
+        GlueDataset(
+            data_args, tokenizer=tokenizer, mode="dev", cache_dir=model_args.cache_dir,
+        )
         if training_args.do_eval
         else None
     )
+    test_dataset = (
+        GlueDataset(
+            data_args, tokenizer=tokenizer, mode="test", cache_dir=model_args.cache_dir,
+        )
+        if training_args.do_predict
+        else None
+    )
 
-    def compute_metrics(p: EvalPrediction) -> Dict:
-        if output_mode == "classification":
-            preds = np.argmax(p.predictions, axis=1)
-        elif output_mode == "regression":
-            preds = np.squeeze(p.predictions)
-        return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
+    #  lstm = LSTM(lstm_args)
+    cbow = CBOW(config)
 
+    config.batch_size = training_args.per_device_train_batch_size
+
+    model = OrthogonalTransformer(tfmr, cbow, config,)
+    if model_args.model_weights_path:
+        logging.info("**** Loading nn.Module() weights ****")
+        ckpt = torch.load(
+            os.path.join(model_args.model_weights_path, "pytorch_model.bin")
+        )
+        model.load_state_dict(ckpt["model_state_dict"])
+
+    def build_compute_metrics_fn(task_name: str,) -> Callable[[EvalPrediction], Dict]:
+        def compute_metrics_fn(p: EvalPrediction) -> Dict:
+            if output_mode == "classification":
+                preds = np.argmax(p.predictions, axis=1)
+            elif output_mode == "regression":
+                preds = np.squeeze(p.predictions)
+            return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
+
+        return compute_metrics_fn
+
+    # Initialize our Trainer
     trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
-        compute_metrics=compute_metrics,
+        compute_metrics=build_compute_metrics_fn(data_args.task_name),
     )
+    trainer._save = MethodType(_save, trainer)
 
     # Training
     if training_args.do_train:
@@ -284,8 +227,13 @@ def main():
             else None
         )
         trainer.save_model()
+        # For convenience, we also re-save the tokenizer to the same directory,
+        # so that you can share your model easily on huggingface.co/models =)
+        if trainer.is_world_master():
+            tokenizer.save_pretrained(training_args.output_dir)
+
     # Evaluation
-    results = {}
+    eval_results = {}
     if training_args.do_eval and training_args.local_rank in [-1, 0]:
         logger.info("*** Evaluate ***")
 
@@ -294,7 +242,12 @@ def main():
         if data_args.task_name == "mnli":
             mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
             eval_datasets.append(
-                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, mode="dev")
+                GlueDataset(
+                    mnli_mm_data_args,
+                    tokenizer=tokenizer,
+                    mode="dev",
+                    cache_dir=model_args.cache_dir,
+                )
             )
 
         for eval_dataset in eval_datasets:
@@ -312,9 +265,46 @@ def main():
                     logger.info("  %s = %s", key, value)
                     writer.write("%s = %s\n" % (key, value))
 
-            results.update(result)
+            eval_results.update(result)
 
-    return results
+    if training_args.do_predict:
+        logging.info("*** Test ***")
+        test_datasets = [test_dataset]
+        if data_args.task_name == "mnli":
+            mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
+            test_datasets.append(
+                GlueDataset(
+                    mnli_mm_data_args,
+                    tokenizer=tokenizer,
+                    mode="test",
+                    cache_dir=model_args.cache_dir,
+                )
+            )
+
+        for test_dataset in test_datasets:
+            predictions = trainer.predict(test_dataset=test_dataset).predictions
+            if output_mode == "classification":
+                predictions = np.argmax(predictions, axis=1)
+
+            output_test_file = os.path.join(
+                training_args.output_dir,
+                f"test_results_{test_dataset.args.task_name}.txt",
+            )
+            if trainer.is_world_master():
+                with open(output_test_file, "w") as writer:
+                    logger.info(
+                        "***** Test results {} *****".format(
+                            test_dataset.args.task_name
+                        )
+                    )
+                    writer.write("index\tprediction\n")
+                    for index, item in enumerate(predictions):
+                        if output_mode == "regression":
+                            writer.write("%d\t%3.3f\n" % (index, item))
+                        else:
+                            item = test_dataset.get_labels()[item]
+                            writer.write("%d\t%s\n" % (index, item))
+    return eval_results
 
 
 def _mp_fn(index):

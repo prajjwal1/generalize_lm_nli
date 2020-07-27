@@ -21,7 +21,7 @@ class SiameseTrainer(Trainer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def _training_step(
+    def training_step(
         self,
         model: nn.Module,
         inputs: Dict[str, Dict[str, Union[torch.Tensor, Any]]],
