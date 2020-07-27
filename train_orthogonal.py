@@ -1,33 +1,18 @@
-# coding=utf-8
-# Copyright 2018 The Google AI Language Team Authors and The HuggingFace Inc. team.
-# Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-""" Finetuning the library models for sequence classification on GLUE (Bert, XLM, XLNet, RoBERTa, Albert, XLM-RoBERTa)."""
-
-
 import dataclasses
 import logging
 import os
 import sys
 from dataclasses import dataclass, field
-from typing import Dict, Optional
+from types import MethodType
+from typing import Callable, Dict, Optional
 
 import numpy as np
+import torch
+from torch.utils.data.dataloader import DataLoader
 from transformers import (
-    AdapterArguments,
     AutoConfig,
-    AutoModelWithHeads,
+    AutoModel,
+    AutoModelForSequenceClassification,
     AutoTokenizer,
     EvalPrediction,
     GlueDataset,
@@ -37,12 +22,15 @@ from transformers import (
     HfArgumentParser,
     Trainer,
     TrainingArguments,
+    default_data_collator,
     glue_compute_metrics,
     glue_output_modes,
     glue_tasks_num_labels,
     set_seed,
-    setup_task_adapter_training,
 )
+
+from models.cbow import CBOW
+from models.orthogonal_transformer import OrthogonalTransformer
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +69,20 @@ class ModelArguments:
             )
         },
     )
+    model_weights_path: Optional[str] = field(default=None)
+
+
+def _save(self, output_dir: Optional[str] = None):
+    output_dir = output_dir if output_dir is not None else self.args.output_dir
+    os.makedirs(output_dir, exist_ok=True)
+    logger.info("Saving model checkpoint to %s", output_dir)
+
+    # Good practice: save your training arguments together with the trained model
+    torch.save(
+        {"model_state_dict": self.model.state_dict()},
+        os.path.join(output_dir, "pytorch_model.bin"),
+    )
+    torch.save(self.args, os.path.join(output_dir, "training_args.bin"))
 
 
 def main():
@@ -89,22 +91,17 @@ def main():
     # We now keep distinct sets of args, for a cleaner separation of concerns.
 
     parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, TrainingArguments, AdapterArguments)
+        (ModelArguments, DataTrainingArguments, TrainingArguments)
     )
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.
-        model_args, data_args, training_args, adapter_args = parser.parse_json_file(
+        model_args, data_args, training_args = parser.parse_json_file(
             json_file=os.path.abspath(sys.argv[1])
         )
     else:
-        (
-            model_args,
-            data_args,
-            training_args,
-            adapter_args,
-        ) = parser.parse_args_into_dataclasses()
+        (model_args, data_args, training_args,) = parser.parse_args_into_dataclasses()
 
     if (
         os.path.exists(training_args.output_dir)
@@ -113,8 +110,8 @@ def main():
         and not training_args.overwrite_output_dir
     ):
         raise ValueError(
-            f"Output directory ({training_args.output_dir}) already exists and is not"
-            " empty. Use --overwrite_output_dir to overcome."
+            f"Output directory ({training_args.output_dir}) already exists and"
+            " is not empty. Use --overwrite_output_dir to overcome."
         )
 
     # Setup logging
@@ -124,8 +121,8 @@ def main():
         level=logging.INFO if training_args.local_rank in [-1, 0] else logging.WARN,
     )
     logger.warning(
-        "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits"
-        " training: %s",
+        "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s,"
+        " 16-bits training: %s",
         training_args.local_rank,
         training_args.device,
         training_args.n_gpu,
@@ -163,39 +160,54 @@ def main():
         else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
     )
-    model = AutoModelWithHeads.from_pretrained(
+    tfmr = AutoModel.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
         cache_dir=model_args.cache_dir,
     )
 
-    model.add_classification_head(data_args.task_name, num_labels=num_labels)
-
-    # Setup adapters
-    setup_task_adapter_training(model, data_args.task_name, adapter_args)
-
     # Get datasets
     train_dataset = (
         GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
     )
     eval_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer, mode="dev")
+        GlueDataset(
+            data_args, tokenizer=tokenizer, mode="dev", cache_dir=model_args.cache_dir,
+        )
         if training_args.do_eval
         else None
     )
     test_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer, mode="test")
+        GlueDataset(
+            data_args, tokenizer=tokenizer, mode="test", cache_dir=model_args.cache_dir,
+        )
         if training_args.do_predict
         else None
     )
 
-    def compute_metrics(p: EvalPrediction) -> Dict:
-        if output_mode == "classification":
-            preds = np.argmax(p.predictions, axis=1)
-        elif output_mode == "regression":
-            preds = np.squeeze(p.predictions)
-        return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
+    #  lstm = LSTM(lstm_args)
+    cbow = CBOW(config)
+
+    config.batch_size = training_args.per_device_train_batch_size
+
+    model = OrthogonalTransformer(tfmr, cbow, config,)
+    if model_args.model_weights_path:
+        logging.info("**** Loading nn.Module() weights ****")
+        ckpt = torch.load(
+            os.path.join(model_args.model_weights_path, "pytorch_model.bin")
+        )
+        model.load_state_dict(ckpt["model_state_dict"])
+
+    def build_compute_metrics_fn(task_name: str,) -> Callable[[EvalPrediction], Dict]:
+        def compute_metrics_fn(p: EvalPrediction) -> Dict:
+            if output_mode == "classification":
+                preds = np.argmax(p.predictions, axis=1)
+            elif output_mode == "regression":
+                preds = np.squeeze(p.predictions)
+            return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
+
+        return compute_metrics_fn
 
     # Initialize our Trainer
     trainer = Trainer(
@@ -203,10 +215,9 @@ def main():
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
-        compute_metrics=compute_metrics,
-        do_save_full_model=not adapter_args.train_adapter,
-        do_save_adapters=adapter_args.train_adapter,
+        compute_metrics=build_compute_metrics_fn(data_args.task_name),
     )
+    trainer._save = MethodType(_save, trainer)
 
     # Training
     if training_args.do_train:
@@ -223,7 +234,7 @@ def main():
 
     # Evaluation
     eval_results = {}
-    if training_args.do_eval:
+    if training_args.do_eval and training_args.local_rank in [-1, 0]:
         logger.info("*** Evaluate ***")
 
         # Loop to handle MNLI double evaluation (matched, mis-matched)
@@ -231,28 +242,30 @@ def main():
         if data_args.task_name == "mnli":
             mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
             eval_datasets.append(
-                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, mode="dev")
+                GlueDataset(
+                    mnli_mm_data_args,
+                    tokenizer=tokenizer,
+                    mode="dev",
+                    cache_dir=model_args.cache_dir,
+                )
             )
 
         for eval_dataset in eval_datasets:
-            eval_result = trainer.evaluate(eval_dataset=eval_dataset)
+            result = trainer.evaluate(eval_dataset=eval_dataset)
 
             output_eval_file = os.path.join(
                 training_args.output_dir,
                 f"eval_results_{eval_dataset.args.task_name}.txt",
             )
-            if trainer.is_world_master():
-                with open(output_eval_file, "w") as writer:
-                    logger.info(
-                        "***** Eval results {} *****".format(
-                            eval_dataset.args.task_name
-                        )
-                    )
-                    for key, value in eval_result.items():
-                        logger.info("  %s = %s", key, value)
-                        writer.write("%s = %s\n" % (key, value))
+            with open(output_eval_file, "w") as writer:
+                logger.info(
+                    "***** Eval results {} *****".format(eval_dataset.args.task_name)
+                )
+                for key, value in result.items():
+                    logger.info("  %s = %s", key, value)
+                    writer.write("%s = %s\n" % (key, value))
 
-            eval_results.update(eval_result)
+            eval_results.update(result)
 
     if training_args.do_predict:
         logging.info("*** Test ***")
@@ -260,7 +273,12 @@ def main():
         if data_args.task_name == "mnli":
             mnli_mm_data_args = dataclasses.replace(data_args, task_name="mnli-mm")
             test_datasets.append(
-                GlueDataset(mnli_mm_data_args, tokenizer=tokenizer, mode="test")
+                GlueDataset(
+                    mnli_mm_data_args,
+                    tokenizer=tokenizer,
+                    mode="test",
+                    cache_dir=model_args.cache_dir,
+                )
             )
 
         for test_dataset in test_datasets:

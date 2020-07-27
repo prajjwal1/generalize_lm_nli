@@ -9,10 +9,10 @@ from transformers import GlueDataTrainingArguments as DataTrainingArguments
 from transformers import (
     HfArgumentParser,
     TrainingArguments,
+    default_data_collator,
     glue_output_modes,
     glue_tasks_num_labels,
 )
-from transformers import default_data_collator
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
