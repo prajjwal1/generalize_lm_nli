@@ -32,30 +32,38 @@ class SiameseTransformer(nn.Module):
         )
 
         self.loss_fct = nn.CrossEntropyLoss()
-        # self.cls = PredictionHeadTransform(config)
-        # self.cls = nn.Linear(len(config.id2label), len(config.id2label))
-        # if self.args.freeze_a:
-        #    logger.info("**** Freezing Model A ****")
-        #    for param in self.model_a.encoder.parameters():
-        #        param.requires_grad = False
-
-        # if self.args.freeze_b:
-        #    logger.info("**** Freezing Model B ****")
-        #    for param in self.model_b.encoder.parameters():
-        #        param.requires_grad = False
 
     def forward(self, a, b):
-        # labels = input_a['labels']
-        # input_a.pop('labels')
-        # input_b.pop('labels')
         output_a = self.model_a(**a)  # [bs, seq_len, 768]
         output_b = self.model_b(**b)
         outputs = []
         for i in range(len(output_a)):
             outputs.append(output_a[i] + output_b[i])
-
-        # concat_output = torch.cat([output_a[1], output_b[1]])
-        # logits = self.cls(concat_output)
-        # outputs.append(logits)
-        # loss = self.loss_fct(logits, labels)
         return outputs
+
+class SiameseTransformer2(nn.Module):
+    def __init__(self, args, config):
+        super(SiameseTransformer2, self).__init__()
+        self.args = args
+        self.model_a = AutoModel.from_pretrained(
+            self.args.model_name, config=config, cache_dir=self.args.cache_dir
+        )
+        self.model_b = AutoModel.from_pretrained(
+            self.args.model_name, config=config, cache_dir=self.args.cache_dir
+        )
+        self.linear_1 = nn.Linear(config.hidden_size*3, config.hidden_size)
+        self.linear_2 = nn.Linear(config.hidden_size, config.num_labels)
+
+        self.loss_fct = nn.CrossEntropyLoss()
+
+    def forward(self, a, b):
+        labels = a['labels']
+        a.pop('labels')
+        b.pop('labels')
+        output_a = self.model_a(**a)[1]  # [bs, seq_len, 768]
+        output_b = self.model_b(**b)[1]
+        output = torch.cat([output_a, output_b, output_a-output_b], dim=1)
+        output = self.linear_1(output)
+        logits = self.linear_2(output)
+        loss = self.loss_fct(logits, labels)
+        return loss, logits

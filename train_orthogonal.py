@@ -191,7 +191,7 @@ def main():
 
     config.batch_size = training_args.per_device_train_batch_size
 
-    model = OrthogonalTransformer(tfmr, cbow, config,)
+    model = OrthogonalTransformer(tfmr, cbow, config)
     if model_args.model_weights_path:
         logging.info("**** Loading nn.Module() weights ****")
         ckpt = torch.load(
