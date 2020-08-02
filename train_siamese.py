@@ -28,7 +28,7 @@ from transformers import (
 
 from core.siamese_trainer import SiameseTrainer
 from datasets.siamese_dataset import SiameseGlueDataset, siamese_data_collator
-from models.siamese_model import SiameseTransformer
+from models.siamese_model import SiameseTransformer, SiameseTransformer2
 
 logger = logging.getLogger(__name__)
 
@@ -123,7 +123,7 @@ def main():
         cache_dir=model_args.cache_dir,
     )
 
-    model = SiameseTransformer(model_args, config)
+    model = SiameseTransformer2(model_args, config)
 
     if model_args.load_model_path:
         model_path = os.path.join(model_args.load_model_path, "pytorch_model.bin")

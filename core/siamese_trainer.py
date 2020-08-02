@@ -6,6 +6,8 @@ import numpy as np
 import torch
 from torch import nn
 from torch.utils.data.dataloader import DataLoader
+from torch.cuda.amp import autocast
+
 from tqdm import tqdm
 from transformers import EvalPrediction, Trainer
 from transformers.file_utils import is_apex_available, is_torch_tpu_available
@@ -25,7 +27,6 @@ class SiameseTrainer(Trainer):
         self,
         model: nn.Module,
         inputs: Dict[str, Dict[str, Union[torch.Tensor, Any]]],
-        optimizer: torch.optim.Optimizer,
     ) -> float:
         model.train()
         for k, v in inputs["a"].items():
@@ -35,16 +36,13 @@ class SiameseTrainer(Trainer):
         for k, v in inputs["b"].items():
             if isinstance(v, torch.Tensor):
                 inputs["b"][k] = v.to(self.args.device)
-        # for k, v in inputs.items():
-        #    if isinstance(v, torch.Tensor):
-        #        inputs[k] = v.to(self.args.device)
 
         if self.args.past_index >= 0 and self._past is not None:
             inputs["a"]["mems"] = self._past
-            # inputs["mems"] = self._past
 
-        outputs = model(**inputs)
-        loss = outputs[0]  # model outputs are always tuple in transformers (see doc)
+        with autocast():
+            outputs = model(**inputs)
+            loss = outputs[0]  # model outputs are always tuple in transformers (see doc)
 
         if self.args.past_index >= 0:
             self._past = outputs[self.args.past_index]
@@ -55,14 +53,13 @@ class SiameseTrainer(Trainer):
             loss = loss / self.args.gradient_accumulation_steps
 
         if self.args.fp16:
-            with amp.scale_loss(loss, optimizer) as scaled_loss:
-                scaled_loss.backward()
+            self.scaler.scale(loss).backward()
         else:
             loss.backward()
 
         return loss.item()
 
-    def _prediction_loop(
+    def prediction_loop(
         self,
         dataloader: DataLoader,
         description: str,
