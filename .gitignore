@@ -30,6 +30,7 @@ runs/
 wandb/
 figs/
 heatmaps/
+tags/
 *.swp
 *.nfs
 # PyInstaller
