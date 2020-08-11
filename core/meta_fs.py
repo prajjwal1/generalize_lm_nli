@@ -10,15 +10,14 @@ import higher
 import numpy as np
 import pandas as pd
 import torch
-from torch.utils.data.dataloader import DataLoader
 from torch.cuda.amp import autocast
+from torch.utils.data.dataloader import DataLoader
 from tqdm.auto import tqdm
 from transformers import EvalPrediction, Trainer, default_data_collator, set_seed
 from transformers.data.data_collator import DataCollator
 from transformers.modeling_utils import PreTrainedModel
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 from transformers.training_args import TrainingArguments
-
 
 logger = logging.getLogger(__name__)
 
@@ -44,9 +43,10 @@ class MetaTrainer(Trainer):
         data_collator: Optional[DataCollator] = None,
         compute_metrics: Optional[Callable[[EvalPrediction], Dict]] = None,
         prediction_loss_only=False,
-        optimizers: Tuple[
-            torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR
-        ] = (None, None),
+        optimizers: Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR] = (
+            None,
+            None,
+        ),
         additional_dataset_list: Optional[Dict] = None,
     ):
 
@@ -101,7 +101,7 @@ class MetaTrainer(Trainer):
             "eval_f1",
             "eval_acc_and_f1",
             "eval_mnli-mm/acc",
-            "epoch"
+            "epoch",
         ]
         df = pd.DataFrame(columns=columns, index=metrics)
         print(columns, metrics)
@@ -224,7 +224,7 @@ class MetaTrainer(Trainer):
                         pair_ids = [ex.pairID for ex in dataset]
                         output_eval_file = os.path.join(
                             self.args.output_dir,
-                            "hans_predictions_" + str(batch_idx+1) + ".txt",
+                            "hans_predictions_" + str(batch_idx + 1) + ".txt",
                         )
                         if self.is_world_master():
                             with open(output_eval_file, "w") as writer:

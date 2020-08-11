@@ -28,9 +28,9 @@ from transformers import (
 )
 from transformers.trainer import SequentialDistributedSampler
 
-from datasets.meta_dataset import MetaDataset
 from core.meta_fs import MetaTrainer
 from dataset_utils import get_dataset_dict, processor_dict
+from datasets.meta_dataset import MetaDataset
 from hans.utils_hans import HansDataset, InputFeatures
 
 logger = logging.getLogger(__name__)

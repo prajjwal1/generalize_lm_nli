@@ -17,20 +17,21 @@ class SiameseTransformer(nn.Module):
         self.model_b = AutoModel.from_pretrained(
             self.args.model_name, config=config, cache_dir=self.args.cache_dir
         )
-        self.linear = nn.Linear(config.hidden_size*3, config.num_labels)
+        self.linear = nn.Linear(config.hidden_size * 3, config.num_labels)
 
         self.loss_fct = nn.CrossEntropyLoss()
 
     def forward(self, a, b):
-        labels = a['labels']
-        a.pop('labels')
-        b.pop('labels')
+        labels = a["labels"]
+        a.pop("labels")
+        b.pop("labels")
         output_a = self.model_a(**a)[1]  # [bs, seq_len, 768]
         output_b = self.model_b(**b)[1]
-        output = torch.cat([output_a, output_b, output_a-output_b], dim=1)
+        output = torch.cat([output_a, output_b, output_a - output_b], dim=1)
         logits = self.linear(output)
         loss = self.loss_fct(logits, labels)
         return loss, logits
+
 
 class SiameseTransformer_add(nn.Module):
     def __init__(self, args, config):
@@ -52,5 +53,3 @@ class SiameseTransformer_add(nn.Module):
         for i in range(len(output_a)):
             outputs.append(output_a[i] + output_b[i])
         return outputs
-
-

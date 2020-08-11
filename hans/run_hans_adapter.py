@@ -29,8 +29,8 @@ from torch.utils.data.sampler import SequentialSampler
 from transformers import (
     AdapterArguments,
     AutoConfig,
-    AutoModelWithHeads,
     AutoModelForSequenceClassification,
+    AutoModelWithHeads,
     AutoTokenizer,
     EvalPrediction,
     GlueDataset,
@@ -313,7 +313,7 @@ def main():
         data_collator=hans_data_collator,
         do_save_full_model=not adapter_args.train_adapter,
         do_save_adapters=adapter_args.train_adapter,
-        adapter_names=[["mnli"]]
+        adapter_names=[["mnli"]],
     )
     trainer.get_test_dataloader = MethodType(get_test_dataloader, trainer)
 

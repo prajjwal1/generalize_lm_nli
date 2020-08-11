@@ -34,11 +34,12 @@ from transformers import (
     set_seed,
 )
 
-sys.path.append("..")
-
 from models.cbow import CBOW
 from models.orthogonal_transformer import OrthogonalTransformer
 from utils_hans import HansDataset, InputFeatures, hans_processors
+
+sys.path.append("..")
+
 
 logger = logging.getLogger(__name__)
 
