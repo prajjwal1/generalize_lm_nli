@@ -28,9 +28,9 @@ from transformers import (
 )
 from transformers.trainer import SequentialDistributedSampler
 
-from core.meta_dataset import MetaDataset
 from core.meta_fs import MetaTrainer
 from dataset_utils import get_dataset_dict, processor_dict
+from datasets.meta_dataset import MetaDataset
 from hans.utils_hans import HansDataset, InputFeatures
 
 logger = logging.getLogger(__name__)
@@ -145,6 +145,9 @@ def main():
             f"Output directory ({training_args.output_dir}) already exists and"
             " is not empty. Use --overwrite_output_dir to overcome."
         )
+    if not os.path.exists(training_args.output_dir):
+        os.mkdir(training_args.output_dir)
+
     # Parsing string arguments to list
     training_args.task_list = list(map(str, training_args.task_list.split(",")))
     training_args.eval_task_list = list(

@@ -5,9 +5,8 @@ from typing import Any, Dict, List, Optional, Union
 import numpy as np
 import torch
 from torch import nn
-from torch.utils.data.dataloader import DataLoader
 from torch.cuda.amp import autocast
-
+from torch.utils.data.dataloader import DataLoader
 from tqdm import tqdm
 from transformers import EvalPrediction, Trainer
 from transformers.file_utils import is_apex_available, is_torch_tpu_available
@@ -24,9 +23,7 @@ class SiameseTrainer(Trainer):
         super().__init__(*args, **kwargs)
 
     def training_step(
-        self,
-        model: nn.Module,
-        inputs: Dict[str, Dict[str, Union[torch.Tensor, Any]]],
+        self, model: nn.Module, inputs: Dict[str, Dict[str, Union[torch.Tensor, Any]]],
     ) -> float:
         model.train()
         for k, v in inputs["a"].items():
@@ -42,7 +39,9 @@ class SiameseTrainer(Trainer):
 
         with autocast():
             outputs = model(**inputs)
-            loss = outputs[0]  # model outputs are always tuple in transformers (see doc)
+            loss = outputs[
+                0
+            ]  # model outputs are always tuple in transformers (see doc)
 
         if self.args.past_index >= 0:
             self._past = outputs[self.args.past_index]

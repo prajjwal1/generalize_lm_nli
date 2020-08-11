@@ -258,7 +258,7 @@ def main():
                 for pid, pred in zip(pair_ids, preds):
                     writer.write("ex" + str(pid) + "," + label_list[int(pred)] + "\n")
 
-        trainer._log(output.metrics)
+        trainer.log(output.metrics)
 
 
 def _mp_fn(index):

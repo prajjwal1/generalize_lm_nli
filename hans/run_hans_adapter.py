@@ -29,6 +29,7 @@ from torch.utils.data.sampler import SequentialSampler
 from transformers import (
     AdapterArguments,
     AutoConfig,
+    AutoModelForSequenceClassification,
     AutoModelWithHeads,
     AutoTokenizer,
     EvalPrediction,
@@ -270,15 +271,13 @@ def main():
         else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
     )
-    model = AutoModelWithHeads.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
         cache_dir=model_args.cache_dir,
     )
-
-    model.add_classification_head(data_args.task_name, num_labels=num_labels)
-    setup_task_adapter_training(model, data_args.task_name, adapter_args)
+    model.load_adapter(adapter_args.load_task_adapter)
 
     # Get datasets
     train_dataset = (
@@ -314,6 +313,7 @@ def main():
         data_collator=hans_data_collator,
         do_save_full_model=not adapter_args.train_adapter,
         do_save_adapters=adapter_args.train_adapter,
+        adapter_names=[["mnli"]],
     )
     trainer.get_test_dataloader = MethodType(get_test_dataloader, trainer)
 

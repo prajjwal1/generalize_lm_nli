@@ -1,21 +1,3 @@
-# coding=utf-8
-# Copyright 2018 The Google AI Language Team Authors and The HuggingFace Inc. team.
-# Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-""" Finetuning the library models for sequence classification on GLUE (Bert, XLM, XLNet, RoBERTa, Albert, XLM-RoBERTa)."""
-
-
 import dataclasses
 import logging
 import os
@@ -27,7 +9,7 @@ import numpy as np
 from transformers import (
     AdapterArguments,
     AutoConfig,
-    AutoModelWithHeads,
+    AutoModelForSequenceClassification,
     AutoTokenizer,
     EvalPrediction,
     GlueDataset,
@@ -163,17 +145,17 @@ def main():
         else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
     )
-    model = AutoModelWithHeads.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
         cache_dir=model_args.cache_dir,
     )
 
-    model.add_classification_head(data_args.task_name, num_labels=num_labels)
-
     # Setup adapters
-    setup_task_adapter_training(model, data_args.task_name, adapter_args)
+    task_name = data_args.task_name
+    language = adapter_args.language
+    setup_task_adapter_training(model, task_name, adapter_args)
 
     # Get datasets
     train_dataset = (
@@ -197,6 +179,14 @@ def main():
             preds = np.squeeze(p.predictions)
         return glue_compute_metrics(data_args.task_name, preds, p.label_ids)
 
+    if adapter_args.train_adapter:
+        if language:
+            adapter_names = [[language], [task_name]]
+        else:
+            adapter_names = [[task_name]]
+    else:
+        adapter_names = None
+
     # Initialize our Trainer
     trainer = Trainer(
         model=model,
@@ -206,6 +196,7 @@ def main():
         compute_metrics=compute_metrics,
         do_save_full_model=not adapter_args.train_adapter,
         do_save_adapters=adapter_args.train_adapter,
+        adapter_names=adapter_names,
     )
 
     # Training
