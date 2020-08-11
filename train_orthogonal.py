@@ -70,6 +70,7 @@ class ModelArguments:
         },
     )
     model_weights_path: Optional[str] = field(default=None)
+    lamb: Optional[float] = field(default=None)
 
 
 def _save(self, output_dir: Optional[str] = None):
@@ -190,6 +191,7 @@ def main():
     cbow = CBOW(config)
 
     config.batch_size = training_args.per_device_train_batch_size
+    config.lamb = model_args.lamb
 
     model = OrthogonalTransformer(tfmr, cbow, config)
     if model_args.model_weights_path:

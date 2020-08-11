@@ -34,6 +34,8 @@ from transformers import (
     set_seed,
 )
 
+sys.path.append("..")
+
 from core.siamese_trainer import SiameseTrainer
 from models.siamese_model import SiameseTransformer
 from utils_siamese_hans import (
@@ -43,7 +45,6 @@ from utils_siamese_hans import (
     siamese_hans_data_collator,
 )
 
-sys.path.append("..")
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +63,7 @@ class SiameseModelArguments:
             )
         }
     )
-    load_model_path: str = field(
+    model_weights_path: str = field(
         default=None, metadata={"help": "Path from where weights will be loaded"}
     )
     config_name: Optional[str] = field(
@@ -181,7 +182,7 @@ def main():
     config = AutoConfig.from_pretrained(
         model_args.config_name
         if model_args.config_name
-        else model_args.load_model_path,
+        else model_args.model_weights_path,
         num_labels=num_labels,
         finetuning_task=data_args.task_name,
         cache_dir=model_args.cache_dir,
@@ -189,21 +190,21 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.tokenizer_name
         if model_args.tokenizer_name
-        else model_args.load_model_path,
+        else model_args.model_weights_path,
         cache_dir=model_args.cache_dir,
     )
     model = SiameseTransformer(model_args, config)
 
-    if model_args.load_model_path:
-        model_path = os.path.join(model_args.load_model_path, "pytorch_model.bin")
+    if model_args.model_weights_path:
+        model_path = os.path.join(model_args.model_weights_path, "pytorch_model.bin")
         if os.path.isfile(model_path):
             ckpt = torch.load(model_path)
             logger.info(
-                "*** Loading model weights from %s***", model_args.load_model_path
+                "*** Loading model weights from %s***", model_args.model_weights_path
             )
             model.load_state_dict(ckpt["model_state_dict"])
         else:
-            raise ValueError("Model --load_model_path is not valid")
+            raise ValueError("Model --model_weights_path is not valid")
 
     # Get datasets
     train_dataset = (
@@ -270,7 +271,7 @@ def main():
                 for pid, pred in zip(pair_ids, preds):
                     writer.write("ex" + str(pid) + "," + label_list[int(pred)] + "\n")
 
-        trainer._log(output.metrics)
+        trainer.log(output.metrics)
 
 
 def _mp_fn(index):

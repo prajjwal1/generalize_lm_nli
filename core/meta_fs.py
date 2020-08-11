@@ -11,23 +11,13 @@ import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data.dataloader import DataLoader
+from torch.cuda.amp import autocast
 from tqdm.auto import tqdm
 from transformers import EvalPrediction, Trainer, default_data_collator, set_seed
 from transformers.data.data_collator import DataCollator
 from transformers.modeling_utils import PreTrainedModel
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 from transformers.training_args import TrainingArguments
-
-try:
-    from apex import amp
-
-    _has_apex = True
-except ImportError:
-    _has_apex = False
-
-
-def is_apex_available():
-    return _has_apex
 
 
 logger = logging.getLogger(__name__)
@@ -56,7 +46,7 @@ class MetaTrainer(Trainer):
         prediction_loss_only=False,
         optimizers: Tuple[
             torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR
-        ] = None,
+        ] = (None, None),
         additional_dataset_list: Optional[Dict] = None,
     ):
 
@@ -71,13 +61,14 @@ class MetaTrainer(Trainer):
             data_collator if data_collator is not None else default_data_collator
         )
         self.prediction_loss_only = prediction_loss_only
-        self.optimizers = optimizers
+        self.optimizer, self.lr_scheduler = optimizers
         self.eval_results = {}
         self.train_steps_per_task = train_steps_per_task
-        self._setup_wandb()
         self.additional_dataset_list = additional_dataset_list
         if self.args.fp16:
             self.scaler = torch.cuda.amp.GradScaler()
+        self.epoch = None
+        self.tb_writer = None
         set_seed(self.args.seed)
 
     #    def update_model_params(self, model, fast_params):
@@ -110,6 +101,7 @@ class MetaTrainer(Trainer):
             "eval_f1",
             "eval_acc_and_f1",
             "eval_mnli-mm/acc",
+            "epoch"
         ]
         df = pd.DataFrame(columns=columns, index=metrics)
         print(columns, metrics)
@@ -119,23 +111,13 @@ class MetaTrainer(Trainer):
 
         model = self.model
         # TODO: Make scheduler dataset agnostic
-        optimizer, scheduler = self.get_optimizers(
+        self.create_optimizer_and_scheduler(
             int(
                 len(self.train_dataloader_list[0])
                 // self.args.gradient_accumulation_steps
                 * self.args.num_train_epochs
             )
         )
-        # FP-16, Multi-GPU, Distributed Training
-        # TODO: Make FP-16 work, scaled_loss, OOM issue
-        if self.args.fp16:
-            if is_apex_available:
-                model, optimizer = amp.initialize(
-                    model, optimizer, opt_level=self.args.fp16_opt_level
-                )
-            else:
-                raise ValueError("Apex is not installed")
-
         if self.args.n_gpu > 1:
             model = torch.nn.DataParallel(model)
 
@@ -170,6 +152,7 @@ class MetaTrainer(Trainer):
 
         model.zero_grad()
         self.global_step = 0
+        self.epoch = 0
 
         eval_step = [2 ** i for i in range(1, 20)]
         inner_optimizer = torch.optim.SGD(
@@ -183,7 +166,6 @@ class MetaTrainer(Trainer):
             model.zero_grad()
             target_batch = next(iter(self.train_dataloader_list[0]))
             outer_loss = 0.0
-            # tr_loss = 0.0
             for inputs, target_inputs in zip(meta_batch, target_batch):
                 for k, v in inputs.items():
                     inputs[k] = v.to(self.args.device)
@@ -192,15 +174,22 @@ class MetaTrainer(Trainer):
                     model, inner_optimizer, copy_initial_weights=False
                 ) as (fmodel, diffopt):
 
-                    inner_loss = model(**inputs)[0]
-                    inner_loss = self.get_loss_mean(inner_loss)
-                    diffopt.step(inner_loss)
-                    outer_loss += model(**target_inputs)[0]
+                    with autocast():
+                        inner_loss = model(**inputs)[0]
+                        inner_loss = self.get_loss_mean(inner_loss)
+                        diffopt.step(inner_loss)
+                        outer_loss += model(**target_inputs)[0]
 
             self.global_step += 1
             outer_loss = self.get_loss_mean(outer_loss)
-            outer_loss.backward()
-            optimizer.step()
+            with autocast():
+                outer_loss.backward()
+
+            if self.args.fp16:
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+            else:
+                self.optimizer.step()
 
             if (batch_idx + 1) % self.args.gradient_accumulation_steps == 0:
                 torch.nn.utils.clip_grad_norm_(
@@ -222,20 +211,20 @@ class MetaTrainer(Trainer):
                                 key,
                                 value,
                             )
-                        df[self.args.total_task_list[idx]][key].append(value)
+                            df[self.args.total_task_list[idx]][key].append(value)
                     if task == "hans":
                         label_list = ["contradiction", "entailment", "neutral"]
                         dataset = self.additional_dataset_list[task]
                         self.data_collator = hans_data_collator
                         output = self.predict(dataset)  # , description="Prediction")
                         self.data_collator = default_data_collator
-                        self._log(output.metrics)
+                        self.log(output.metrics)
                         preds = output.predictions
                         preds = np.argmax(preds, axis=1)
                         pair_ids = [ex.pairID for ex in dataset]
                         output_eval_file = os.path.join(
                             self.args.output_dir,
-                            "hans_predictions_" + str(batch_idx) + ".txt",
+                            "hans_predictions_" + str(batch_idx+1) + ".txt",
                         )
                         if self.is_world_master():
                             with open(output_eval_file, "w") as writer:

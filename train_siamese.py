@@ -28,13 +28,13 @@ from transformers import (
 
 from core.siamese_trainer import SiameseTrainer
 from datasets.siamese_dataset import SiameseGlueDataset, siamese_data_collator
-from models.siamese_model import SiameseTransformer, SiameseTransformer2
+from models.siamese_model import SiameseTransformer
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
-class SiameseModelArguments:
+class ModelArguments:
     """
     Arguments pertaining to SiameseTransformer
     """
@@ -47,7 +47,7 @@ class SiameseModelArguments:
             )
         }
     )
-    load_model_path: str = field(
+    model_weights_path: str = field(
         default=None, metadata={"help": "Path from where weights will be loaded"}
     )
     config_name: Optional[str] = field(
@@ -70,13 +70,11 @@ class SiameseModelArguments:
             )
         },
     )
-    freeze_a: bool = field(default=False, metadata={"help": "freeze model a"})
-    freeze_b: bool = field(default=False, metadata={"help": "freeze model b"})
 
 
 def main():
     parser = HfArgumentParser(
-        (SiameseModelArguments, DataTrainingArguments, TrainingArguments)
+        (ModelArguments, DataTrainingArguments, TrainingArguments)
     )
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
     if (
@@ -117,24 +115,24 @@ def main():
     config = AutoConfig.from_pretrained(
         model_args.config_name
         if model_args.config_name
-        else model_args.load_model_path,
+        else model_args.model_weights_path,
         num_labels=num_labels,
         finetuning_task=data_args.task_name,
         cache_dir=model_args.cache_dir,
     )
 
-    model = SiameseTransformer2(model_args, config)
+    model = SiameseTransformer(model_args, config)
 
-    if model_args.load_model_path:
-        model_path = os.path.join(model_args.load_model_path, "pytorch_model.bin")
+    if model_args.model_weights_path:
+        model_path = os.path.join(model_args.model_weights_path, "pytorch_model.bin")
         if os.path.isfile(model_path):
             ckpt = torch.load(model_path)
             logger.info(
-                "*** Loading model weights from %s***", model_args.load_model_path
+                "*** Loading model weights from %s***", model_args.model_weights_path
             )
             model.load_state_dict(ckpt["model_state_dict"])
         else:
-            raise ValueError("Model --load_model_path is not valid")
+            raise ValueError("Model --model_weights_path is not valid")
 
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.tokenizer_name
@@ -169,12 +167,12 @@ def main():
         data_collator=siamese_data_collator,
         compute_metrics=build_compute_metrics_fn(data_args.task_name),
     )
-    trainer.evaluate()
     if training_args.do_train:
-        if model_args.load_model_path:
-            trainer.train(model_args.load_model_path)
+        if model_args.model_weights_path:
+            trainer.train(model_args.model_weights_path)
         else:
             trainer.train()
+
         trainer.save_model()
         # For convenience, we also re-save the tokenizer to the same directory,
         # so that you can share your model easily on huggingface.co/models =)

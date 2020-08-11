@@ -6,7 +6,7 @@ class HEXProjection(nn.Module):
     def __init__(self, config):
         super(HEXProjection, self).__init__()
         self.standardize_dim = nn.Linear(config.hidden_size, config.batch_size // 2)
-        self.inverse_param = nn.Parameter(torch.Tensor([0.0001]))
+        self.inverse_param = nn.Parameter(torch.Tensor([config.lamb]))
         self.register_buffer(
             "identity", torch.eye(config.batch_size, config.batch_size)
         )
