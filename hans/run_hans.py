@@ -246,6 +246,7 @@ def main():
 
         output = trainer.predict(eval_dataset)
         preds = output.predictions
+        print(preds.shape)
         preds = np.argmax(preds, axis=1)
 
         pair_ids = [ex.pairID for ex in eval_dataset]
