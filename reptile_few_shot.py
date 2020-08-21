@@ -176,27 +176,25 @@ def main():
         cache_dir=model_args.cache_dir,
     )
     model = AutoModelForSequenceClassification.from_pretrained(
-        model_args.model_name_or_path,
-        config=config,
-        cache_dir=model_args.cache_dir,
+        model_args.model_name_or_path, config=config, cache_dir=model_args.cache_dir,
     )
 
     # Compute indices of dataset for subsampling
     cur_len = len(train_dataset)
     indices = np.arange(cur_len)
     np.random.shuffle(indices)
-    train_sampler = SubsetRandomSampler(indices[: training_args.max_sample_limit*2])
+    train_sampler = SubsetRandomSampler(indices[: training_args.max_sample_limit])
 
     train_dataloader = DataLoader(
-                train_dataset,
-                batch_size=training_args.per_device_train_batch_size,
-                sampler=train_sampler,
-            )
+        train_dataset,
+        batch_size=training_args.per_device_train_batch_size,
+        sampler=train_sampler,
+    )
     eval_dataloader = DataLoader(
-                eval_dataset,
-                batch_size=training_args.per_device_eval_batch_size,
-                collate_fn = default_data_collator
-            )
+        eval_dataset,
+        batch_size=training_args.per_device_eval_batch_size,
+        collate_fn=default_data_collator,
+    )
 
     trainer = MetaTrainer(
         model,
@@ -206,7 +204,7 @@ def main():
         compute_metrics=build_compute_metrics_fn(data_args.task_name),
     )
 
-    trainer.run_maml()
+    trainer.train()
 
 
 if __name__ == "__main__":

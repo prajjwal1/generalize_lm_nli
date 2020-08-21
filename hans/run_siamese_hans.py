@@ -34,8 +34,6 @@ from transformers import (
     set_seed,
 )
 
-sys.path.append("..")
-
 from core.siamese_trainer import SiameseTrainer
 from models.siamese_model import SiameseTransformer
 from utils_siamese_hans import (
@@ -44,6 +42,9 @@ from utils_siamese_hans import (
     hans_processors,
     siamese_hans_data_collator,
 )
+
+sys.path.append("..")
+
 
 logger = logging.getLogger(__name__)
 
