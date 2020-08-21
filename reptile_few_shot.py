@@ -185,7 +185,7 @@ def main():
     cur_len = len(train_dataset)
     indices = np.arange(cur_len)
     np.random.shuffle(indices)
-    train_sampler = SubsetRandomSampler(indices[: training_args.max_sample_limit*2])
+    train_sampler = SubsetRandomSampler(indices[: training_args.max_sample_limit])
 
     train_dataloader = DataLoader(
                 train_dataset,
