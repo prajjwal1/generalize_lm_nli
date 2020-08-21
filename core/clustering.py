@@ -1,9 +1,8 @@
 # coding=utf-8
 # Author: Prajjwal Bhargava
-from typing import Dict, List, Optional
+from typing import List
 
 import numpy as np
-import sklearn
 import torch
 from sklearn.metrics import pairwise_distances_argmin_min
 
