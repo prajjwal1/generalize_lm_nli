@@ -9,11 +9,7 @@ from torch.cuda.amp import autocast
 from torch.utils.data.dataloader import DataLoader
 from tqdm import tqdm
 from transformers import EvalPrediction, Trainer
-from transformers.file_utils import is_apex_available, is_torch_tpu_available
 from transformers.trainer_utils import PredictionOutput
-
-if is_apex_available():
-    from apex import amp
 
 logger = logging.getLogger(__name__)
 
