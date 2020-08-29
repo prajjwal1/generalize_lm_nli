@@ -68,7 +68,7 @@ class SiameseTrainer(Trainer):
         prediction_loss_only = (
             prediction_loss_only
             if prediction_loss_only is not None
-            else self.prediction_loss_only
+            else self.args.prediction_loss_only
         )
 
         model = self.model
@@ -183,4 +183,7 @@ class SiameseTrainer(Trainer):
             {"model_state_dict": self.model.state_dict()},
             os.path.join(output_dir, "pytorch_model.bin"),
         )
+        #  if self.tokenizer is not None:
+            #  self.tokenizer.save_pretrained(output_dir)
+
         torch.save(self.args, os.path.join(output_dir, "training_args.bin"))

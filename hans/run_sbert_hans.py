@@ -36,10 +36,8 @@ from transformers import (
 
 sys.path.append("..")
 
-from models.cbow import CBOW
-from models.orthogonal_transformer import OrthogonalTransformer
 from utils_hans import HansDataset, InputFeatures, hans_processors
-
+from models.sbert import SBERT
 
 
 logger = logging.getLogger(__name__)
@@ -116,9 +114,6 @@ class DataTrainingArguments:
         metadata={"help": "Overwrite the cached training and evaluation sets"},
     )
 
-@dataclass
-class SpecificTrainingArguments(TrainingArguments):
-    lamb: float = field(default=0.0001)
 
 def hans_data_collator(features: List[InputFeatures]) -> Dict[str, torch.Tensor]:
     """
@@ -135,7 +130,7 @@ def main():
     # We now keep distinct sets of args, for a cleaner separation of concerns.
 
     parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, SpecificTrainingArguments)
+        (ModelArguments, DataTrainingArguments, TrainingArguments)
     )
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
@@ -229,9 +224,7 @@ def main():
         else None
     )
 
-    cbow = CBOW(config)
-
-    model = OrthogonalTransformer(tfmr, cbow, config, training_args)
+    model = SBERT(tfmr, config)
 
     if model_args.model_weights_path:
         logging.info("**** Loading nn.Module() weights ****")
@@ -239,6 +232,7 @@ def main():
             os.path.join(model_args.model_weights_path, "pytorch_model.bin")
         )
         model.load_state_dict(ckpt["model_state_dict"])
+
     # Initialize our Trainer
     trainer = Trainer(
         model=model,
