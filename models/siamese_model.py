@@ -18,12 +18,6 @@ class SiameseTransformer(nn.Module):
         super(SiameseTransformer, self).__init__()
         self.model_a = AutoModel.from_pretrained(args.model_name, config=config, cache_dir=args.cache_dir)
         self.model_b = AutoModel.from_pretrained(args.model_name, config=config, cache_dir=args.cache_dir)
-
-        logging.info("**** Encoder will not be trained ****")
-        for param in self.model_a.parameters():
-            param.requires_grad = False
-        for param in self.model_b.parameters():
-            param.requires_grad = False
         self.classifier = nn.Linear(config.hidden_size*3, config.num_labels)
         self.criterion = nn.CrossEntropyLoss()
 

@@ -1,7 +1,6 @@
 import torch
 from torch import nn
 
-
 class HEXProjection(nn.Module):
     def __init__(self, config, args):
         super(HEXProjection, self).__init__()

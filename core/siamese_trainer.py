@@ -35,9 +35,7 @@ class SiameseTrainer(Trainer):
 
         with autocast():
             outputs = model(**inputs)
-            loss = outputs[
-                0
-            ]  # model outputs are always tuple in transformers (see doc)
+            loss = outputs[0]  # model outputs are always tuple in transformers (see doc)
 
         if self.args.past_index >= 0:
             self._past = outputs[self.args.past_index]
