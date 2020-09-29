@@ -2,54 +2,33 @@ import logging
 
 import torch
 from torch import nn
-from transformers import AutoModel, AutoModelForSequenceClassification
+from transformers import AutoModel
 
-logger = logging.getLogger(__name__)
+
+def mean_pooling(model_output, attention_mask):
+    token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
+    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+    sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+    sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+    return sum_embeddings / sum_mask
 
 
 class SiameseTransformer(nn.Module):
     def __init__(self, args, config):
         super(SiameseTransformer, self).__init__()
-        self.args = args
-        self.model_a = AutoModel.from_pretrained(
-            self.args.model_name, config=config, cache_dir=self.args.cache_dir
-        )
-        self.model_b = AutoModel.from_pretrained(
-            self.args.model_name, config=config, cache_dir=self.args.cache_dir
-        )
-        self.linear = nn.Linear(config.hidden_size * 3, config.num_labels)
-
-        self.loss_fct = nn.CrossEntropyLoss()
+        self.model_a = AutoModel.from_pretrained(args.model_name, config=config, cache_dir=args.cache_dir)
+        self.model_b = AutoModel.from_pretrained(args.model_name, config=config, cache_dir=args.cache_dir)
+        self.classifier = nn.Linear(config.hidden_size*3, config.num_labels)
+        self.criterion = nn.CrossEntropyLoss()
 
     def forward(self, a, b):
-        labels = a["labels"]
-        a.pop("labels")
-        b.pop("labels")
-        output_a = self.model_a(**a)[1]  # [bs, seq_len, 768]
-        output_b = self.model_b(**b)[1]
-        output = torch.cat([output_a, output_b, output_a - output_b], dim=1)
-        logits = self.linear(output)
-        loss = self.loss_fct(logits, labels)
-        return loss, logits
-
-
-class SiameseTransformer_add(nn.Module):
-    def __init__(self, args, config):
-        super(SiameseTransformer_add, self).__init__()
-        self.args = args
-        self.model_a = AutoModelForSequenceClassification.from_pretrained(
-            self.args.model_name, config=config, cache_dir=self.args.cache_dir
-        )
-        self.model_b = AutoModelForSequenceClassification.from_pretrained(
-            self.args.model_name, config=config, cache_dir=self.args.cache_dir
-        )
-
-        self.loss_fct = nn.CrossEntropyLoss()
-
-    def forward(self, a, b):
-        output_a = self.model_a(**a)  # [bs, seq_len, 768]
+        labels = a.pop('labels')
+        b.pop('labels')
+        output_a = self.model_a(**a)
         output_b = self.model_b(**b)
-        outputs = []
-        for i in range(len(output_a)):
-            outputs.append(output_a[i] + output_b[i])
-        return outputs
+        embeddings_a = mean_pooling(output_a,  a['attention_mask'])
+        embeddings_b = mean_pooling(output_b, b['attention_mask'])
+        output = torch.cat([embeddings_a, embeddings_b, embeddings_a-embeddings_b], dim=1)
+        logits = self.classifier(output)
+        loss = self.criterion(logits, labels)
+        return loss, logits

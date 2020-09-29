@@ -94,13 +94,15 @@ CUDA_VISIBLE_DEVICES=0 python3 train_clustering.py   --model_name_or_path albert
 ## Meta Learning
 Use a batch size of 2 and one GPU for correct evaluation.
 ```
-CUDA_VISIBLE_DEVICES=0 python3 reptile_few_shot.py   --model_name_or_path bert-base-uncased  --do_train  --do_eval --max_seq_length 80   --per_device_train_batch_size 2  --learning_rate 2e-5  --output_dir /home/nlp/experiments/meta/1/   --per_device_eval_batch_size 4096 --data_dir /home/nlp/data/glue_data/MNLI --task_name mnli --num_train_epochs=1 --max_sample_limit 2048 --step_size=2e-5 --overwrite_output_dir
+CUDA_VISIBLE_DEVICES=0 python3 maml_few_shot.py   --model_name_or_path bert-base-uncased  --do_train  --do_eval --max_seq_length 80   --per_device_train_batch_size 2  --learning_rate 2e-5  --output_dir /home/nlp/experiments/meta/1/   --per_device_eval_batch_size 4096 --data_dir /home/nlp/data/glue_data/MNLI --task_name mnli --num_train_epochs=1 --max_sample_limit 2048 --step_size=2e-5 --overwrite_output_dir
 ```
 
-## Siamese Transformer (WIP)
+## Siamese Transformer
 ```bash
 python3 train_siamese.py   --model_name bert-base-uncased   --linear_dim=4096 --task_name $TASK_NAME   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 32   --per_device_train_batch_size 1024  --learning_rate 2e-5  --num_train_epochs 5.0   --output_dir /home/nlp/experiments/siamese   --overwrite_output_dir --per_device_eval_batch_size 1024 --do_train --input_dim 12 --config_name bert-base-uncased --tokenizer_name bert-base-uncased --fp16 --evaluate_during_training
 ```
 
-
-
+## Adapter Networks
+```bash
+python3 train_adapter.py --model_name_or_path bert-large-uncased --task_name $TASK_NAME   --do_eval   --data_dir /home/nlp/data/glue_data/$TASK_NAME/  --max_seq_length 80   --per_device_train_batch_size 256 --learning_rate 2e-5  --num_train_epochs 1.0   --output_dir /home/nlp/experiments/adapter_big/epoch_1   --fp16 --per_device_eval_batch_size 128 --do_train --adapter_config pfeiffer --train_adapter
+```

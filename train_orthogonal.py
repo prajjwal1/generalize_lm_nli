@@ -70,8 +70,11 @@ class ModelArguments:
         },
     )
     model_weights_path: Optional[str] = field(default=None)
-    lamb: Optional[float] = field(default=None)
 
+@dataclass
+class SpecificTrainingArguments(TrainingArguments):
+    hyperparam_search: Optional[bool] = field(default=False)
+    lamb: Optional[float] = field(default=None)
 
 def _save(self, output_dir: Optional[str] = None):
     output_dir = output_dir if output_dir is not None else self.args.output_dir
@@ -86,13 +89,20 @@ def _save(self, output_dir: Optional[str] = None):
     torch.save(self.args, os.path.join(output_dir, "training_args.bin"))
 
 
+def my_hp_space(trial):
+    return {
+        #  "learning_rate": trial.suggest_float("learning_rate", 5e-5, 2e-5, log=True),
+        #  "seed": trial.suggest_int("seed", 1, 40),
+        "lamb": trial.suggest_float("lamb", 0.00001, 0.0001, log=True),
+    }
+
 def main():
     # See all possible arguments in src/transformers/training_args.py
     # or by passing the --help flag to this script.
     # We now keep distinct sets of args, for a cleaner separation of concerns.
 
     parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, TrainingArguments)
+        (ModelArguments, DataTrainingArguments, SpecificTrainingArguments)
     )
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
@@ -169,16 +179,11 @@ def main():
     )
 
     # Get datasets
-    train_dataset = (
-        GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
-    )
-    eval_dataset = (
-        GlueDataset(
+    train_dataset = GlueDataset(data_args, tokenizer=tokenizer)
+
+    eval_dataset = GlueDataset(
             data_args, tokenizer=tokenizer, mode="dev", cache_dir=model_args.cache_dir,
         )
-        if training_args.do_eval
-        else None
-    )
     test_dataset = (
         GlueDataset(
             data_args, tokenizer=tokenizer, mode="test", cache_dir=model_args.cache_dir,
@@ -190,12 +195,16 @@ def main():
     #  lstm = LSTM(lstm_args)
     cbow = CBOW(config)
 
-    config.batch_size = training_args.per_device_train_batch_size
-    config.lamb = model_args.lamb
+    def model_init():
+        return OrthogonalTransformer(tfmr, cbow, config, training_args)
 
-    model = OrthogonalTransformer(tfmr, cbow, config)
+    if not training_args.hyperparam_search:
+        model = OrthogonalTransformer(tfmr, cbow, config, training_args)
+
     if model_args.model_weights_path:
         logging.info("**** Loading nn.Module() weights ****")
+        if training_args.hyperparam_search:
+            raise ValueError("Cannot load weights when hyperparam_search=True")
         ckpt = torch.load(
             os.path.join(model_args.model_weights_path, "pytorch_model.bin")
         )
@@ -212,14 +221,25 @@ def main():
         return compute_metrics_fn
 
     # Initialize our Trainer
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
-        compute_metrics=build_compute_metrics_fn(data_args.task_name),
-    )
-    trainer._save = MethodType(_save, trainer)
+    if training_args.hyperparam_search:
+        trainer = Trainer(
+            model_init=model_init,
+            args=training_args,
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset,
+            compute_metrics=build_compute_metrics_fn(data_args.task_name),
+        )
+        trainer._save = MethodType(_save, trainer)
+        trainer.hyperparameter_search(direction="maximize", hp_space=my_hp_space)
+    else:
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            train_dataset = train_dataset,
+            eval_dataset = eval_dataset,
+            compute_metrics = build_compute_metrics_fn(data_args.task_name)
+        )
+        trainer._save = MethodType(_save, trainer)
 
     # Training
     if training_args.do_train:

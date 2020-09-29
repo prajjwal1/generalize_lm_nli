@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional, Union
 
-import numpy as np
+#  import numpy as np
 import torch
 from filelock import FileLock
 from torch.utils.data.dataset import Dataset
@@ -15,7 +15,6 @@ from transformers.data.processors.utils import InputExample, InputFeatures
 from transformers.tokenization_bart import BartTokenizer, BartTokenizerFast
 from transformers.tokenization_roberta import RobertaTokenizer, RobertaTokenizerFast
 from transformers.tokenization_utils import PreTrainedTokenizer
-from transformers.tokenization_xlm_roberta import XLMRobertaTokenizer
 
 logger = logging.getLogger(__name__)
 
@@ -141,7 +140,6 @@ class SiameseGlueDataset(Dataset):
         if args.task_name in ["mnli", "mnli-mm"] and tokenizer.__class__ in (
             RobertaTokenizer,
             RobertaTokenizerFast,
-            XLMRobertaTokenizer,
             BartTokenizer,
             BartTokenizerFast,
         ):

@@ -1,14 +1,14 @@
 import torch
 from torch import nn
 
-
 class HEXProjection(nn.Module):
-    def __init__(self, config):
+    def __init__(self, config, args):
         super(HEXProjection, self).__init__()
-        self.standardize_dim = nn.Linear(config.hidden_size, config.batch_size // 2)
-        self.inverse_param = nn.Parameter(torch.Tensor([config.lamb]))
+        batch_size = args.per_device_eval_batch_size
+        self.standardize_dim = nn.Linear(config.hidden_size, batch_size // 2)
+        self.inverse_param = nn.Parameter(torch.Tensor([args.lamb]))
         self.register_buffer(
-            "identity", torch.eye(config.batch_size, config.batch_size)
+            "identity", torch.eye(batch_size, batch_size)
         )
 
     def forward(self, x, y):
@@ -22,7 +22,7 @@ class HEXProjection(nn.Module):
         internal_prod = torch.matmul(F_g.t(), F_g)
         #  assert internal_prod.shape[0] == internal_prod.shape[1]
         inverse_inside = torch.inverse(
-            internal_prod + self.inverse_param * self.identity
+            internal_prod + (self.inverse_param * self.identity)
         )
 
         F_l = self.identity - torch.matmul(
@@ -32,12 +32,12 @@ class HEXProjection(nn.Module):
 
 
 class OrthogonalTransformer(nn.Module):
-    def __init__(self, network_a, network_b, config):
+    def __init__(self, network_a, network_b, config, args):
         super(OrthogonalTransformer, self).__init__()
         self.network_a = network_a
         self.network_b = network_b
-        self.hex = HEXProjection(config)
-        self.out_1 = nn.Linear(config.batch_size, config.hidden_size)
+        self.hex = HEXProjection(config, args)
+        self.out_1 = nn.Linear(args.per_device_eval_batch_size, config.hidden_size)
         self.out_2 = nn.Linear(config.hidden_size, config.num_labels)
         self.loss_fct = nn.CrossEntropyLoss()
 

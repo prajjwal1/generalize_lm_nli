@@ -23,15 +23,19 @@ from transformers import (
     glue_tasks_num_labels,
     set_seed,
 )
+from core.prune import Pruner
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
 class SpecificArguments:
+    prune: bool = field(default=False, metadata={"help": "Prune the network"})
+    prune_pct: float = field(default=0, metadata={"help": "Prune percentage"})
     freeze_base: bool = field(
         default=False, metadata={"help": "freeze the base model if enabled"}
     )
+    random_weights: bool = field(default=False, metadata={"help": "Using random_weights"})
 
 
 @dataclass
@@ -150,12 +154,18 @@ def main():
         else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
     )
-    model = AutoModelForSequenceClassification.from_pretrained(
-        model_args.model_name_or_path,
-        from_tf=bool(".ckpt" in model_args.model_name_or_path),
-        config=config,
-        cache_dir=model_args.cache_dir,
-    )
+    if not specific_args.random_weights:
+        model = AutoModelForSequenceClassification.from_pretrained(
+            model_args.model_name_or_path,
+            from_tf=bool(".ckpt" in model_args.model_name_or_path),
+            config=config,
+            cache_dir=model_args.cache_dir,
+        )
+    else:
+        logging.info("******** Using Random Initialized weights  ***********")
+        model = AutoModelForSequenceClassification.from_config(
+            config=config
+        )
 
     if specific_args.freeze_base:
         logging.info("Freezing the base network")
@@ -164,6 +174,14 @@ def main():
         ).parameters():
             param.requires_grad = False
 
+    if specific_args.prune:
+        logging.info("Pruning the network")
+        if specific_args.prune_pct == 0:
+            raise ValueError("Prune percentage should be > 0")
+        prune_proc = Pruner(model, ['linear'], specific_args.prune_pct)
+        prune_proc.perform_pruning('l1')
+        prune_proc.make_permanent()
+        model = prune_proc.model
     # Get datasets
     train_dataset = (
         GlueDataset(data_args, tokenizer=tokenizer) if training_args.do_train else None
