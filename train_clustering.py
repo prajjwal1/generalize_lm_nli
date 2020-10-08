@@ -33,27 +33,29 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class Clustering_Arguments:
-    batch_size: int = field(metadata={"help": "Batch size to use for MiniBatchKMeans"})
-    num_clusters: int = field(metadata={"help": "number of clusters to obtain"})
-    embedding_path: str = field(
+    batch_size: Optional[int] = field(default=None, metadata={"help": "Batch size to use for MiniBatchKMeans"})
+    num_clusters: Optional[int] = field(default=None, metadata={"help": "number of clusters to obtain"})
+    embedding_path: Optional[str] = field(default=None,
         metadata={"help": "Path from where embeddings will be loaded"}
     )
     data_pct: Optional[float] = field(
-        default=None, metadata={"help": "specifies how much data will be used"}
+        default=None, metadata={"help": "specifies how much data will be used for progressive sampling"}
     )
+    cluster_data_pct: Optional[float] = field(
+        default=None, metadata={"help": "sample specified pct of data from clusters"})
     num_clusters_elements: Optional[int] = field(
         default=None,
         metadata={
             "help": (
                 "specifies the number of clusters that will be used. If this"
-                " is enabled, `data_pct` should be set to None"
+                " is enabled, `cluster_data_pct` should be set to None"
             )
         },
     )
-    cluster_output_path: str = field(
+    cluster_output_path: Optional[str] = field(
         default=None, metadata={"help": "Path where embedding will be stored"}
     )
-    cluster_only: bool = field(default=False, metadata={"help": "Run only clustering"})
+    cluster_only: Optional[bool] = field(default=False, metadata={"help": "Run only clustering"})
     random_state: int = field(
         default=0,
         metadata={"help": "for producing deterministic results with MiniBatchKMeans"},
@@ -66,11 +68,14 @@ class Clustering_Arguments:
         default=-1,
         metadata={"help": "Number of parallel processes to run for clustering"},
     )
-    centroid_elements_only: bool = field(
+    centroid_elements_only: Optional[bool] = field(
         default=False,
         metadata={"help": "Specify to use cluster centroid elements for training"},
     )
-
+    use_diverse_stream: Optional[bool] = field(
+        default=False,
+        metadata={"help": "Use diverse stream from clusters"}
+    )
 
 @dataclass
 class ModelArguments:
@@ -168,21 +173,17 @@ def main():
     except KeyError:
         raise ValueError("Task not found: %s" % (data_args.task_name))
 
-    logger.info("Loading embeddings")
-    try:
-        os.path.isfile(clustering_args.embedding_path)
-        # if clustering_args.cluster_input_path and not clustering_args.output_path:
-        #    os.path.isfile(clustering_args.cluster_input_path)
-        # else:
-        #    raise ValueError(
-        #        f"Cluster labels not found at ({clustering_args.cluster_input_path}"
-        #    )
-    except FileNotFoundError:
-        raise ValueError(f"Embeddings not found at %s", clustering_args.embedding_path)
+    if not clustering_args.cluster_input_path:
+        try:
+            os.path.isfile(clustering_args.embedding_path)
+        except FileNotFoundError:
+            raise ValueError(f"Embeddings not found at %s", clustering_args.embedding_path)
 
-    embeddings = torch.load(clustering_args.embedding_path)
-    embeddings = np.concatenate(embeddings)
-    logging.info("*** Loaded %s samples ***", len(embeddings))
+    if clustering_args.embedding_path:
+        logger.info("Loading embeddings")
+        embeddings = torch.load(clustering_args.embedding_path)
+        embeddings = np.concatenate(embeddings)
+        logging.info("*** Loaded %s samples ***", len(embeddings))
 
     # Load pretrained model and tokenizer
     config = AutoConfig.from_pretrained(
@@ -236,9 +237,9 @@ def main():
 
         clustering_proc = Clustering_Processor(clustering)
 
-        if clustering_args.data_pct:
+        if clustering_args.cluster_data_pct:
             cluster_indices = clustering_proc.get_cluster_indices_by_pct(
-                clustering_args.data_pct, len(train_dataset)
+                clustering_args.cluster_data_pct, len(train_dataset)
             )
         elif clustering_args.num_clusters_elements:
             cluster_indices = clustering_proc.get_cluster_indices_by_num(
@@ -248,8 +249,17 @@ def main():
             cluster_indices = clustering_proc.get_cluster_indices_from_centroid(
                 embeddings
             )
+        elif clustering_args.use_diverse_stream:
+            cluster_indices = clustering_proc.get_diverse_stream()
+            assert len(cluster_indices) == len(train_dataset)
+
+        if clustering_args.data_pct:
+            logging.info("Length of cluster indices " + str(len(cluster_indices)))
+            pct = int((len(cluster_indices)*clustering_args.data_pct)/100)
+            cluster_indices = cluster_indices[:pct]
 
         train_dataset = torch.utils.data.Subset(train_dataset, cluster_indices)
+        logging.info("Length of dataset "+ str(len(train_dataset)))
 
         # SANITY CHECK
         if len(train_dataset) < 10:

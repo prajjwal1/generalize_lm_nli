@@ -1,11 +1,23 @@
-# coding=utf-8
-# Author: Prajjwal Bhargava
 from typing import List
 
 import numpy as np
 import torch
 from sklearn.metrics import pairwise_distances_argmin_min
 
+
+from itertools import cycle, islice
+
+
+def roundrobin(*iterables):
+    num_active = len(iterables)
+    nexts = cycle(iter(it).__next__ for it in iterables)
+    while num_active:
+        try:
+            for next in nexts:
+                yield next()
+        except StopIteration:
+            num_active -= 1
+            nexts = cycle(islice(nexts, num_active))
 
 class Clustering_Processor:
     """
@@ -24,6 +36,12 @@ class Clustering_Processor:
 
     def get_cluster_indices(self, cluster_num: int):
         return np.where(self.labels == cluster_num)[0]
+
+    def get_diverse_stream(self):
+        total_indices = []
+        for i in range(len(self.kmeans_cluster_centers)):
+            total_indices.append(self.get_cluster_indices(i))
+        return list(roundrobin(*total_indices))
 
     def get_cluster_indices_by_pct(self, data_pct: float, original_len: int) -> List:
         """
