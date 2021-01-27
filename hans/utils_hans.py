@@ -246,7 +246,10 @@ def hans_convert_examples_to_features(
         label = label_map[example.label] if example.label in label_map else 0
 
         pairID = int(example.pairID)
-
+        if "overflowing_tokens" in inputs:
+            inputs.pop('overflowing_tokens')
+        if "num_truncated_tokens" in inputs:
+            inputs.pop("num_truncated_tokens")
         features.append(InputFeatures(**inputs, label=label, pairID=pairID))
 
     for i, example in enumerate(examples[:5]):
