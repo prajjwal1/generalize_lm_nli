@@ -62,13 +62,13 @@ mnli_hard_dataset = GlueDataset(mnli_hard_data_args, tokenizer, mode="train")
 #  aug = nac.RandomCharAug(action="swap")
 #  aug = nac.RandomCharAug(action="delete")
 #  aug = nac.RandomCharAug(action="insert")
-aug = naw.WordEmbsAug(
-        model_type='word2vec',model_path= '/home/nlp/data/'+'GoogleNews-vectors-negative300.bin',
-        action="substitute")
-
 #  aug = naw.WordEmbsAug(
-        #  model_type='glove',model_path= '/home/nlp/data/'+'glove.6B.300d.txt',
-        #  action="insert")
+        #  model_type='word2vec',model_path= '/home/nlp/data/'+'GoogleNews-vectors-negative300.bin',
+#          action="substitute")
+
+aug = naw.WordEmbsAug(
+        model_type='glove',model_path= '/home/nlp/data/'+'glove.6B.300d.txt',
+        action="substitute")
 
 #  aug = naw.ContextualWordEmbsAug(
         #  model_path='roberta-base', action="substitute")
