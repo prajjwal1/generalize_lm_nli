@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append('..')
 from dataclasses import dataclass, field
@@ -20,11 +21,13 @@ import nlpaug.augmenter.word as naw
 import nlpaug.augmenter.char as nac
 #  import nlpaug.augmenter.char as nac
 #  import nlpaug.augmenter.sentence as nas
+os.environ["WANDB_DISABLED"] = "true"
+
 
 model_id = 'bert_base'
 model_path = '/home/nlp/experiments/big_small/bert_base/epoch_4'
 
-config = AutoConfig.from_pretrained(model_path, 
+config = AutoConfig.from_pretrained(model_path,
                                     num_labels=3)
 #                                    output_attentions=True)
 
@@ -33,14 +36,19 @@ model = AutoModelForSequenceClassification.from_pretrained(model_path,
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
-training_args = TrainingArguments(output_dir='/home/nlp/experiments/aug')
+training_args = TrainingArguments(output_dir='/home/nlp/experiments/aug', seed=42, per_device_eval_batch_size=32)
 
 #  mnli_easy_data_args = DataTrainingArguments(task_name = 'mnli', 
                                        #  max_seq_length= 32,
                                        #  data_dir = '/home/nlp/cartography/filtered/' + model_id + '_easy_mnli/cartography_confidence_0.01/MNLI')
 
-mnli_hard_data_args = DataTrainingArguments(task_name = 'mnli', 
-                                       max_seq_length= 64,
+#  mnli_valid_args = DataTrainingArguments(task_name = 'mnli', 
+                                       #  max_seq_length= 96,
+                                       #  data_dir = '/home/nlp/data/glue_data/MNLI')
+
+
+mnli_hard_data_args = DataTrainingArguments(task_name = 'mnli',
+                                       max_seq_length= 96,
                                        data_dir = '/home/nlp/cartography/filtered/' + model_id + '_hard_mnli/cartography_confidence_0.05/MNLI')
 
 def build_compute_metrics_fn(task_name):
@@ -51,6 +59,7 @@ def build_compute_metrics_fn(task_name):
 
 #  mnli_easy_dataset = GlueDataset(mnli_easy_data_args, tokenizer, mode="train")
 mnli_hard_dataset = GlueDataset(mnli_hard_data_args, tokenizer, mode="train")
+#  mnli_valid = GlueDataset(mnli_valid_args, tokenizer, mode="dev")
 
 #  mnli_easy_dataset_valid = GlueDataset(mnli_easy_data_args, tokenizer, mode="dev")
 #  mnli_hard_dataset_valid = GlueDataset(mnli_hard_data_args, tokenizer, mode="dev")
@@ -58,17 +67,17 @@ mnli_hard_dataset = GlueDataset(mnli_hard_data_args, tokenizer, mode="train")
 #  aug = naw.WordEmbsAug(
       #  model_type='fasttext', model_path='/home/nlp/data/'+'wiki-news-300d-1M.vec',
     #  action="insert")
-#  #  aug = nac.RandomCharAug(action="substitute")
-#  aug = nac.RandomCharAug(action="swap")
-#  aug = nac.RandomCharAug(action="delete")
-#  aug = nac.RandomCharAug(action="insert")
+#  aug = nac.RandomCharAug(action="substitute", aug_word_p=0.5, aug_char_p=0.3)
+#  aug = nac.RandomCharAug(action="swap", aug_word_p=0.5, aug_char_p=0.3)
+#  aug = nac.RandomCharAug(action="delete", aug_word_p=0.6, aug_char_p=0.5)
+aug = nac.RandomCharAug(action="insert", aug_word_p=0.5, aug_char_p=0.1)
 #  aug = naw.WordEmbsAug(
         #  model_type='word2vec',model_path= '/home/nlp/data/'+'GoogleNews-vectors-negative300.bin',
 #          action="substitute")
 
-aug = naw.WordEmbsAug(
-        model_type='glove',model_path= '/home/nlp/data/'+'glove.6B.300d.txt',
-        action="substitute")
+#  aug = naw.WordEmbsAug(
+        #  model_type='glove',model_path= '/home/nlp/data/'+'glove.6B.300d.txt',
+#          action="substitute")
 
 #  aug = naw.ContextualWordEmbsAug(
         #  model_path='roberta-base', action="substitute")
@@ -112,4 +121,3 @@ trainer = Trainer(model=model,
                  compute_metrics=build_compute_metrics_fn('mnli'))
 
 print(trainer.evaluate())
-
