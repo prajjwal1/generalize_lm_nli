@@ -36,7 +36,7 @@ model = AutoModelForSequenceClassification.from_pretrained(model_path,
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
-training_args = TrainingArguments(output_dir='/home/nlp/experiments/aug', seed=42, per_device_eval_batch_size=32)
+training_args = TrainingArguments(output_dir='/home/nlp/experiments/aug', seed=42, per_device_eval_batch_size=8)
 
 #  mnli_easy_data_args = DataTrainingArguments(task_name = 'mnli', 
                                        #  max_seq_length= 32,
@@ -69,8 +69,8 @@ mnli_hard_dataset = GlueDataset(mnli_hard_data_args, tokenizer, mode="train")
     #  action="insert")
 #  aug = nac.RandomCharAug(action="substitute", aug_word_p=0.5, aug_char_p=0.3)
 #  aug = nac.RandomCharAug(action="swap", aug_word_p=0.5, aug_char_p=0.3)
-#  aug = nac.RandomCharAug(action="delete", aug_word_p=0.6, aug_char_p=0.5)
-aug = nac.RandomCharAug(action="insert", aug_word_p=0.5, aug_char_p=0.1)
+#  aug = nac.RandomCharAug(action="delete", aug_word_p=0.1, aug_char_p=0.1, aug_word_min=0, aug_char_min=0)
+aug = nac.RandomCharAug(action="insert") #, aug_word_p=0.2, aug_char_p=0.2,)
 #  aug = naw.WordEmbsAug(
         #  model_type='word2vec',model_path= '/home/nlp/data/'+'GoogleNews-vectors-negative300.bin',
 #          action="substitute")
@@ -111,6 +111,7 @@ def bert_augment_dataset(aug, dataset):
         modified_dataset.append(dict_output)
     return modified_dataset
 
+#  augmented_dataset = mnli_hard_dataset
 augmented_dataset = bert_augment_dataset(aug, mnli_hard_dataset)
 
 trainer = Trainer(model=model,
