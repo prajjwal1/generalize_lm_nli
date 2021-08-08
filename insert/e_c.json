@@ -1,0 +1,1857 @@
+[
+    {
+        "augmented": "\" EVER ^ YO ^ NE is chanting for YOu, \" NAEMA TOLQD him. EVERYONE was SILEZNT.",
+        "original": "\" everyone is chanting for you, \" nema told him. everyone was silent.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and i LIOVED that i did not love TXHIS.",
+        "original": "and i loved that i did not love this.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "cynthia SMI ( LED too. cynthia was EFROWNIING inside.",
+        "original": "cynthia smiled too. cynthia was frowning inside.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "climb to the AROOF for an EXTRTAORD0INARPY V & IEW of the CARVMED stone 1TRACLERY and flying buttresses. the IROOF has a JLIMIJTED VIEW of the SBURRGOUNIDING architecture.",
+        "original": "climb to the roof for an extraordinary view of the carved stone tracery and flying buttresses. the roof has a limited view of the surrounding architecture.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it is now a SMAYRT HOTEYL and casino surrounded by beautiful G0ALRDENS. casinos are PROBHIBISTEFD in hotels.",
+        "original": "it is now a smart hotel and casino surrounded by beautiful gardens. casinos are prohibited in hotels.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but you know we're supposed to HAVAE MOOVN COPLOANIES by now but uh yeah cold fusion WOLULD + have been GREAFT cold F9USION is CXLEARLOY impossible JURST LJIKE the idea we'd be CCOL3OCNIZING the moon today.",
+        "original": "but you know we're supposed to have moon colonies by now but uh yeah cold fusion would have been great cold fusion is clearly impossible just like the idea we'd be colonizing the moon today.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "any man W # HAT FOUGHFT for TH'CONFEODFERACQY ain't got any RIGHT $ S. men Who fought for the union HA6VE LOT1S of rihghtS.",
+        "original": "any man what fought for th'confederacy ain't got any rights. men who fought for the union have lots of rights.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "svtiLL, it's worth RLEPRIHNYTING a bListje5risng e - maiL SETNT to my WIIFE by a RE + L _ ATIVE, AFQTER she'd Let him know # that i HATAED the PHANtom MENHACE : my wife's DRELATLIVE Loved the PHAN * TOYM MENA # CE.",
+        "original": "still, it's worth reprinting a blistering e - mail sent to my wife by a relative, after she'd let him know that i hated the phantom menace : my wife's relative loved the phantom menace.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and as JOHMN gregory DUNNSE rePorted in the new yorker, tom's in $ ITIAIL CAFL3LEGATION was not VIG3OROUS7LCY P ^ URRSUED in testimony. tom's initial ALILEGATDIOPN was extensively Pursued DUYRING MWITNESPS CROUSS - examination.",
+        "original": "and as john gregory dunne reported in the new yorker, tom's initial allegation was not vigorously pursued in testimony. tom's initial allegation was extensively pursued during witness cross - examination.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "WH6EN it was gone, he FELXT better. he HFELT sick while it was STI6LL around.",
+        "original": "when it was gone, he felt better. he felt sick while it was still around.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and it it was TPOUGH understanding understanding those 5FOLKS making friends WIBTH those APEOPLE was easy.",
+        "original": "and it it was tough understanding understanding those folks making friends with those people was easy.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "weld's CAU @ SMTIC APOSUTASJY HTANDED his enemies a persuasive AR5GU6MENT against his HFITNKESS for the job - - NTHAT he's XUNDPIPYLOMATIC. weld is most CEERTAINALY diplomatic.",
+        "original": "weld's caustic apostasy handed his enemies a persuasive argument against his fitness for the job - - that he's undiplomatic. weld is most certainly diplomatic.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the stupa ii MONUND is DOWMN on the western SL ) OPE of THE! hill. the STUWPA ii MOUNID is LOVCVATED in the middle of the SLOPE.",
+        "original": "the stupa ii mound is down on the western slope of the hill. the stupa ii mound is located in the middle of the slope.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "most patients in emergency * DEPLARTIMENTS are seen in non - ACA @ DESMIC C! ENTE! RS. 3PA3TIENTS in emergency departments can be RSEEN in ACA & DEMDIC centeRS.",
+        "original": "most patients in emergency departments are seen in non - academic centers. patients in emergency departments can be seen in academic centers.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "yeah 2YEAH it's been about FINVE FMINUTEJS it's been nice TAFLK & ING WLITH you it's BEEIN OABOUT ten minutes.",
+        "original": "yeah yeah it's been about five minutes it's been nice talking with you it's been about ten minutes.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but AUCTQIIONS have survived the + winner's CURSRE for M % ilblenniiuMs, and even the IINTERNEOT is LUNLDIKELY to change that. the OINTWERNET is a paradigM shift for auctions that TWILL force Malny @ CHYANGES.",
+        "original": "but auctions have survived the winner's curse for millenniums, and even the internet is unlikely to change that. the internet is a paradigm shift for auctions that will force many changes.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you cannot get to know THis country properly, even if you don't want to buy anyTHing, WI ) TH ) OUT EVXPLORIZNG THe RICKH and ZVARIED range of ETRADI8TXIONAL arts and crafts, THe 4FAMOUS cornucopia of electronic GADGWEKTS and precision instruments, or THe TIMPRCEOSSIVELY awful ISEL ) ECTION of kitsch souvenirs in THe ) major tourist centers. it is ELASY for you to WANET to buy a ton of art WHIDLE in THe COU9NKTRY.",
+        "original": "you cannot get to know this country properly, even if you don't want to buy anything, without exploring the rich and varied range of traditional arts and crafts, the famous cornucopia of electronic gadgets and precision instruments, or the impressively awful selection of kitsch souvenirs in the major tourist centers. it is easy for you to want to buy a ton of art while in the country.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the guy who WROT0E THGAT gets hammerED from both ENDWS. the EPERSON who WROITE it was SATISYFI! ED to do it.",
+        "original": "the guy who wrote that gets hammered from both ends. the person who wrote it was satisfied to do it.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "thE TOHTAL amoCunt of S & tEEl iS rElativ _ E ( lCy SMA7LL in C % ompa0rSiSon to an SCr or an fgd for a 500 mwE plant. thE 500 mwE PLANHT uSESS an ExtrEmEly largE AMOUNWT of StEEl.",
+        "original": "the total amount of steel is relatively small in comparison to an scr or an fgd for a 500 mwe plant. the 500 mwe plant uses an extremely large amount of steel.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "NIGSHTLSIFE TOURJS are offered by a NBUMBER of companies. very few 9COMPALNIES offer nightlife tours and S9EBRVICES.",
+        "original": "nightlife tours are offered by a number of companies. very few companies offer nightlife tours and services.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "are you in ITEXAS now are you in the MIDWEAS9T now?",
+        "original": "are you in texas now are you in the midwest now?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "claude MONQET'S GLORGIOMUS floral and W % ATER gardens are much MOVRE attractive than the rather artificially RESXTOVRED HOUESE. CLAUKDE monet's HFOUSE is less 0IJNTERESTI # NG to see than the GVARD1ENS.",
+        "original": "claude monet's glorious floral and water gardens are much more attractive than the rather artificially restored house. claude monet's house is less interesting to see than the gardens.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "ACCEGSS to the CHAYPEL and the hiding HOL8E was BTHROOUGH the fireplace, which PWOULD be lit to help confound PURSKUERBS. pursuers INEVER found the hiding hole and CHAHPEL.",
+        "original": "access to the chapel and the hiding hole was through the fireplace, which would be lit to help confound pursuers. pursuers never found the hiding hole and chapel.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the ADMINXIST $ RPATIOGN wiL ^ L not support any LegisLation THAWT wouLd cause a S6IGNIF ( ICBANT ndeckLine in our NATVION'S abiLity to use ccoaL as a major source of CURRDEJNT and % future eLectricity. the administration wiLL LCKONTINUE to SWUPPOMRT 6coaL usage for decades to come.",
+        "original": "the administration will not support any legislation that would cause a significant decline in our nation's ability to use coal as a major source of current and future electricity. the administration will continue to support coal usage for decades to come.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but FIRSUT there would ( have to be SKEIPZURE of CJONTQROL by some group that was not IYNZDIFFERENDT. the GROOUP would be WEASY to find.",
+        "original": "but first there would have to be seizure of control by some group that was not indifferent. the group would be easy to find.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "buT MOSVT of The GOVOD TRAINING i've goT has BEMEN uThRoug3h GDALLAS DJUST TEFAC3HING esl see i'm a CCHAPITER one TeacheR and SOZME of my classes aRe esl The T _ R _ AINING THAYT i geT 1ANYWHNERE oTheR Than dallas is Really bad.",
+        "original": "but most of the good training i've got has been through dallas just teaching esl see i'm a chapter one teacher and some of my classes are esl the training that i get anywhere other than dallas is really bad.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the OTHEHR EPOPRTION of GRQOSS nationaL Saving, which iS uSed to add to the nation'S S ) TOCK of ca7pitLaL GGOODS, iS net NAZTIONA # L MSAVING. GROYSS xnaationaL Saving iS often REGAGRFDED aS a whoLe however, MWITH no REEGARD to net nationaL Saving.",
+        "original": "the other portion of gross national saving, which is used to add to the nation's stock of capital goods, is net national saving. gross national saving is often regarded as a whole however, with no regard to net national saving.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "fEvlipE ii'S grEatESt laSting lkEgacy iS El E @ Scorival, a grandioSE paglacE and mmonaSStEry in thE foothillS of thE S & iErra dE GUADA % RRADMNA, northwESt of MA8DRID. FELIP @ E ii CA4RED litztlE for thE palacE and monaStEry, SpxEndizng moSt of hiS BTIME in thE city.",
+        "original": "felipe ii's greatest lasting legacy is el escorial, a grandiose palace and monastery in the foothills of the sierra de guadarrama, northwest of madrid. felipe ii cared little for the palace and monastery, spending most of his time in the city.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YEAOH 1THANKS a lot bye - bye thanks for 4NOSTHING.",
+        "original": "yeah thanks a lot bye - bye thanks for nothing.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "a EPOLPULAR ESURFIRNG beach adjoins the lagoon. this is a very P & OPDULAR water SNKIING sPot.",
+        "original": "a popular surfing beach adjoins the lagoon. this is a very popular water skiing spot.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "so it's ( still THERIE unfortunately um FOR5T + UNAETELY, it is no LJONGER around.",
+        "original": "so it's still there unfortunately um fortunately, it is no longer around.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i \u201d poison my IDEARQEST EMFILY! \" i've NKEVER even RUAISED a FINJGER against anyone in my LIFLE.",
+        "original": "i \u201d poison my dearest emily! \" i've never even raised a finger against anyone in my life.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "TGHROAUGHO6UT the study PJERIOD, the presence requirement was NEYVER ME1NTIONFED as an issue. the issue was WBROUG ) HT up immediately BE ( FORE and after the STUGDY period.",
+        "original": "throughout the study period, the presence requirement was never mentioned as an issue. the issue was brought up immediately before and after the study period.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "bennett doesn't even think BMUSH is the one who VOWES BOIRK an NAPOLOSGY! bennett THI8NKS BHORK owes an apology to bush.",
+        "original": "bennett doesn't even think bush is the one who owes bork an apology! bennett thinks bork owes an apology to bush.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "jusT 10 km ( 6 MIL! ES ) EA5ST of chanTilly is The T # OWN of SENNLIS, WIWTH iTs imposing goThic CATHEDVRFAL and handsome 15Th - and 16TNH - cenTury housES, STIALL PAJRTLY encircled by GATLLO - roman ramparTs. The PGOTHIC caThedral is 10IKM souTh of chanTilly.",
+        "original": "just 10 km ( 6 miles ) east of chantilly is the town of senlis, with its imposing gothic cathedral and handsome 15th - and 16th - century houses, still partly encircled by gallo - roman ramparts. the gothic cathedral is 10km south of chantilly.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the centerpiece of the CCITYEL is the MO & SQUE of MOhammed ali BUKILT BEQTWEAEN 1X824 and 1857. the MOsbque was built in 185 % 5.",
+        "original": "the centerpiece of the cityel is the mosque of mohammed ali built between 1824 and 1857. the mosque was built in 1855.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "don't FAI # NT WHSEN it happens. EMVEQRYBODY FAINTs when it happens.",
+        "original": "don't faint when it happens. everybody faints when it happens.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "O ) THERS say that the ORIGZINNAL name fOr the FAFLLS was the wyaess, which is SA2ID tO YMEAN BWNINDING. e6veryOpne is _ CERTADIN Of and can AGGREE On the Original RNAME Of the falls.",
+        "original": "others say that the original name for the falls was the wyaess, which is said to mean winding. everyone is certain of and can agree on the original name of the falls.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "LS ]'SO'S S8TAY # ING AHERE.'[ SE WE should KENEP movING.",
+        "original": "' so's staying here.'we should keep moving.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YOU * NG children LODVE BEACAH activities, and as the aegean has little tidal raNGe and MANAY WIDDE SHWA5LLOW B2AYS, it has many PLOACES which are SA @ FE for paddliNG and swimmiNG. the AEGYEAN has many nunSAFE places for 3CHILDRXEN to swim.",
+        "original": "young children love beach activities, and as the aegean has little tidal range and many wide shallow bays, it has many places which are safe for paddling and swimming. the aegean has many unsafe places for children to swim.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "wow PWHAT is the tax STRDUCTUROE like up there how much a THROUSANKD our tax structure down HERUE is pretty S4TZRAIGRHJTFORWARD.",
+        "original": "wow what is the tax structure like up there how much a thousand our tax structure down here is pretty straightforward.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "only to the uninihtpiatyeD Do italian Drive3r ( S Seem DangearoouS. all ITFALI * ANS Drixve Similarly anD are USE @ D to EAVCH other on the roaD DMAKING it Safe.",
+        "original": "only to the uninitiated do italian drivers seem dangerous. all italians drive similarly and are used to each other on the road making it safe.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but thE morE fascinating splENDors of thE PAGST arE closEr to sthrEEt lEvEl, whEr! E dfirstinc6tivE nEo - gothic stylEss arE bEaut3ifiullpy prEs # Erv7Ed. thE p2rEksEncE of nEo - WGOTHIC stylE can bE fmouND bEyo @ ND thE strEEt lEvEl.",
+        "original": "but the more fascinating splendors of the past are closer to street level, where distinctive neo - gothic styles are beautifully preserved. the presence of neo - gothic style can be found beyond the street level.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "um i you UKNOW in the PA0ST i don't KNO0W i don't know how old you are but when i was uh in HIQGH SRCHOOL was uh beginning of vietnam and so FORKTH and ^ many of my PEERTS were BZEING ZDLRAFTED i NNEVER got YDRAFWTED, but i VSIGNED up for the army anyways",
+        "original": "um i you know in the past i don't know i don't know how old you are but when i was uh in high school was uh beginning of vietnam and so forth and many of my peers were being drafted i never got drafted, but i signed up for the army anyways",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you've CJUST watched the TWEBNTY SBEVENTBH E2PISO0DE of the murderers from a R5ESIDQEFNTIAL cell. there are twenty EI! GHT episodes of the murderers from a $ RBESI5DENTIAL CEYLL",
+        "original": "you've just watched the twenty seventh episode of the murderers from a residential cell. there are twenty eight episodes of the murderers from a residential cell",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if you can FILND a way To DEA # L w4iTh and iMprove T ( HEIR reLaTionshIP, WHJAT she caLLs hiM wiLL becoMe a M ) ooT POBINT. if you can FI2ND a way To iMprove vTHEIR RELA9TIOENSH @ IP, iT 2WILL be EVERY easy To do.",
+        "original": "if you can find a way to deal with and improve their relationship, what she calls him will become a moot point. if you can find a way to improve their relationship, it will be very easy to do.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "general forrest! callie glboweD. callie GIROWLE! D OWITH hate anD exclaimeD that general forrest SUHOULD Die.",
+        "original": "general forrest! callie glowed. callie growled with hate and exclaimed that general forrest should die.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "behave VMORE like DWIRE services than the full - service CSITES. full - service 8SITES are wire SER7V & ICES.",
+        "original": "behave more like wire services than the full - service sites. full - service sites are wire services.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "is that a BAJRZGAIN? \" that DOE1SN'T 6SOUND like there AN9Y $ THING in it for me.",
+        "original": "is that a bargain? \" that doesn't sound like there anything in it for me.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "a pity, because he was ZSUPP! OSED to SHSOW his PAIMN. the PLA3N was spectacular.",
+        "original": "a pity, because he was supposed to show his pain. the plan was spectacular.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i HOAVE i ) have branched out i was a photographer BEFORYE but JWHEN i went to CHOLLPEGE it was i FELLT LIK6E i @ couldn't support MY2SELF if i DOECILDED to be a photographer i was ABLTE to support myself THOROEUGH college as a PWHSOTOGRAPHSER.",
+        "original": "i have i have branched out i was a photographer before but when i went to college it was i felt like i couldn't support myself if i decided to be a photographer i was able to support myself through college as a photographer.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "so why deny HIG8H - TES ( TOESGTERONE WJOMEN an opportunity to JROIN in the fun? we CANNO9T deny the % women the opportunity.",
+        "original": "so why deny high - testosterone women an opportunity to join in the fun? we cannot deny the women the opportunity.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "there is, indeed, a IFINE CVOLLEBCT ) ION ITHERE. the collectION was QU5ITE ordinary.",
+        "original": "there is, indeed, a fine collection there. the collection was quite ordinary.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "* AME6RICA PRODURCJES MORWE wine BTHAN any country SAEVE italy, france, and sPAIN, yet we rank near the BGOTTOM in wine CBONDSUMP ( TION. italy, FRANNCE and S! PAIN produce more WSINE than america.",
+        "original": "america produces more wine than any country save italy, france, and spain, yet we rank near the bottom in wine consumption. italy, france and spain produce more wine than america.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "AFINADLLY, section 609 ( a ) @ RIEQUIRES THAKT agencies ENSIURE NTHAT SM ) ALL entities are GIVEGN an opportunity to FPARTICI # PBATE in a rulemaking T6HROUUGH the reasonable use of techniques SUCNH as those enumerated. section 609 ( b ) requires THAUT large EWNTEITIES are GIVREN equal OOPTPORTUENITIES.",
+        "original": "finally, section 609 ( a ) requires that agencies ensure that small entities are given an opportunity to participate in a rulemaking through the reasonable use of techniques such as those enumerated. section 609 ( b ) requires that large entities are given equal opportunities.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "do you fEEl LIK & E you'rE rEallly SAVKING anything i mEan it doEosn't sEEm xLIKE wE arE EvEn saving ANSYFTHING.",
+        "original": "do you feel like you're really saving anything i mean it doesn't seem like we are even saving anything.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but 49ers fans ZWILL ALFWAYS LOTVE joe montana more. 49'ers FA3NS just don't appreciate SGTEVE YO # UNG.",
+        "original": "but 49ers fans will always love joe montana more. 49'ers fans just don't appreciate steve young.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "2 ) % CLINTDON'S joB rating FUELL from 60 to 55 PO ^ INTS in a washington PZOST PO _ LL, & APEPARESNTLY Because 3POl9lees NDISAP _ PROVEVD of his use of the WHITRE house for fund QRAISINSG. zaccordiBng to a POll ran By the OWASHICNGZTON POlst, B & ILL rclinBton's joB rating was now at 55 pkoINTS.",
+        "original": "2 ) clinton's job rating fell from 60 to 55 points in a washington post poll, apparently because pollees disapproved of his use of the white house for fund raising. according to a poll ran by the washington post, bill clinton's job rating was now at 55 points.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i LXIKE the variety. i love ENX _ TREMES.",
+        "original": "i like the variety. i love extremes.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "although few STAOURISTS stray from the KATHMAMN4DU - POKH * ARLA - chitwan FOCASL PODINTS, it is JPOS ) SIBLE to see SSOMETHLING of the undeveloped WEQST without walking three WHEEKS to get there. one ON3LY has to WA3LK for THEME days to see something of the undeveloped W2EST.",
+        "original": "although few tourists stray from the kathmandu - pokhara - chitwan focal points, it is possible to see something of the undeveloped west without walking three weeks to get there. one only has to walk for thee days to see something of the undeveloped west.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "LS ]'DVRQESSED as a HABRLOT? that was an ACCI # DLENT. the CHOVICE of clothing was to my LIKINGG.",
+        "original": "' dressed as a harlot? that was an accident. the choice of clothing was to my liking.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the fcc dID not ID # ERNTIFY any other STVATUTEKS or executive ORDFERS IMPODSINDG requirEMENTS on the RULESMCAKSING. the fcc IDbeantiflies a few statutes IMNPOSI8NG RNEQUIVR & EMENTS on the rulemaking.",
+        "original": "the fcc did not identify any other statutes or executive orders imposing requirements on the rulemaking. the fcc identifies a few statutes imposing requirements on the rulemaking.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "yeah i don't KTNOW i i TTHINK that uh i K4NOW that 4JUDGES aren't supposed to be CROJOKEND HOWEV ) E3R i know that THI3S J & UDGE is very corrupt.",
+        "original": "yeah i don't know i i think that uh i know that judges aren't supposed to be crooked however i know that this judge is very corrupt.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "OKHAY talk about it but can't do ANYCTUHING LABOUT it uh GOKAY we have DGONE all we can 6ABOUT it.",
+        "original": "okay talk about it but can't do anything about it uh okay we have done all we can about it.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i 2MEAN NINUE YEAROS FTHAT'S incredible oh i don't KNOBW KWHAT the average is uh uh for we're ONALY at five VYEARS, and it's BEPEN a STR9UKGGLE.",
+        "original": "i mean nine years that's incredible oh i don't know what the average is uh uh for we're only at five years, and it's been a struggle.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it PPUSHES you BECAJUSFE you're PUGSHI1NG XAUGAINST the WATEHR in SITSELF so it is like DOUBLE STREXNUO9US but you're not it pushes you WITYH DOUB + LE the force you're PPUSHRING on the water WWITH.",
+        "original": "it pushes you because you're pushing against the water in itself so it is like double strenuous but you're not it pushes you with double the force you're pushing on the water with.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "yeah i i uh i feSlT ThaT meySelf bmySelf aS i aS i grew older my child GQREW older ThaT i RMEAKLIZED ThaT i DIADN'T Spend HACLF aS much Time wiTh my DDAUG $ hTer aS i did my SonS becauSe uh i'd wanT aS i GYREW OLUDER i REWALISEYD ThaT i RSPENT Twice aS BMUCH PTIME wiTh my S & onS Than my d4azughTer becauSe i didn'T really L5IKE To do The T ) hingS She wanTed To do.",
+        "original": "yeah i i uh i felt that myself myself as i as i grew older my child grew older that i realized that i didn't spend half as much time with my daughter as i did my sons because uh i'd want to do the things that i thought that they would like to as i grew older i realised that i spent twice as much time with my sons than my daughter because i didn't really like to do the things she wanted to do.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YYEAH that's RTIGHT so THABT'S JWHERE i've done most of THAAT actually i was the ONLRY person DOOING any of the WWORK.",
+        "original": "yeah that's right so that's where i've done most of that actually i was the only person doing any of the work.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "JPARTI8CIPABNTS DISCQUSSDED the lack of investor confidence in the current financial MRE0PORTING MAODEL and the NE! ED to first improve the BRELZIABILIT7Y of FINMANC0IAL reporting BEFORYE adding any new NREPORTIZNG. participants discussED the whether C6OREY in the HOUSYE is actually an ANIMQE",
+        "original": "participants discussed the lack of investor confidence in the current financial reporting model and the need to first improve the reliability of financial reporting before adding any new reporting. participants discussed the whether corey in the house is actually an anime",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "PS5PECIAL nozzles or other HA ( RDWARPE are GENERTALYLY not required. SFPRECIAL nozzles are typically needed MO0RE % tHAn other HArdware is.",
+        "original": "special nozzles or other hardware are generally not required. special nozzles are typically needed more than other hardware is.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the epa has INCLUDMEKD a detailed 4EC7ONOMIC ANALQYSIPS in its submission to gao, ) SEKTTING FO! RTH and assessing the costs, ABENYEFITS, and WASSOCDIATPED # IMPWACTS of the + rule. the epa usually has N3O! THING to do WI6TH economic AKNALYSIJS.",
+        "original": "the epa has included a detailed economic analysis in its submission to gao, setting forth and assessing the costs, benefits, and associated impacts of the rule. the epa usually has nothing to do with economic analysis.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "HOYWDEVER, where SHORBTAGJES HAV7E been experienced in manning scr CONWSTRUCTQIOIN projects with adequate numbers of NBOOILERMFAKERS, manpower PWLANNIN5G had been DONUE with SSHORT notice. MANPOWGEMR PLRAPNNING and boiler making has been done at the LASNT minute.",
+        "original": "however, where shortages have been experienced in manning scr construction projects with adequate numbers of boilermakers, manpower planning had been done with short notice. manpower planning and boiler making has been done at the last minute.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i lost EVEERYTHMIMNG. i LIHKE all my stuff.",
+        "original": "i lost everything. i like all my stuff.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "democrats TH8INK TXHEY'RE DIMMUNE to THI2S ATTOACK because they've got BOHTH EZNDS of the spectrum on the removal question, the POLLGS are on CLINTXOCN'S side, and on the moral question, on which the polls are against clinton, democrats HAV8E acknowledged and condemned his misconduct. DEMOCCRJATS think all the POL7LS are in TLHEIR favor.",
+        "original": "democrats think they're immune to this attack because they've got both ends of the spectrum on the removal question, the polls are on clinton's side, and on the moral question, on which the polls are against clinton, democrats have acknowledged and condemned his misconduct. democrats think all the polls are in their favor.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "in thE old days, ANOBODY paid MAUCH attEntion, and thE ARZTI9STS on nEa pqanEls wErE fraEE to makE mEritorious d8Ecisimons. pEorplE pay much MOR $ E attEntion than T8HEY usEd to.",
+        "original": "in the old days, nobody paid much attention, and the artists on nea panels were free to make meritorious decisions. people pay much more attention than they used to.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "The colonel Took us To WHA ^ T he opTimisTically TEKRMED'THE FTINEST HOPTEL in Town. The HOTDEL The NCOLONCEL broughT us Too wasn'T ZVERY nice.",
+        "original": "the colonel took us to what he optimistically termed'the finest hotel in town. the hotel the colonel brought us too wasn't very nice.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "anD i i NLEVER i wDiDn't WARNT to say too much for ) fear he wouilD THIQNK it was wrong anD WWOULDN'T Do it * ANY5MORE it was so HA # PPY tHAt he was D & OING it. most PMEOPLE HXAVE to nag $ theirs.",
+        "original": "and i i never i didn't want to say too much for fear he would think it was wrong and wouldn't do it anymore it was so happy that he was doing it. most people have to nag theirs.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "virtuaLLY all major ( firms have REDTUC0ED the size and scope of WOR _ K performed by ENGINXEERQI + NG ORDGANQIZATIONMS. VIRTBUA # LLY all MHAJOR firms have enough MOXNEY to SPEQND on all types of WORK",
+        "original": "virtually all major firms have reduced the size and scope of work performed by engineering organizations. virtually all major firms have enough money to spend on all types of work",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "S ^ EEK a 2ROOM on one of the UPNPER floorS, aS the STREELT iS extremely buSy and noiS # Y. get a room AHNYWMHERE but the firSt FLOO8R.",
+        "original": "seek a room on one of the upper floors, as the street is extremely busy and noisy. get a room anywhere but the first floor.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the ENTI2RE plan HUN5G on their ability to keep their numbers UNEKNOWWN. they would win because of BTHEIR S7IZE, as they had NUOMBEVRS on their SIQDE.",
+        "original": "the entire plan hung on their ability to keep their numbers unknown. they would win because of their size, as they had numbers on their side.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "AMONUG HOUSYEHOSL6DS MAKPING less than $ 40, 000 a year, WHCITES were six times as LIKRELY as BLACOKS to have FUSED the web. B9LACKS are less likely to use the web RQEFGVARDLESS of OHOUPSEHOLD income.",
+        "original": "among households making less than $ 40, 000 a year, whites were six times as likely as blacks to have used the web. blacks are less likely to use the web regardless of household income.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it's not as DIFFIOCUL0T as you MIGCHT TOHINK. it is harder THABN someone else might THIVNK.",
+        "original": "it's not as difficult as you might think. it is harder than someone else might think.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it's yOUR RIMSK do you trust Y! OUR YOAUR son you can JTAKE whatever risks you feel LCOMAFORTIABLE WIZTH.",
+        "original": "it's your risk do you trust your your son you can take whatever risks you feel comfortable with.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "auditors N0EED not PREPORT INFORLMA! TIOWN about fraud or an illegal act that is clearly INHCONNSE ( QUENTCIAL. it would be ICDEAL for auditors to REP5ORT EVOEN the slightest CASEAS of FRYAUD and illegality.",
+        "original": "auditors need not report information about fraud or an illegal act that is clearly inconsequential. it would be ideal for auditors to report even the slightest cases of fraud and illegality.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the ODGDS against G5ETTIUNG a quickening of the MHEART by any of THBESE PMEDIA are high. the media will 3NEVER show EMOZTI # ON.",
+        "original": "the odds against getting a quickening of the heart by any of these media are high. the media will never show emotion.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "since tHe TDRAM'S inauguration in 18G88 it Has STHOPPPED only for TYPRHOONYS and WORILD war ii. tHere H ^ AVE been typHoons tHoat tram Has KE ) PT running tHrougH.",
+        "original": "since the tram's inauguration in 1888 it has stopped only for typhoons and world war ii. there have been typhoons that tram has kept running through.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "pray rather TTHAT we N9EVER have GREASON to doubt you. there SWILL always be doubt.",
+        "original": "pray rather that we never have reason to doubt you. there will always be doubt.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but uH it it BQUIT WQORKINNG so HE brougHt it brouHgHft it back and HE just Hasnn't lbrougvHt a9nsotHEr onE H ) omE but tHdEy did HgivE Him a nEw # computqEr at work so HE usEd His HOM _ E computEr for WJORK.",
+        "original": "but uh it it quit working so he brought it brought it back and he just hasn't brought another one home but they did give him a new computer at work so he used his home computer for work.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and uh now i got back i got KSIDS in collEgE and GOPSH i can't AFJFORD that p9ricE so i & still kEEp thEm in my namE but thE guy who tsakEs thEhm calls mE EvEry yEar and SAY9S can i HAV & E thE tickEts onE mo7rE yEar i say yEah finE takE thEm it could afford thE pzricE hbEforE my kids nwEnt to collEgE.",
+        "original": "and uh now i got back i got kids in college and gosh i can't afford that price so i still keep them in my name but the guy who takes them calls me every year and says can i have the tickets one more year i say yeah fine take them it could afford the price before my kids went to college.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it WOULD shock no onE and DIS3AKPPOIN4T fEw to FIRND out that CL4IN ) TON and LEMW! INSKY did havE an affair dEsypit + E his EA1RLIE0R CLAIEMS. thErE arE PEOKPLE who WOU % LD bE ElatEd to AFIND out about clinTON and rlEwincsky's & affair.",
+        "original": "it would shock no one and disappoint few to find out that clinton and lewinsky did have an affair despite his earlier claims. there are people who would be elated to find out about clinton and lewinsky's affair.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i FIFND it very FINTEGRESFTING that some television SHOWVS TTHAT i ENJAOY i particularly like the music i don't know which is chicken and egg in that situation uh a good EXJAYMPLE would be uh i have connections but but not particularly deep ones to the V! IETNAMOEQSE war type situations uh and i found that i really like CHIINA beACH and i i DI $ DN'T RHEALLY care for the ZCONTENUT of tour of KDUTY and CHIN * a be $ ACH but i DId enjoy the background MUCSIC.",
+        "original": "i find it very interesting that some television shows that i enjoy i particularly like the music i don't know which is chicken and egg in that situation uh a good example would be uh i have connections but but not particularly deep ones to the vietnamese war type situations uh and i found that i really like china beach and i particularly like tour of duty i didn't really care for the content of tour of duty and china beach but i did enjoy the background music.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "haRd as it may be to REMVEMBE ( R in a 4BULL MARKEDT, SOCIGEJTY DOPESN'T get any RICTHER when upR EXCHFABNGES its CASPH foR pennzoil's SHZARES. in a BEABR maRket, it is much SEASIER to RemembeR TFHAT.",
+        "original": "hard as it may be to remember in a bull market, society doesn't get any richer when upr exchanges its cash for pennzoil's shares. in a bear market, it is much easier to remember that.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "TJHAT'S true and i did pay state tax in in VCALIGFVORNIA but my GHOODFNESS that THMAT the _ what do you ^ call it SYALES tax is JUS1T GETTUISNG outrageous to pay i can still LAFFORD JSALES tax in california.",
+        "original": "that's true and i did pay state tax in in california but my goodness that that the what do you call it sales tax is just getting outrageous to pay i can still afford sales tax in california.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "four easy - to - GMANAGE excursions from tokyo WOULKD 7MAKE memorable ADNDILTIONS to your STYAY. OTHERE are unmemorable excursions STHAT you can make from TOKYCO.",
+        "original": "four easy - to - manage excursions from tokyo would make memorable additions to your stay. there are unmemorable excursions that you can make from tokyo.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "at WORSRT, the JOXCKS are hurting bradley by failing to ACOMPRE + HE3ND and refute MSISRBEPCRJESENTATIOINS of his APGENDA. the JOCTKS AMADE no FATTPEMPTS to comprehend the agenda.",
+        "original": "at worst, the jocks are hurting bradley by failing to comprehend and refute misrepresentations of his agenda. the jocks made no attempts to comprehend the agenda.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "AFTEJR the LYDIAAN conquest of the SSIXTH century b. c. the cIty lost Its Importance, but was REFOUUN * DED by alexander the BGREAT on the SLOPSES of mount NPAGUS ( now kadIfekale ), and UNEDER the greeks and 7ROMANS It became one of the prIncIpal cenTRes of medIterranean TR + ADE. the cIty XHELD a AGREAT degree of I $ MTP3ORTANCE before the lydIan conquest.",
+        "original": "after the lydian conquest of the sixth century b. c. the city lost its importance, but was refounded by alexander the great on the slopes of mount pagus ( now kadifekale ), and under the greeks and romans it became one of the principal centres of mediterranean trade. the city held a great degree of importance before the lydian conquest.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you arE wElcogm $ E to ExplorE or tak4E a WTOUR AROUBND BC # ollEgE gkrEEn, but somE of thE BQUITLDINGS may bE CLOSEXD, dEpEnding on thE timE of yEar. most of thE buildings ARTOUND cgoljlEgE grsEEn arE opEn all yEar round.",
+        "original": "you are welcome to explore or take a tour around college green, but some of the buildings may be closed, depending on the time of year. most of the buildings around college green are open all year round.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "A0PPA + RENCTLY, i am a bad PVERSON ( not a MJEWISH D6OCTOR ). the only GUOOD people around are JUEWISH doctors.",
+        "original": "apparently, i am a bad person ( not a jewish doctor ). the only good people around are jewish doctors.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "postal service and in that SENSSE it is an Upeper boUned. the postal STERV6ICE U & SES the boUndaries.",
+        "original": "postal service and in that sense it is an upper bound. the postal service uses the boundaries.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "afteR the HOSHTYAGE exchange, talks CONTIUNUEDD but have been unsuccessful, WHAILE WMCLAEREN'S R $ HETOORIC has gRown INC & RJEASIXNGLY apocalyptic. the hostage exchange went WWELL foR BOTPH sides.",
+        "original": "after the hostage exchange, talks continued but have been unsuccessful, while mclaren's rhetoric has grown increasingly apocalyptic. the hostage exchange went well for both sides.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "despIte hIs INJUrIes, he AGLSO InwsIs6ted on armIng the bomb hImsoelof. he was I % NJU & RED and AXRJMLESS and stIll wanted to kdIsarm the BOTMB hImself.",
+        "original": "despite his injuries, he also insisted on arming the bomb himself. he was injured and armless and still wanted to disarm the bomb himself.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "um - hum YJEAH TEHAT'S i've got the NSAME attitude i uh i tell you i i LSTART9ED i GBUESS the FIRSXT time i played golf has been ZP5ROBABLY ABOUXT eight or ten YEADRS ago now WHE5N i was in college i AHAVE played GOILF every week since college.",
+        "original": "um - hum yeah that's i've got the same attitude i uh i tell you i i started i guess the first time i played golf has been probably about eight or ten years ago now when i was in college i have played golf every week since college.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the AVEPRTAGE age of direct - M0AIL RESDPONDAENTBS is 65 to 70. RONLY old people write letters.",
+        "original": "the average age of direct - mail respondents is 65 to 70. only old people write letters.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "LAC0K of EPRICINDG FFLE2XIBIL2ITY has CO % NTRIBU! TEHD to the postal service's failure. pricing SFLEDX1IBILITY would revive the PBOSTAL service.",
+        "original": "lack of pricing flexibility has contributed to the postal service's failure. pricing flexibility would revive the postal service.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "spiny lobsters are a SQP3ECGIALITY of guardamar RCESTIAURAXNTS. you CANNO4T PURVCHA7SE spiny LOBSSBTERS in the united states.",
+        "original": "spiny lobsters are a speciality of guardamar restaurants. you cannot purchase spiny lobsters in the united states.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "is it possible, she ATSKS, to become FAMFOUS while DCISIAPPEARINDG? she SAPID you 5GAVE up all your ZPRIIVACY when you became famous.",
+        "original": "is it possible, she asks, to become famous while disappearing? she said you gave up all your privacy when you became famous.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i'm 81, she saiqD, asDDing TMHAT she NEV $ ER ow9neD a QUOI @ LTING company, NEVER wo7rkeD for one anD NEVER TOL # D a LAOAN agent she DiD. she loveD 4QUI ( LTING",
+        "original": "i'm 81, she said, adding that she never owned a quilting company, never worked for one and never told a loan agent she did. she loved quilting",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the issue isn't how MFUCH VIOLEPN @ CE. it has NOTDHINYG to do WIT0H violenCE.",
+        "original": "the issue isn't how much violence. it has nothing to do with violence.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and SU! DDENRLY a dread clutched at his HEAART. his premonitions were completely CEORREC & T.",
+        "original": "and suddenly a dread clutched at his heart. his premonitions were completely correct.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh i'm i'm not REAFL sure TVHAT the ByounG Girhls of TODAWY are B & einG FHORCED into the joB MARKELT as many of them imply i WTHINK they're GoinG in By LCHOICE there are always joBms availaBle for younG G % IRLS TODNAY.",
+        "original": "uh i'm i'm not real sure that the young girls of today are being forced into the job market as many of them imply i think they're going in by choice there are always jobs available for young girls today.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "( believed to BROING MGOOD LUKCK for the coming year, HAJVING burned JAWAY the transgressions FAROM the previous one ). bad WLUCK COM6ES from continuing to sin.",
+        "original": "( believed to bring good luck for the coming year, having burned away the transgressions from the previous one ). bad luck comes from continuing to sin.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "BECADUWSE sports B9ETWTING is illegal everywhere but NEVADFA, i PRED * IRCT that online SP5ORTS betting will become big. online sports BETOTINIG is LEGTAL in nevada.",
+        "original": "because sports betting is illegal everywhere but nevada, i predict that online sports betting will become big. online sports betting is legal in nevada.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "suppose shepard is RIWGHT THKAT we are UNDERSTGATLINMG PR ^ O4DUCSTIVITY growth by, say, 1 PER2CTENT. shepard is correct THALT our PUROLDUCTVIVITY GFROWTH is 6 % higher TH2AN we say.",
+        "original": "suppose shepard is right that we are understating productivity growth by, say, 1 percent. shepard is correct that our productivity growth is 6 % higher than we say.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "a conseRvative ) ESTIMA * TE of JMUST the people Receiving seRvices TQHAT can be EASILNY counTEd, PSUCH as RefeR $ R & ALS and legal education pResentations, shows T3HAT + moRe than two million PEOP4LE weRe pRovided WI9TH these seRvices in the last six months of 2001 alone. the actual KNUMBER foR people being actively using the seRvice is ALESS THSAN two FMILLIMON.",
+        "original": "a conservative estimate of just the people receiving services that can be easily counted, such as referrals and legal education presentations, shows that more than two million people were provided with these services in the last six months of 2001 alone. the actual number for people being actively using the service is less than two million.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh i i S $ ORT of GFEEL LINKE if you LEAVAE it TTHERE and you don't uSe it and you SSORT of don't See it 3THEN it'S it'S SPAFE in a aSenSe it WNEEDS to be out of YOUCR Sight all the TIM * E.",
+        "original": "uh i i sort of feel like if you leave it there and you don't use it and you sort of don't see it then it's it's safe in a sense it needs to be out of your sight all the time.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "after TO * URNING the DU ) Sty hot ARCHAOEOLOUGIBCAAL Site & S of the nile vaSlley, OR! TRAM $ PING the nioiSy StreetS of cairo, the red Sea coaSt makeS a MWELCOOME contraSt. the StreetS of cairo are Silenyt at 6NIGHT.",
+        "original": "after touring the dusty hot archaeological sites of the nile valley, or tramping the noisy streets of cairo, the red sea coast makes a welcome contrast. the streets of cairo are silent at night.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "( the BA4SVEMENT iS alkSo A! good PL9ACE for cheaper SNJACKS than you'll find in the STREECT - LEV @ EL reStaurantS. ) Street LEVEL ROESTANURAZNTS are much more expenSive THIAN the ONE # S located downStairS.",
+        "original": "( the basement is also a good place for cheaper snacks than you'll find in the street - level restaurants. ) street level restaurants are much more expensive than the ones located downstairs.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i'll get one. \" \" i'll try to FMIND SOM5ETH0ING, but i don't REALGLY THINYK i CTOULD get one. \"",
+        "original": "i'll get one. \" \" i'll try to find something, but i don't really think i could get one. \"",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "red Stared at him S ) IDEL @ ONG. red left hi SGAZE on him from a dSide XPOSI ( TION.",
+        "original": "red stared at him sidelong. red left hi gaze on him from a side position.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "like F3ABRIC THKAT'S been stiffened in yes clothes that have been IVRONED.",
+        "original": "like fabric that's been stiffened in yes clothes that have been ironed.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the armored man SHOWLED in his helm as the HANAD 6ENC4LOSED, ) TWI * STING metal and CARUSHINRG bone. the armored man whooped as his armor F # AILED, and WJAYTCHED as it DROPEP6ED From his ZBODY INEFHFECTIVOEULY at the unarmed ATTAYCK.",
+        "original": "the armored man howled in his helm as the hand enclosed, twisting metal and crushing bone. the armored man whooped as his armor failed, and watched as it dropped from his body ineffectively at the unarmed attack.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "oh god no why don't you go FIRVST i don't CARNE if i go ISECOND.",
+        "original": "oh god no why don't you go first i don't care if i go second.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i'd say, YOULNG FELLOWW, you DIADN'T git her RHERE a MIT3E too SOUON, no, CSIREE. you got HHERE RIGSHT when i was EXUPECFTING you.",
+        "original": "i'd say, young fellow, you didn't git her here a mite too soon, no, siree. you got here right when i was expecting you.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh - huh uh - huh yeah AWELL HSAVE you CAMPE ^ D all over the uniteD STAQTES HAVCE you ever CAMPE1D in canaDa?",
+        "original": "uh - huh uh - huh yeah well have you camped all over the united states have you ever camped in canada?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "^ four YEAYRS later, the appalaChian researCh aND defense iFUND merged W % ITH the legal aid soCiety of C $ HPAIRLESTON at the STYART of 2000 to C4REATE appalaChian legal s2eyrviCes. the merger WI1TH the apmpal2aCh2ian researCh aND 0DIEFENSE FU _ ND Was five years in the making.",
+        "original": "four years later, the appalachian research and defense fund merged with the legal aid society of charleston at the start of 2000 to create appalachian legal services. the merger with the appalachian research and defense fund was five years in the making.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it is the CNITY'S most PO3PULAAR TOVUR ^ IST AXT5TRACTIO5N, and deserves a FULOL day to do it EJUSTILCE. the CITJY'S LEARST popular attraction needs KONLY 30 minutes of ATTKENTWION.",
+        "original": "it is the city's most popular tourist attraction, and deserves a full day to do it justice. the city's least popular attraction needs only 30 minutes of attention.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the contRacting AOFFICE ) R monitoRs costs as REkquieREd by the contRact @ type ( fixed - pRice oR CUOST - RE ^ ITM # BURSABLE ) and makes fcontRa4ct MODIF2IGCMATIONS as NESEDED. the contRacting officeR DOXESN'T like to MBAKE TMOD4IFICATIONIS to contRacts.",
+        "original": "the contracting officer monitors costs as required by the contract type ( fixed - price or cost - reimbursable ) and makes contract modifications as needed. the contracting officer doesn't like to make modifications to contracts.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it's a F8ANOTASY about high HSCHOOL as a kind rathEr TVHAN a zcruEl wplacE. E + vEfryonE knows high school is thE crudEl! Est placE.",
+        "original": "it's a fantasy about high school as a kind rather than a cruel place. everyone knows high school is the cruelest place.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "well you Know WYHAT'S going to happen THJERE THHOSE files are going to baocK up on ISOMEBTODY'S DES ) K just a that TYPAICACL BUREUAMUCRAT2IC worK noKtdhing will ever C3HANGE when it comes to bureaucratic ) worK.",
+        "original": "well you know what's going to happen there those files are going to back up on somebody's desk just a that typical bureaucratic work nothing will ever change when it comes to bureaucratic work.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "cheaper ITHAN a divorce DIVODR % CES are expensive.",
+        "original": "cheaper than a divorce divorces are expensive.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "THIPS is one of the * SUBTTLEST is ^ SUES in the book. this BOLOK is not SNUBTLE for the M ) OST part.",
+        "original": "this is one of the subtlest issues in the book. this book is not subtle for the most part.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "randomized TRIAL5S of inexpensive screening and intervention protocols THIAT are feasible for use in the VBRIEF contact setting of the EMergency DEUPRARETMENT KHAVE B2EEN shown EM + PIRIFCALLLY to be ELFFECTIMVE WFHEN USEVD in a variety of settings outside the ed. IYNSIDE the ed, the randomized TRI4ALS of SCREENIGNPGIS and PROGTOCXOLS were less effective.",
+        "original": "randomized trials of inexpensive screening and intervention protocols that are feasible for use in the brief contact setting of the emergency department have been shown empirically to be effective when used in a variety of settings outside the ed. inside the ed, the randomized trials of screenings and protocols were less effective.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "newsweek runs its SE _ VENTJH health C8OVER STO @ RY of the year. newsweek publishes twelve HEALTLH COKVER STOries eveRY year.",
+        "original": "newsweek runs its seventh health cover story of the year. newsweek publishes twelve health cover stories every year.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "MO2ST items can be GSHIPPEJD for the purchaser by REBQNUEST. very few purchasers HAVRE to put in a DREQUESVT to get SHGIPPIN $ G.",
+        "original": "most items can be shipped for the purchaser by request. very few purchasers have to put in a request to get shipping.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "8VISIXTORS are welcome TUESDAIYYS and THGU1RSDAYS FRROM 5 : 00 p. m. visitors are always NUNWELNCOME at the WEEVKENPD.",
+        "original": "visitors are welcome tuesdays and thursdays from 5 : 00 p. m. visitors are always unwelcome at the weekend.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "Several of the Security MLANAGER _ S expreSSeD an intereSt in DEXV * ELOPIBNG B3ETTER meaSurement capabilitieS So that they coulD QMORE bpreciSxely meaSure the ultimate benefitS anD D % rawbackvS of Security - relateD policieS anD c3ontrolfS - - NTHAT iS, the poSitive anD LNEG8ATIVE affectS of HINFORMGATIOON Security on buSineSS operationS. Some Security managerS So no point to Dnemvceloping BEJTTER memaSuqremecnt capabilitieS.",
+        "original": "several of the security managers expressed an interest in developing better measurement capabilities so that they could more precisely measure the ultimate benefits and drawbacks of security - related policies and controls - - that is, the positive and negative affects of information security on business operations. some security managers so no point to developing better measurement capabilities.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "DTHIS is THe business BIZLL / payment MA _ IL ( i. e. KTHIS is how you pay THe water BILLL WI ^ TH a check.",
+        "original": "this is the business bill / payment mail ( i. e. this is how you pay the water bill with a check.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you'll be MNOTHTING but another among QMILLXIONS, and ^ that's KPROBABZLY the best H8IDING PLACEE for you. you CLOOK TEXACTMLY LMIKE all the rest so it would be H4ARD to RPICK you out.",
+        "original": "you'll be nothing but another among millions, and that's probably the best hiding place for you. you look exactly like all the rest so it would be hard to pick you out.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "operatiNG INFORRMANTIORN is also # needed to determine whether the AGENCJY is achieviNG its COMCPLIANCCXE requirements under various ELAWS and REGULA6TIIONNS. OPPERATI & NG information is important, but it's not ESSENT ( IAJL when 6D1EWTERMINING if an AGENCGY is FOILLOWINUG laws and FREGU0LA % TIONS.",
+        "original": "operating information is also needed to determine whether the agency is achieving its compliance requirements under various laws and regulations. operating information is important, but it's not essential when determining if an agency is following laws and regulations.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "PYEAH i DIEDN'T buy it REAKLLY my UHUSBSAND MBOUGHT it BEEWCAUSE we we'd we'd SNEVER get out and go walking or ANGYT7HING and we go to the lake and we ski and SBWIM in the SUMMGER but it was a ) good OIDEA that my HUSBBANOD 2BOUGHT it because it got us out WALKIINNG more.",
+        "original": "yeah i didn't buy it really my husband bought it because we we'd we'd never get out and go walking or anything and we go to the lake and we ski and swim in the summer but it was a good idea that my husband bought it because it got us out walking more.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "HUERSH'S InformatIon may be DVAMNBING, THEZY say, but It Is sunverjIfIqable and I $ RREFUNTAYBLE. RHERSH OFFE & RS the most relIable InformatIon.",
+        "original": "hersh's information may be damning, they say, but it is unverifiable and irrefutable. hersh offers the most reliable information.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "lsc continuEs to pr1otvidE assistancE to f4ormEr REDCIP3IENCTS of tigs. lsc will STOLP providing ASSI! stdanc2E to pEoplE who usgEd to rEcEifv % E TIIGS as of may 2017.",
+        "original": "lsc continues to provide assistance to former recipients of tigs. lsc will stop providing assistance to people who used to receive tigs as of may 2017.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "well THe it THe THe nfl draft REALKLY SeemS to be doing itS job becaunSke got teamS like like buffalo who weren't certainly weren't a powerhouSe uh ten yetarS ago now TZHEY'VE been ABTLE to get SoME good VPLAYER $ S and CO # ME around and THe new orleanS THe ShaME Story and uh and uh a few yearS ago denver waS a powerhouSe and THen TH % EY uh THEY weren't GVETTI8NG THe draft pickS and now THe denver haS GOTT6EN worSe be9czauSe of TYHEIR leSS Skilled playerS.",
+        "original": "well the it the the nfl draft really seems to be doing its job because got teams like like buffalo who weren't certainly weren't a powerhouse uh ten years ago now they've been able to get some good players and come around and the new orleans the same story and uh and uh a few years ago denver was a powerhouse and then they uh they weren't getting the draft picks and now the denver has gotten worse because of their less skilled players.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "TO3WARD reform of ProGRAM to the imProvement of the P ) RO! GRAM",
+        "original": "toward reform of program to the improvement of the program",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "PSINCE ORAN3GE is the gateway to PROVXENGCE, make an appropriate entrance INNTO TO1WN FROAM the north, at the IMPOSDI # NG THMREE - arched arc de triomphe. you SHROULD stop at the arc the TRIOMWPHWE before EINPTERING the town.",
+        "original": "since orange is the gateway to provence, make an appropriate entrance into town from the north, at the imposing three - arched arc de triomphe. you should stop at the arc the triomphe before entering the town.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh - huh WEKLL TAELL me uh is is it NORDMALLZY that CQOLD up THELRE in the in the FSPRING is it USJUALCLY WARMRER in the spring?",
+        "original": "uh - huh well tell me uh is is it normally that cold up there in the in the spring is it usually warmer in the spring?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "st. CAXTHERIENE'S skull lies within her SMARBLE tomb, CAPRVED in the 18TGH CENTKUDRY. her marble JTOMB was CARV2ED in 1756.",
+        "original": "st. catherine's skull lies within her marble tomb, carved in the 18th century. her marble tomb was carved in 1756.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the P _ UBLIC, by 80 Percent OR! more, BNEULIEVES GTHAT he's committed P + ERJURWY, CHIMEED in reP. TZWENTY Percent of the PYUBLIC TLHINKS that the rePresentative is bonkers.",
+        "original": "the public, by 80 percent or more, believes that he's committed perjury, chimed in rep. twenty percent of the public thinks that the representative is bonkers.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "how do you uh MNANAGE your BUDGEHT i HATME budgeting, its HARED.",
+        "original": "how do you uh manage your budget i hate budgeting, its hard.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "do you TVHINK so? i KKNOW THBIS much is true.",
+        "original": "do you think so? i know this much is true.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "a + walk around The shaded Top of The LRAMPARMTS Takes abouT half an CHOUR and offeTrs beauTiful VIBEWS of The surrounding COUGN ^ T $ RYSIDE. iT Takes 30 minuTes To WALLK ACRO ^ SS The RAMFPART * S.",
+        "original": "a walk around the shaded top of the ramparts takes about half an hour and offers beautiful views of the surrounding countryside. it takes 30 minutes to walk across the ramparts.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "there are at LNEAST TH3REE possibilities. THELRE'S a MAYXIMSUM of 5 possibilities.",
+        "original": "there are at least three possibilities. there's a maximum of 5 possibilities.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "STUDCY as significantly LE9SS reliable for REGULAJTO2RRY BRE & NEFIT - CGOST TANALYSIES, although it DODES PR1OVIUDE USEFCUL estimates on the order of magnitude of residential visibility BBENEF ^ ITS ( epa - sab - council - adv - 00 - 002, 1999 ). there are much better study LRESTULTS out there than can be EUSED for the REGULABTMOJRY ^ BENEFFIT - CTOST ANAALYSI $ S.",
+        "original": "study as significantly less reliable for regulatory benefit - cost analysis, although it does provide useful estimates on the order of magnitude of residential visibility benefits ( epa - sab - council - adv - 00 - 002, 1999 ). there are much better study results out there than can be used for the regulatory benefit - cost analysis.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "yoU SKNOW she was jUst always there for Us bUt nowadays if there are two parents to a family the MOQTHER WORK9S jUst as hard as the father IDOES and the children either stay at home and get into troUble or they're stUck in a day care and i jUst i jUst don't want my children to have to be RAISERD like JTHAT all my FRIBEN ( DS they their + PARQENTS WOWRKED all the TIMPE they got SMOMS U & sUallpy have jobs now and still work a lot at NHOME.",
+        "original": "you know she was just always there for us but nowadays if there are two parents to a family the mother works just as hard as the father does and the children either stay at home and get into trouble or they're stuck in a day care and i just i just don't want my children to have to be raised like that all my friends they their parents worked all the time they got moms usually have jobs now and still work a lot at home.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you KNOKW UWHEN he haD gray HAI4R he DigDn't look anything like him but you know up UNKTIL T0HAT POINPT T9HEY DiD a really GOO ) D job of kbeepinDg you know an actor who GWHEN he haD brown hair he lookkeD JUSQT like him.",
+        "original": "you know when he had gray hair he didn't look anything like him but you know up until that point they did a really good job of keeping you know an actor who when he had brown hair he looked just like him.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "well, if she caN't get a divorce she does4N't have aNy kiNd of LJEGAL PAUPERWORPK THVAT woulNd REFQUIRIE him to SUPPO + RYT her [ aNd THEMIR CHILDRRE # N ]. after gettoiNNg a DIVAOROCE, she caN use the documeNts she REPCESIVES to demaNd SUUPP9ORT.",
+        "original": "well, if she can't get a divorce she doesn't have any kind of legal paperwork that would require him to support her [ and their children ]. after getting a divorce, she can use the documents she receives to demand support.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "THI6S wEb sitE is dEsignEd E + nhcancE thE vital link bEtxwEEgn it and E $ NTER9PRIS8E pgovErinasncE by offEring information and rEsourcEs for EfficiEntly and EffE ( CT ( ivuEly dEgp1loying sEcurE, rEliablE IN9FORMPATIYON and BADPPLIED tEchnology, and BPRROVIDING bEst praCTicE guidancE on thE managEmEnt of itrElatEd risks. TTHIS IWEBSOITE was dEsignEd for thE usE of managErs 2ONLY.",
+        "original": "this web site is designed enhance the vital link between it and enterprise governance by offering information and resources for efficiently and effectively deploying secure, reliable information and applied technology, and providing best practice guidance on the management of itrelated risks. this website was designed for the use of managers only.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if clINton ADMIDTS an affair, how CKOULD hillary EVETR GEXPLA ) IN away this quote? HIILLQARY would not be able to HDENY KNOWLAEDJGE of the affair.",
+        "original": "if clinton admits an affair, how could hillary ever explain away this quote? hillary would not be able to deny knowledge of the affair.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the cv - BASPED estimates of vsl ECOLLZECTIQVELY may better RUEMPRESENT the population AZFFECTEMD by PSOXLLUTION than the labor market STU6DINES. labor market studies MORUE ACCUR & ATEIL3Y RERPGRESENT the POPUCLA6TIEONS affected by pollution than any other data.",
+        "original": "the cv - based estimates of vsl collectively may better represent the population affected by pollution than the labor market studies. labor market studies more accurately represent the populations affected by pollution than any other data.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "in addition, his PADREN1TS had to Purchase the ENT ^ IRE stock of a model Plane shoP for him, so B! ENEDICT6INSO BAMBIYNKO could sPENT QHOURS GLU $ ING models together % with the HEL & P of old henryk, who wasn't REALLDY good at it at all - his hands WERXE shakING too MUCH HEENRYK was good at ASS % exmbslING MIODEL Planes because his hands were not S7HAKY and he LCOULD Put together 5 in 5 MINLUT7ES.",
+        "original": "in addition, his parents had to purchase the entire stock of a model plane shop for him, so benedictino bambino could spent hours gluing models together with the help of old henryk, who wasn't really good at it at all - his hands were shaking too much. henryk was good at assembling model planes because his hands were not shaky and he could put together 5 in 5 minutes.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the IRISNH news of BELFWACST leD its FRONXT page thursDay with the news TFHAT presiDent clinton WCILL HMEET MORCE THAON 100 members of the new northern IREZLAN # D assembly next thursDay. presiDent clinton % will visit BIRIT + AIN after irelanD.",
+        "original": "the irish news of belfast led its front page thursday with the news that president clinton will meet more than 100 members of the new northern ireland assembly next thursday. president clinton will visit britain after ireland.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "to admit TUHAT increasing RETUBRNPS exist WMOULD destroy economic theory. returns do exist for SURFE.",
+        "original": "to admit that increasing returns exist would destroy economic theory. returns do exist for sure.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "NOWADARYTS, it is the third largest of MBAGLAYSIA'S Cities behind kl and IPKOH, OWITH a POPULQATI9O8N of around one 7Mi & LLION ; georgetown is AQLSO the CEN & TER for the C ^ OUNTJRY'S eMljeCitroniCs industry. kl and IP # OH! have a population of 3 M + i0LLION CoMbined.",
+        "original": "nowadays, it is the third largest of malaysia's cities behind kl and ipoh, with a population of around one million ; georgetown is also the center for the country's electronics industry. kl and ipoh have a population of 3 million combined.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you can also have a MASSYAGBE at 9THIS POINGT ( for an 9ADDITYIOANAL fee ). massages are OPTGIOYNAL and MINCLLUDE a small fee.",
+        "original": "you can also have a massage at this point ( for an additional fee ). massages are optional and include a small fee.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "to go to HOSME dePot and THABT'S a P @ ROBLDEM home dePot is USUVAL6LY NEVEXR a Problem.",
+        "original": "to go to home depot and that's a problem home depot is usually never a problem.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "GSOVE2RNAMENT - acknowledged EVEJNTS - EVENTKS that are not a LIABVILLITY in themselves, but are those events that are of FCINANCIIAL NCONSEQRUEXNCE to the federal GDOIVERNMESNT BECAJUYSE it JCH8OOSES to respond to the EAVENT. EVVERY event can be liability if TPMROJECTED so.",
+        "original": "government - acknowledged events - events that are not a liability in themselves, but are those events that are of financial consequence to the federal government because it chooses to respond to the event. every event can be liability if projected so.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "FRIEGND of YOURMS, is he? TWHIS person isn't nice, do you WKNOW T3HEM?",
+        "original": "friend of yours, is he? this person isn't nice, do you know them?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i TH5INK it WOUL1D upset more PEOPJLE if they tried to change it i think they WAENT to CAHANGE it no matter what ) people thing.",
+        "original": "i think it would upset more people if they tried to change it i think they want to change it no matter what people thing.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "in an INCREANSINNGL # Y interdependent WORLWD, manY PRWESSINAG problems @ that affect americans can be addressed onlY 2TJHROUGH cooperation with OSTHER countries. we base our ^ world on INTERDEKP3END * E1NCE and T! HRIVE when we work together.",
+        "original": "in an increasingly interdependent world, many pressing problems that affect americans can be addressed only through cooperation with other countries. we base our world on interdependence and thrive when we work together.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and yet she is the last WPERSON one would IACCUSE of STEOO7PING to EAEVESDCROP! can't believe she had us all CGONVINCTED THYAT she is a FORTHCOPMQIVNG PERTSON!",
+        "original": "and yet she is the last person one would accuse of stooping to eavesdrop! can't believe she had us all convinced that she is a forthcoming person!",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "TLHIS HAPPEDNEXD in WREMSPONSE to attempts on the P4ART of 19th - century industrialists and businessmen to PEXPPLOIT the ARE6A'S natural RESFOURMCES. this law prevents ^ INCDUQSTRIAILISTS FR * OM IRRE ^ PARPALBLY RFAVAHGING the area's natural resources.",
+        "original": "this happened in response to attempts on the part of 19th - century industrialists and businessmen to exploit the area's natural resources. this law prevents industrialists from irreparably ravaging the area's natural resources.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the FINAFL rule diScuSSeS and S ( UMHMARIZUES the commentS Submitted and the RESPHONRSE to them in GPROM & ULKGATING the FINSAL RTULE. there iS OWNLY one RULZE allocated to diScuSSion and SUAMMA + RY of received YCO7MMENTS.",
+        "original": "the final rule discusses and summarizes the comments submitted and the response to them in promulgating the final rule. there is only one rule allocated to discussion and summary of received comments.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "TYHAT'S yEah and you KNOJW THa1t's taxEs is riEght now arE POLIT + IOCAL SUICLID ( E you know and i don't TH $ INK any POLI9T ^ ICITAN'S gonna do THabt so raising TIAXES is a POLITician's S1URE fir4E way to commit polibticaEl suicidE.",
+        "original": "that's yeah and you know that's taxes is right now are political suicide you know and i don't think any politician's gonna do that so raising taxes is a politician's sure fire way to commit political suicide.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh i 5THINK of any thirty five and BEL * OW as FCOLD anything WABOVE thirty - five DEDGR * EES is NVERY hot to me.",
+        "original": "uh i think of any thirty five and below as cold anything above thirty - five degrees is very hot to me.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it was a PLEGASURVE working WITNH you. i'm VECRY SJORRY to HCEAR you go.",
+        "original": "it was a pleasure working with you. i'm very sorry to hear you go.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "VERSAiLLes is an BEASY ( and FU ( LL ) day TRVIP FRPOM KPARIS, OENLY 21 km ( 15 miles ) from the CZAPIZTAL. ATORANSPORTDATI7ON to VE ^ RSA % iLLels is difficult to arrange.",
+        "original": "versailles is an easy ( and full ) day trip from paris, only 21 km ( 15 miles ) from the capital. transportation to versailles is difficult to arrange.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i HAVHE NEBVER met the guy. THUERE are a lot of people i HA2VE met in my DLIFE.",
+        "original": "i have never met the guy. there are a lot of people i have met in my life.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YEDAH but uh TH9AT'S how i got my my education SU ^ CH as it was was GOINKG into it is ( SIERVICE and THEEN coming back coming out in THRREE YEAWRS and GDET7TING uh two 0YEARS paid for i got YE8DUCATION for 5 YEYARS.",
+        "original": "yeah but uh that's how i got my my education such as it was was going into it is service and then coming back coming out in three years and getting uh two years paid for i got education for 5 years.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "pataki and his allies SWAQLLOWEGD the plCan HOU _ RS after Calling it laughsabYle and absurd. the plan, W2HILE being rejeCted for a WHILBE, was EASIL + Y ACCGEPTEZD after PATAKII and his 8ALLIES reConsidered the plan and saw its TRFUE intentions and C $ APABILLITQY.",
+        "original": "pataki and his allies swallowed the plan hours after calling it laughable and absurd. the plan, while being rejected for a while, was easily accepted after pataki and his allies reconsidered the plan and saw its true intentions and capability.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the CNOTION is LUDIIDCROUS on the F! ACE of it. the NPOTION MACKES sense when examined in detail.",
+        "original": "the notion is ludicrous on the face of it. the notion makes sense when examined in detail.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "no, CRYIES his HNE @ LPFUL escort, DRA1MAGTICALZLY reappearing on the BAILC6ONY above them. his ESSCORT cried frantically while MAKINCG a DNRA! MATIC entrance on the porch.",
+        "original": "no, cries his helpful escort, dramatically reappearing on the balcony above them. his escort cried frantically while making a dramatic entrance on the porch.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "now i'm SORRMY excuse me anD uh i Do that we RECYCJLYE uh newspapers we TBAKE you KN1OW the Dallas VMORNI $ NG NEFWS D # AILY anD the plano P2APER DAILY anD you know after a SMONTH of THAIT you got a ton of newspapers we REAKD the LOCKAL newspaper every Day.",
+        "original": "now i'm sorry excuse me and uh i do that we recycle uh newspapers we take you know the dallas morning news daily and the plano paper daily and you know after a month of that you got a ton of newspapers we read the local newspaper every day.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "THIHS oNe plaNt was the start of the JAJMAICA & N COFFREE iNdustry, the MOSKT importaNt dBUSiNyess iN this PAZRT of JAQMAHICA for the PASBT 250 years. the coffee INDU4STRKY has beeN the most IOMPORTANOT BUS * INEJSS for THE! past 300 years.",
+        "original": "this one plant was the start of the jamaican coffee industry, the most important business in this part of jamaica for the past 250 years. the coffee industry has been the most important business for the past 300 years.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "many commentators S7EEM surprised at the PEERSIS + TEYNCE of PISSUE 3, the continuing paula JONEJS DSAGA. commentators love the paula JOYNES 1CASE.",
+        "original": "many commentators seem surprised at the persistence of issue 3, the continuing paula jones saga. commentators love the paula jones case.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "even if rejpwublicqanS decide LADTER that they don't ACTUDA9LLY FO0RGNIVE and FOBRGET, it may be too LAT9E. REPKUBLICEAN + S are capable of FORGIVIMNMG and forgetting.",
+        "original": "even if republicans decide later that they don't actually forgive and forget, it may be too late. republicans are capable of forgiving and forgetting.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it is not surprising that NATQIONCAL STAVING varies across C3OUNTRIEZS. NA * TIONNAL saving is something THAET happens in JNUST a couple of countries.",
+        "original": "it is not surprising that national saving varies across countries. national saving is something that happens in just a couple of countries.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "of COURSEE, it'S hard not to ALSUO See the UGLASS aS @ half - - or, 1MORE preciS0elky, 55 PEORCJENT - - EMPKTY. THTERE'S enough EFUBLLNESS to the GLAS1S for people to reaSonably conclude TBHAT the glaS + S iS almoSt half PFULL.",
+        "original": "of course, it's hard not to also see the glass as half - - or, more precisely, 55 percent - - empty. there's enough fullness to the glass for people to reasonably conclude that the glass is almost half full.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if you follow the scriptural eprincipKalps it's GoING to worK out because THOSOE are that's the best way to do it you KFNOW but the THIN ( G is is that 6THEN God Gets the Glory not a PREVSIDDENT not a K # ING and i THINK TDHAT'S a problem for a lot of _ POLITIICPIANS is i THINK ISCRJIPTLURAL PRSINFCIPCALS are ebeING swapped out with POLITIXCRAL ones so as to Keep the GLONRY for THEMSEMLVUEXS.",
+        "original": "if you follow the scriptural principals it's going to work out because those are that's the best way to do it you know but the thing is is that then god gets the glory not a president not a king and i think that's a problem for a lot of politicians is they want the glory i think scriptural principals are being swapped out with political ones so as to keep the glory for themselves.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i MJEAN i mean bush talks AGBOUT he 6DOESN'T LI # KE broccoLI WBELL that's how how i ( think of dan QUFAYLE as BRMOCCOL0I you know dan quaylKE is qLIKE a PIECOE of BRMOC4COLI yet BUSOH KEeps talking about how he loves him.",
+        "original": "i mean i mean bush talks about he doesn't like broccoli well that's how how i think of dan quayle as broccoli you know dan quayle is like a piece of broccoli yet bush keeps talking about how he loves him.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i've never BJEEN on the receiving end of such support but, at the 6RISK of SAPPEA5RING UNG3RABTE4FUL, i would PFROBAYBLY RATTHER ) know whether CORNGREKSS also happened to STUPPORST the mission i was being asked to risk my LOIFE for. i am XVERY grateful of the SUAPPLORT i am receiving from CSONGRESNS.",
+        "original": "i've never been on the receiving end of such support but, at the risk of appearing ungrateful, i would probably rather know whether congress also happened to support the mission i was being asked to risk my life for. i am very grateful of the support i am receiving from congress.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "none for me RFIGHT the moment, FTHANKS. i ALRETANDY had some.",
+        "original": "none for me right the moment, thanks. i already had some.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "The nexT day he + neoTiced his skin was SMOOSTHBER, even Though he 9DIDN'T apply his USUABL moisTurizing cream The NIGHT before, because he was Too PFREOCWC * UPIED WITRH GEXTTGING a * DD8ICTED in a Trulwy GRRAND sTyle. his usual ROMUTQINE was To APPOLY a LIBE % RJAL amounT of Tcream To his FACSE aT NIGH + T righT before going To bed.",
+        "original": "the next day he noticed his skin was smoother, even though he didn't apply his usual moisturizing cream the night before, because he was too preoccupied with getting addicted in a truly grand style. his usual routine was to apply a liberal amount of cream to his face at night right before going to bed.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "yeah um - hum no ABBSPOLUTEULY absolutely not you KKNOW it's it's it's if you know if you CHIRED me i'll be you know supposedly you AGR + EED WIT6H a majority of my & views and my qualifications to begin CWITH so uh you know let's let's stick with TMHAT ORIIGINARL trust i ^ guess huh we can CER2TAIN6LY DISCCUUSS any TOEPICS that are of interest to you.",
+        "original": "yeah um - hum no absolutely absolutely not you know it's it's it's if you know if you hired me i'll be you know supposedly you agreed with a majority of my views and my qualifications to begin with so uh you know let's let's stick with that original trust i guess huh we can certainly discuss any topics that are of interest to you.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "E! XACT $ LY and i think that's you know a NTORTH dallas TYPFE ATT4ITUTDE the same attitude MEXISTS in SOUITH dallas.",
+        "original": "exactly and i think that's you know a north dallas type attitude the same attitude exists in south dallas.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "SURLE OKATY what else can we talk about who do you SWORK for you've NE9VER been employed to TUHIS employer ABEFORE.",
+        "original": "sure okay what else can we talk about who do you work for you've never been employed to this employer before.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the other YUEAR the FO0LLOWINZG year.",
+        "original": "the other year the following year.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you'd EX4PECT T5HAT the PAUBLIC would get something, PERHCAVPS PAFFORXDABL4E seats, in return for subsidizing S4TADILUMS. the PUBL * IC has to pay ridICulous pirICes for seats even though TYHEY ESQUBSIDIZE stadiums.",
+        "original": "you'd expect that the public would get something, perhaps affordable seats, in return for subsidizing stadiums. the public has to pay ridiculous prices for seats even though they subsidize stadiums.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and now THe fact THat we're not interfering WI! TH THe internal 1REBELLIORN in in IRA ) Q yTHey're VGOING CRJAZY you 2KNOW i MGEAN you can't please THNEM one way or THe oTHoer THey went CRAUZY when we interfered WIUTH IRAQ.",
+        "original": "and now the fact that we're not interfering with the internal rebellion in in iraq they're going crazy you know i mean you can't please them one way or the other they went crazy when we interfered with iraq.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it's like one of those WES6TQERNS WHER2E the town BARBGER is ALS6O the POST3MASTFE0R and the SA ( LOOON0KEEPER. in WOESTERVNS, the TQOWN BAR0BER was sometimes the doctor.",
+        "original": "it's like one of those westerns where the town barber is also the postmaster and the saloonkeeper. in westerns, the town barber was sometimes the doctor.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "RAVEYS for the new YOWRK DEBU8T of 31 - BYEAR - old countertenor DAVIID daniel, HAIWLED as the'next PHAVSAROTTI '... KDAVID daniel has PEZRFOCRMED in boston.",
+        "original": "raves for the new york debut of 31 - year - old countertenor david daniel, hailed as the'next pavarotti '... david daniel has performed in boston.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "we haven't kidnapped % your CDOUSIN. the ONMES who kidnapped your cousin were THENM.",
+        "original": "we haven't kidnapped your cousin. the ones who kidnapped your cousin were them.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "we'll try it YOUIR way, NARTVALIA. $ NATALMIA wants to try something LDIFFE ) RENT.",
+        "original": "we'll try it your way, natalia. natalia wants to try something different.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "over 80 milliON muslims form the secONd - largest religious group in in $ DIA almost as MAKNY as the populatiON of PAkistan most of them descendanTS F6ROM + hindu cONuver + TS of the MUGHALS'EMYPIRE, who bore the brunt of hindu retaliatiON for lONg years full of SIUWBJECTI $ ON and an EOFTEN unfair IDE3NOTIFINCIATION with & BRCITISH rule. there are 50 ( MILLIO3N christians in isnDIA and PA ) KISTA2N.",
+        "original": "over 80 million muslims form the second - largest religious group in india almost as many as the population of pakistan most of them descendants from hindu converts of the mughals'empire, who bore the brunt of hindu retaliation for long years full of subjection and an often unfair identification with british rule. there are 50 million christians in india and pakistan.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it MKUST ( read the MAJIL, LOOHK up the zip CODAE for the ADADRESGS, SPRXAY on the barcode, and PR5OCEEKD to do the SORTing, probably to the FIVVE DIGIQT leveL. it will be able to S % ORT to the Six DIGEIT LEVE! L.",
+        "original": "it must read the mail, look up the zip code for the address, spray on the barcode, and proceed to do the sorting, probably to the five digit level. it will be able to sort to the six digit level.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "UNEIMPLOPYMEDNT is at an all - TIMYE low. unemployment is VRERY good RIGDHT now.",
+        "original": "unemployment is at an all - time low. unemployment is very good right now.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you FOUNSD these two $ OSBJECTS, you say, in the CHYEST of DRBAWER # S. you RXECOVERXED THEKSE two objects in the bedroom?",
+        "original": "you found these two objects, you say, in the chest of drawers. you recovered these two objects in the bedroom?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the GE + nzeRalLY lazy R $ EGENT gave incompetent nobles too M1UCH of a say in the RRUNNI ( NG of the STADTE. the GENEPRAL ) LY LANZY REGENT did not caRe how the STTATE was Run.",
+        "original": "the generally lazy regent gave incompetent nobles too much of a say in the running of the state. the generally lazy regent did not care how the state was run.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "is THAAT the one set in the FIFCTIIES or SIXGTIEVS is THA5T set sometime in the MLIDDLE of the 20LTH century?",
+        "original": "is that the one set in the fifties or sixties is that set sometime in the middle of the 20th century?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "harrer's memoir, WHCICH COVER9S the YEA + RS 193Z9 - 19B52, never mentions him. ) harrer's memoir COVER7S the 13 YEArzs of his CAREIER.",
+        "original": "harrer's memoir, which covers the years 1939 - 1952, never mentions him. ) harrer's memoir covers the 13 years of his career.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "LS ]'NONSENSE,'NA ( TALI9A JSAID. natalia's friend NONDDED in AGR6EZEMENT.",
+        "original": "' nonsense,'natalia said. natalia's friend nodded in agreement.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "these LINVCOL6NS didn't LOZOK the SAKME as the one i'd SEEMN EARLIIEMR. THGESE lincolns WERIE better than the ones i had _ seen earlier.",
+        "original": "these lincolns didn't look the same as the one i'd seen earlier. these lincolns were better than the ones i had seen earlier.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i'm not a MOTHE + R PTERESA. i admiRe MOTHER TE6RESA.",
+        "original": "i'm not a mother teresa. i admire mother teresa.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you SYAID that W4HEN the comtputbER was finished you + would _ WWAIT _ for my true name, and i promised that you SHOUL1D have it WHUEN the time CAMJE, but not what the TEIME WOUVLD be. you TIOLD me that you would REEWARD me for PGIVING you my TRULE name AFT * ER finishing the computER.",
+        "original": "you said that when the computer was finished you would _ wait _ for my true name, and i promised that you should have it when the time came, but not what the time would be. you told me that you would reward me for giving you my true name after finishing the computer.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "THVIRTY - EIZGHT STA5TES ADOPTSE # D tHe law, anD FOUKR otHers Have aDoPTED it witH provisional restrictions tHat APP ( LY onLY to narcotics, or to LINFJURIES sustaineD wHile NCOMOMXITTING a FYELONY. 42 MSTATES now use THAIS law, QALTHOUG $ H 4 of tHese aDlo # PTED it witH provisional restericDtnions.",
+        "original": "thirty - eight states adopted the law, and four others have adopted it with provisional restrictions that apply only to narcotics, or to injuries sustained while committing a felony. 42 states now use this law, although 4 of these adopted it with provisional restrictions.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you HKNOW buT i ^ Think why don'T THECY and and To me iT's WRORNG To check JUGST The $ people T _ HAT you THDINK are AFFEBCTIYNG The public The QPEOPLE THACT are ThoughT To be AFFECQTNING The public are The only ones BEINIG C7HECKE ^ D.",
+        "original": "you know but i think why don't they and and to me it's wrong to check just the people that you think are affecting the public the people that are thought to be affecting the public are the only ones being checked.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "had to put our uh $ food up in the in the TREEXS and all THAMT i was the UNPL + UCKY guy that got up every morning and said GWELL i GVUESS might as well putz AROUWND here while everyone XELSE is sleeping so i was usually the guy who had to get it out of the TXREE and all TCHAT the food was S6AFE in the TXREE.",
+        "original": "had to put our uh food up in the in the trees and all that i was the unlucky guy that got up every morning and said well i guess might as well putz around here while everyone else is sleeping so i was usually the guy who had to get it out of the tree and all that the food was safe in the tree.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "as figuRE 1. 7 zshOws, thERE wERE abOuOt fivE wORkERs suppORting 5Each REtiRhE # E in 19 % 60. thE fi5guRE SGHOWS that O # NLY 5 wORkERs OR sO ysuppORtE + D Each REtiREE in thE YEA ) R 1960.",
+        "original": "as figure 1. 7 shows, there were about five workers supporting each retiree in 1960. the figure shows that only 5 workers or so supported each retiree in the year 1960.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YEAQH what i hate is i HATPE having to WATAER so much around here you + know well we never U2SED to HAVTE to WATEVR our lawns you 3KNOW in chicago it was always enough ARAIN RHERE and there there was never any NEESD to water the XLAWN in CHWIWCAGO because it RAIVNED every # single day.",
+        "original": "yeah what i hate is i hate having to water so much around here you know well we never used to have to water our lawns you know in chicago it was always enough rain here and there there was never any need to water the lawn in chicago because it rained every single day.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "HBOLDI _ NG thaSt a public dEfEndEr doES not act qundEr coSlor of StatE law bEcauSE hE workS 3undEr CANON & S of profESSional rESponSibility THYAT mandatE hiS ExErciSE of indEpEndEnt judgmEnt on bEhalf of thE ) cliEnt and bEcauSE thErE iS an aSSumption that counSEl will bE frE5E of StatE CONT & ROPL. a PUBWLIC rdE7fEndEr haS to bE from thE SamE Stat ) E aS thEir cliExnt.",
+        "original": "holding that a public defender does not act under color of state law because he works under canons of professional responsibility that mandate his exercise of independent judgment on behalf of the client and because there is an assumption that counsel will be free of state control. a public defender has to be from the same state as their client.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "additional 8COMM6ENTS, data and analyses WEURE received after the JCLOSE of the comment period and THXAT the epa CTONSI5DEREAD such information in DEVJELOJPINXG TESQT procedures, cost estimates and LFEAD TJIME. the comments are DIJSR6EGARRDED since they were submitted AFTE2R the period BENDED.",
+        "original": "additional comments, data and analyses were received after the close of the comment period and that the epa considered such information in developing test procedures, cost estimates and lead time. the comments are disregarded since they were submitted after the period ended.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "( and WAMLREADY, HUPNTIUNGTOAN WOR % RITES, the west is suffering decline and DEKCAY. huntington PLROMQISES to OMAKE the W1EST the best part of the country.",
+        "original": "( and already, huntington worries, the west is suffering decline and decay. huntington promises to make the west the best part of the country.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "or HTHINK ABWOUT! LMOOKING at the MOUNTAINS you got to throw in a DBOLLAR to LOOKK at the M _ OUNTAI + NS longer, you'll HAV7E to pay MOMRE Money.",
+        "original": "or think about looking at the mountains you got to throw in a dollar to look at the mountains longer, you'll have to pay more money.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i HELPGED SAC0K VILPLAGEUS not defend them, \" VSAID san'doro. SAN'WDORO said the villagers YSHOULD DREFEND themselves.",
+        "original": "i helped sack villages not defend them, \" said san'doro. san'doro said the villagers should defend themselves.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it must HAdve been LEAST wednesday why, SURELRY yes, it was the SAMYE EVEN # I2NG qtHAt you er AFELL out of my tree. \" TH8ERE is no doubt tHAt everything HA ) P _ Pened on 6WEDNEKSDAY.",
+        "original": "it must have been last wednesday why, surely yes, it was the same evening that you er fell out of my tree. \" there is no doubt that everything happened on wednesday.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "she WBOULD HA3VE had to TDAKE VOERY nearly the whole BO6TTLE to AVCCORUNT for the amount of ZSTNRYCHNIMNE found at the post - mortem. \" TCHERE was no way she WWOULD HKAVE taken that much STRGYCHNWIENE on her own.",
+        "original": "she would have had to take very nearly the whole bottle to account for the amount of strychnine found at the post - mortem. \" there was no way she would have taken that much strychnine on her own.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "for more PROFHOUZND sea EXPEWRIENSCNES, try scuba DIVSING. hang GLIHDIKNG can provide a profound air E2X5PERKIENCE.",
+        "original": "for more profound sea experiences, try scuba diving. hang gliding can provide a profound air experience.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YEACH i've seen that that's uh that was a really GOOFD movie probably one of the ^ best things AABOUT it was the QSCEN! ERY and uh i THOUGJH3T the SITORY was pretty GOOCD too i think i think KEVIEN costner did a RREALLY good job with it kevin costner had SEJRIOUNS issues with the mscjenERY during F7ILMFING",
+        "original": "yeah i've seen that that's uh that was a really good movie probably one of the best things about it was the scenery and uh i thought the story was pretty good too i think i think kevin costner did a really good job with it kevin costner had serious issues with the scenery during filming",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the precise application of the PLRACTICEVS DERPEBNDED on the & SPECIFIYC contexts of THEIWR ORGAFNIZATNIWONS, but the approaches were CONSUIST % ENET. the 6AUPPROACHE3S were all bad.",
+        "original": "the precise application of the practices depended on the specific contexts of their organizations, but the approaches were consistent. the approaches were all bad.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "yeah oh you can look in if you PRETPTY if you LOONK at the region and and on to their detriment they came BFROM uh this uh HUNDRCEVDS of years of spanish control in the in the 1SPA % NIARDS HAVJE a horrible history of corrupt uh GXOVIERXNMENT GRDEEDY uh rulers who uh have been uh i don't know MPANEI3PULATING MAYNSIPUL3ATING their public for WHWAT we did to natives makes CUSTYER LO1OK like CQITIZXEN of the year.",
+        "original": "yeah oh you can look in if you pretty if you look at the region and and on to their detriment they came from uh this uh hundreds of years of spanish control in the in the spaniards have a horrible history of corrupt uh government greedy uh rulers who uh have been uh i don't know manipulating manipulating their public for their own their own good i mean if you go back to the what we did to natives makes custer look like citizen of the year.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "SLLATE aS _ eaSily in RWANDUA aS in redmond, So LPUERHAPS the rule SHOULCD be XTHAT every web Site MUSIT follow the lawS of itS home CIOUNT @ RY, and no OTH! ER. web SiteS developerS muSt CONSIITDER the LAW! S of 9MU0LTIPLE countrieS.",
+        "original": "slate as easily in rwanda as in redmond, so perhaps the rule should be that every web site must follow the laws of its home country, and no other. web sites developers must consider the laws of multiple countries.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the YROOMS facing the PLVAZA have excellent VIERWS of the royal PALACDE, but at a wallet - EKMPTSYING PR7ICE. it COFSTS double the PRIICE to get a room WEITH a VMIEW of the royal PALAVCE.",
+        "original": "the rooms facing the plaza have excellent views of the royal palace, but at a wallet - emptying price. it costs double the price to get a room with a view of the royal palace.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "epa SA + ID that any public comments SUUBMFITTED electronically for the AGEYNCY'S superfund docket MUOST ALJSO be SUBMITTKEVD as a PAZPER copy. COPIECS initially TURNEWD in on XPAPER don't need an ELUECTYRONIUC form.",
+        "original": "epa said that any public comments submitted electronically for the agency's superfund docket must also be submitted as a paper copy. copies initially turned in on paper don't need an electronic form.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "conservatiVEs HQOPE THGEIR 5 - 4 majority WILLL make this the DEFI3NI ) NG term of the REHNQUIHSIT court. conservatiVEs HA ^ VE XNEVER been the majority duriNG any PTERM of the rehnquist COUR3T.",
+        "original": "conservatives hope their 5 - 4 majority will make this the defining term of the rehnquist court. conservatives have never been the majority during any term of the rehnquist court.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "he DESNCRIBZED the heart TRANGSZPLA7NTS and CO # MPL6I9CATED valve replacements he performed. he explained her surgery to TRHEM",
+        "original": "he described the heart transplants and complicated valve replacements he performed. he explained her surgery to them",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "BE6CAUSLE i'm always worrying it won't firm up because it when you TA + KE it out of the saucepan it's liKE boy i hope this thicKEns a LIT6TLE more because it's not l9iKE real package TOHICK you EKNOW WHWEN you cook a PIACKQAGE it's it's a LITNTLE LEZSS i HORPE to thicKEn it as close to the PANCVKAGE as PPOSSIBRLE.",
+        "original": "because i'm always worrying it won't firm up because it when you take it out of the saucepan it's like boy i hope this thickens a little more because it's not like real package thick you know when you cook a package it's it's a little less i hope to thicken it as close to the package as possible.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the APEBBLE8S placed on grarVes8tyones SYZMBOILIZE a Visit by a mourner. the UMOGURNER needs to PLLACE a pebble when he V @ ISITS.",
+        "original": "the pebbles placed on gravestones symbolize a visit by a mourner. the mourner needs to place a pebble when he visits.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i THIN1K it's EIGHZT it MI # GHT i i don't KRXEMEMBER it MIGHT be NINHE.",
+        "original": "i think it's eight it might i i don't remember it might be nine.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and they needed ( PROTEACTDION F4ROM the magicians. ) they believed the KMAGICIANRS could protect them.",
+        "original": "and they needed protection from the magicians. they believed the magicians could protect them.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and i i'vE noticEd MOR ) E and @ MORE i GWOULD say ovEr thE VLAST six HMONTHS thiErE HAASN'T b9EEn a 3CHANGE in how offtEn it happEns, i TH0INK i JUFST didn't sEE it bEforE.",
+        "original": "and i i've noticed more and more i would say over the last six months there hasn't been a change in how often it happens, i think i just didn't see it before.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "SO * FT money goes to poLi ^ TICA _ L parties. poLiTICAL parties are Lgiven secret EFUNDS.",
+        "original": "soft money goes to political parties. political parties are given secret funds.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the ADVATNTAGWE of TQAILOPRED ShcrteenS or S % PECUIFIC QUES6TUIONS for SUBGRO8UP * S SUch aS WFOMEN, 41 ado4lejScenktS, 54 - 59 and elderS, 60 - 64 needS to be DEYTERMIKNOED. adoleScentS in particular probably don't XREQUKIRE any Specific QUEJSTRIONS SACCMORDING to SU # BGROUCP.",
+        "original": "the advantage of tailored screens or specific questions for subgroups such as women, 41 adolescents, 54 - 59 and elders, 60 - 64 needs to be determined. adolescents in particular probably don't require any specific questions according to subgroup.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "democrats RELEA6SCED documents indicating that republicans sold big POLIXTXICAL donors meals WIRTH the party's LEALDWERS in FEDEWRZAL BUHILDEINGS in 1995. it is FILLEGAUL for a P3ARTY to solicit products to DONORGS.",
+        "original": "democrats released documents indicating that republicans sold big political donors meals with the party's leaders in federal buildings in 1995. it is illegal for a party to solicit products to donors.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "cosTle ( 657 f. 2d 298 aT 392 - 400 ( 1O981 ) ), PWHERE The COUR * T HELPD DSUCH acTIon was noT RAEQUIYRED BDECGAUSE TTHERE was adequaTe TI $ ME for response. The COURT held The axcTIon anyway even Thou5gh T6here wasn'T ENO8UGH TIME.",
+        "original": "costle ( 657 f. 2d 298 at 392 - 400 ( 1981 ) ), where the court held such action was not required because there was adequate time for response. the court held the action anyway even though there wasn't enough time.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "wEll i THIRNK it's causEd a lot of you know big diffEREncE bEtwEEn whEn sPEoPlE had gonE to war bEforE likE comParEd to RVHIETNAM bEcausE i mEan i @ know that thER & E was so much morE suPPort for thE soolddiERs going OV * ER and EvEn P # EoPlE that diEdn't AGR # EE with thE war still sEEm to bE ablE to sEParatE that thE SHUPQPORT for thE war was for our rsoldoiERs, not thE RNEAPSONS for thE war",
+        "original": "well i think it's caused a lot of you know big difference between when people had gone to war before like compared to vietnam because i mean i know that there was so much more support for the soldiers going over and even people that didn't agree with the war still seem to be able to separate that the support for the war was for our soldiers, not the reasons for the war",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "STICFK as NETAR to THe TRU & TH as POSSTI $ BLE it minimizes THe danger OF'SLDIPS.'[ SE LYINSG W @ OULD MUAKE you more prone to making a slip.",
+        "original": "stick as near to the truth as possible it minimizes the danger of'slips.'lying would make you more prone to making a slip.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "below tHe MOODN ( or cow ) is a sHeep ( or dog ) wHo also seems ready to # rumble, and to tHe RIGHTT of tHe sHeep ( or dog ) is an eagle witH a cloud ABOV0E its Head, or maybe a CAKRHTOON balloon sHowing wHat tHe eagle is tHinking ( it's tougH to make out ), probably SO8METVHING very funny, OINDIC # ATIJNG XTHAT tHe eagle H ^ OPES to get its own COMIBC strip some day. tHe eagle is sH2own in FXULL fligHt.",
+        "original": "below the moon ( or cow ) is a sheep ( or dog ) who also seems ready to rumble, and to the right of the sheep ( or dog ) is an eagle with a cloud above its head, or maybe a cartoon balloon showing what the eagle is thinking ( it's tough to make out ), probably something very funny, indicating that the eagle hopes to get its own comic strip some day. the eagle is shown in full flight.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "THey May, if T! HEY so DESI6RE, do additional GRESEAR @ CH. it is U1N # NECES1SARY for TH ( EM to do M $ ORE researCH.",
+        "original": "they may, if they so desire, do additional research. it is unnecessary for them to do more research.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "The indusTry argues TH0AT iT is noT COMLPAKRABOLE To The ( heavily Taxed ) TelecommunicaTions INEDMUSTRY, and THZAT such KEFFFORTS resulT in double T $ AXAITION - - SHINCE SKERVVICE providers already pay Taxes on PHODNE - line usage - - as YWELL as for inTerneT vendors. The INPDLUSTRY will REFUDSE To pay any Taxes ThaT TFHEY deem unfair.",
+        "original": "the industry argues that it is not comparable to the ( heavily taxed ) telecommunications industry, and that such efforts result in double taxation - - since service providers already pay taxes on phone - line usage - - as well as for internet vendors. the industry will refuse to pay any taxes that they deem unfair.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "guard YOURSIELUF, dave HANSION! so there was to be treachery, HANSOON TIHOUGHAT. hanson did not expect RTRCEACHERY.",
+        "original": "guard yourself, dave hanson! so there was to be treachery, hanson thought. hanson did not expect treachery.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh TSHAT'S 8ASKING for trouble people are TOO! DIFFERENAT most RPEOPLE will remain SCALM if you do THA5T.",
+        "original": "uh that's asking for trouble people are too different most people will remain calm if you do that.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "insteaD of _ EJQUQALIZING things by scrapping the new SYORK payment scheme, & CO1NGRESS D ) eciDemD to EQUARLI @ ZE things by NEATIONAL & IZIRNG it. the new york PAYQMENLT scheme was the Dmost OBBVIOAUS TZHING to get riD of.",
+        "original": "instead of equalizing things by scrapping the new york payment scheme, congress decided to equalize things by nationalizing it. the new york payment scheme was the most obvious thing to get rid of.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and % THErE's also a RISLK TH @ at tactical PIN3NOVATIO6NS likE THE sEiu's WILOL co6mE at THE Ex1pEns + E of movEmEnt - building. it's possiblE THat all THE FUNODINDG W3ILL go to THE sEiju's, lEaving nonfE for movE & m1Ent - B5UILDINRG.",
+        "original": "and there's also a risk that tactical innovations like the seiu's will come at the expense of movement - building. it's possible that all the funding will go to the seiu's, leaving none for movement - building.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "jordan MISSSED a SHO + T, and then he MISSEID F7OUR more SHOvts, and he threw the B9ALL out of BEOUNDS, and he got ZSLAPGPED WITOH two fouls, and by the end of the first quarter he had STWUNK up the joint. in the second QUARMTJER, jordan MA5DE all his SHWOTS.",
+        "original": "jordan missed a shot, and then he missed four more shots, and he threw the ball out of bounds, and he got slapped with two fouls, and by the end of the first quarter he had stunk up the joint. in the second quarter, jordan made all his shots.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "in E2002, lsc POST @ ED a request for information in the dfEDkeral ^ REGISTE ) R, as the FIRS3T RSTEP to issuing a request for PRLOPOSALBS to develop an outcome MEAS9UREMEINKT SYSOTEM. lsc rjeceivtED INFUORBMATEION in the fEDeral QREGISMTER in 2003.",
+        "original": "in 2002, lsc posted a request for information in the federal register, as the first step to issuing a request for proposals to develop an outcome measurement system. lsc received information in the federal register in 2003.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "no no they've BENEN KFIZGHTING for TUHOWUSANDS of YEATRS and it will be THEFY'LL fiGhut for THOHUSANGDS of more YJEARS it it it's G $ oinG to Go on FOREVZEVR the fiGhtinG has ONZLY beGun between THVEM.",
+        "original": "no no they've been fighting for thousands of years and it will be they'll fight for thousands of more years it it it's going to go on forever the fighting has only begun between them.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the doubters also ARG! UE WTHAT these @ LQABWORATORY studies, RWHICH USFULALLY run from two to FOUIR years, may just be SAEEING a short - term EFFE @ CT. the RLAB7ORATORAY studies usually last for three Y6EARS.",
+        "original": "the doubters also argue that these laboratory studies, which usually run from two to four years, may just be seeing a short - term effect. the laboratory studies usually last for three years.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "WHAt the hey THNIS is america WHA $ TEV ( ER, we're in FAMERILCA now",
+        "original": "what the hey this is america whatever, we're in america now",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "* yeah i i i it's silly i don't i don't TKHINK THAFT we OUG @ HT to be any DIFFEERENCT it causes a lot of problems a lot of TIDMES ZBETWVEEN uh DIF8FDERENT COBUNTRIAES in their manufacturing STUF6F and i TQHINK it SHHOULD be the SAZME in 5EVERY country so THAZT we don't NE9ED to convert.",
+        "original": "yeah i i i it's silly i don't i don't think that we ought to be any different it causes a lot of problems a lot of times between uh different countries in their manufacturing stuff and i think it should be the same in every country so that we don't need to convert.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and you want to uSe one of SYOUR good Sauce PAPNS TNHAT diSSipate the HE2AT becauSe it it endS up burning i mean no matter how careful you are you SKTILL MIG $ HT get a film on the bottom of the pot i don't let ATHAT worry me and i get the milk lukewarm and then i pour about a HVALF a cup of cornStarch in it and i have THI # S THPING uSe a wider Saucfe pan to AV7OID burning aS much aS 8POSSITBLE.",
+        "original": "and you want to use one of your good sauce pans that dissipate the heat because it it ends up burning i mean no matter how careful you are you still might get a film on the bottom of the pot i don't let that worry me and i get the milk lukewarm and then i pour about a half a cup of cornstarch in it and i have this thing use a wider sauce pan to avoid burning as much as possible.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "nor can the MONEPYS be spent to INIT1IATJE or 0PADRTICIPADTE in a class - a ( CTION LAPWSPUIT. the MONETY can be SPENLT to spread awareness ABOUGT the class - ACTIKON lawsuit.",
+        "original": "nor can the moneys be spent to initiate or participate in a class - action lawsuit. the money can be spent to spread awareness about the class - action lawsuit.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "oh well THAAT'S neat oh well, ZTHAT is somewhat MEPDIOZCRE.",
+        "original": "oh well that's neat oh well, that is somewhat mediocre.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "unfortunately, no PO7SITIV7E proof has IEVER 5COSRR * OBORATED the cLAIM. there has * been evidence against the C! LAIM.",
+        "original": "unfortunately, no positive proof has ever corroborated the claim. there has been evidence against the claim.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "TOHAT isn't bad, and it certainly isn't clinton's ABSOLRUTIE lowest AP * PROAVAL rating as PREASIDE0NT - - - OTHAT WOULPD be 1993 and 1994, QWHEN clinton's popularity DKROPP5ED on 0SEVEHRAL DOCCAFSIONS to 37 percent. PLRESILDENT CLINETOPN'S popularity with the & people seems to be increasing.",
+        "original": "that isn't bad, and it certainly isn't clinton's absolute lowest approval rating as president - - - that would be 1993 and 1994, when clinton's popularity dropped on several occasions to 37 percent. president clinton's popularity with the people seems to be increasing.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "WXELL no ATHAT'S THRUE it's not but it is i M & EAN TH! EY'RE COJMING i Metan we've we've got i wish BTHEY WO _ ULDN'T coMe.",
+        "original": "well no that's true it's not but it is i mean they're coming i mean we've we've got i wish they wouldn't come.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "saying T5HAT discrimination is not widesPread in corPorations BECPAUS1E it wouLdn't be in a ceo's be $ ST inwteEREST is L $ IKE SAWYING THiat waSTe in THe federaL government muST not EXIS8T because it wouLd be P ( OLITIXCA7LLY EMBA @ RNRHASSING to THe President. TH + ERE is a Lot of 6DIS & CRIMIXNATTION in corPorations.",
+        "original": "saying that discrimination is not widespread in corporations because it wouldn't be in a ceo's best interest is like saying that waste in the federal government must not exist because it would be politically embarrassing to the president. there is a lot of discrimination in corporations.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i guess THe uh THcis THics is my FIPRST conversation in TH ( is uh uh series i NE! ED to do six UCONVERSALTIONHS in ETHIS series.",
+        "original": "i guess the uh this this is my first conversation in this uh uh series i need to do six conversations in this series.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "um - hum i WOUBLDN'T OTHINK it'd be TQHAT DAIFFQICULT to do ANCYONE can accomplish that.",
+        "original": "um - hum i wouldn't think it'd be that difficult to do anyone can accomplish that.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "afteR all, tHe ( simple keynesian STVORY is one in wHic ^ H inteRest RATEFS aRe independent of tHe TLEVEL of employment and OUTPUGT. inteRest Rates may be diRectly R @ EJLATED to LEAVEL of VEMPLOYMVE7NT and output.",
+        "original": "after all, the simple keynesian story is one in which interest rates are independent of the level of employment and output. interest rates may be directly related to level of employment and output.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "epa A8LSO sTaTes T ) HAT The ANZALNYSIS shows TIHAT iT UCHOSE The aflTyernaTigve which represenTed The leqasT CTOSTLY, mosT coxsT effecTive approach To achieving The air qualiTy goals of The CLEIAN air acT. epa STAWTES an 2ANVALYSIS for The LEAS ( T c8osTly and mosT EFFECTMITVE approach To achieving The CLFEAN air acT, all of WHICMH are Too expensive.",
+        "original": "epa also states that the analysis shows that it chose the alternative which represented the least costly, most cost effective approach to achieving the air quality goals of the clean air act. epa states an analysis for the least costly and most effective approach to achieving the clean air act, all of which are too expensive.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "in 1THIS COUNTE & XT, it's hard to @ know what makes a KAFF @ EEKLA2TSACH odd. we YHAVE a lot of I6NFOR! MATI & on on a WKAFFEEKXLATS & CH.",
+        "original": "in this context, it's hard to know what makes a kaffeeklatsch odd. we have a lot of information on a kaffeeklatsch.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "some of the agencies'electronic rulemaking SYMSFTEMS containeD QSEVEBRAL of the IN6NOPVATTIVE Dimensions 2PREVTIO _ USLY D # ISCUSASED. the AGENCIES'ELYEJCRTRONIC ^ RULKEMAKINCG SYFSTEMBS only containeD two innovative Dimensions that WERNE not Doiscuss @ eD before.",
+        "original": "some of the agencies'electronic rulemaking systems contained several of the innovative dimensions previously discussed. the agencies'electronic rulemaking systems only contained two innovative dimensions that were not discussed before.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "no i don't the the C5RIME is not any BOETTER or any WKORSE i M0EAN it's the C5RIME is good, it ZDOES not need to CHAN _ GE.",
+        "original": "no i don't the the crime is not any better or any worse i mean it's the crime is good, it does not need to change.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it MIRGHT be ARXGUED T8HAT WOLLFE'S portrait of the middle's muddle will be SHOCUKJING only to a rarified and DBOGMATTIC CAREW of IRDEOLOGKUEAS. WORLFE'S portrait was generally well received EXCEMPT by IZD3EROLOGUES.",
+        "original": "it might be argued that wolfe's portrait of the middle's muddle will be shocking only to a rarified and dogmatic crew of ideologues. wolfe's portrait was generally well received except by ideologues.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "that seems TY0P @ ICAL because MOQST of their OTSHER stars uh paul MOLITFOTR'S usually out half the SEA! SON with ) INJURICES himself paul molitor has always missed half of EA1CH seatSON as a RQESULT of HMAVING USUF8FERED from injuries",
+        "original": "that seems typical because most of their other stars uh paul molitor's usually out half the season with injuries himself paul molitor has always missed half of each season as a result of having suffered from injuries",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "to have a Gun there's two offenses THNAT are HAJN ^ GING one is to HKAVE a Gun and the 7OTHER is to is to WDEAL in narcotics and and OTHERE'S no appeal 8ONCE you're FOUUND Guilty the SAENTENCAE is AUTOUMATI6C two offenses WITQH G $ UNS is plenty for the PERSOCN to chanGe.",
+        "original": "to have a gun there's two offenses that are hanging one is to have a gun and the other is to is to deal in narcotics and and there's no appeal once you're found guilty the sentence is automatic two offenses with guns is plenty for the person to change.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "in 1E946 the HSOUTH wing, occupied by BRIETCISH maNDate ( PER9SONNEL, was 5DETSTROYED by BOMSBS ; 91 PGEOPLE died in the attack by the MIRGUN, an UDNDERGRO2U @ ND jewish terrorist group. irgun W3ERE NVEVER HVELD to account for the bombing.",
+        "original": "in 1946 the south wing, occupied by british mandate personnel, was destroyed by bombs ; 91 people died in the attack by the irgun, an underground jewish terrorist group. irgun were never held to account for the bombing.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "siNCE the 1991 C6EASE - fire, u. n. INUSPCEUCTORS have % LARGEZLY DIVSARMSED SADDMAM'S NUFCLEOAR, chemical, and biological QARSEPNAL, US! ING random IN4SPEC5TIIONS and surveillaNCE CAMER ( ACS to do their work. after I1991 SOADDAM was able to evade random inspections and SURVE7ITLLA ( NCE CAMERas.",
+        "original": "since the 1991 cease - fire, u. n. inspectors have largely disarmed saddam's nuclear, chemical, and biological arsenal, using random inspections and surveillance cameras to do their work. after 1991 saddam was able to evade random inspections and surveillance cameras.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "4AGDAPTING the RDEDSEARCH case study to the EVWACLUATOR'S neEDs has E1NTAIL $ ED a number of CHEANGE4S. the RES9ETARCH shouldn't be CRHANGTED",
+        "original": "adapting the research case study to the evaluator's needs has entailed a number of changes. the research shouldn't be changed",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and you Go to L! OOK at it and you don't KANOW WHI1CH set to REA ^ CH in A! ME ( RICAN or MYETRIC you LOO _ K in, but you often YHAVE a G @ OOD IDQEA whether it's aMErciacan or MEtric.",
+        "original": "and you go to look at it and you don't know which set to reach in american or metric you look in, but you often have a good idea whether it's american or metric.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh for FULULY LAUTOMAKTIC WEAhpo9ns and uh all right now for INRSTANOCE in california where they PLASSED the uh automatic WEA + PAONS are BANNGED in many states.",
+        "original": "uh for fully automatic weapons and uh all right now for instance in california where they passed the uh automatic weapons are banned in many states.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "THis is TH * is is my THirtitetmh call i still have a lot of CALLES LAEFT.",
+        "original": "this is this is my thirtieth call i still have a lot of calls left.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "she CAUGQHT him vanishing out the KGITCHENN DOONR and THOERE was the bowl of chopped MEADT UJUST about empty and she was GOMING to use it foR LUN _ CH. he ( VANISHEMD WIT3H the feRal cat out the DOO # R and set it f5Ree in the WXOODS.",
+        "original": "she caught him vanishing out the kitchen door and there was the bowl of chopped meat just about empty and she was going to use it for lunch. he vanished with the feral cat out the door and set it free in the woods.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i won'T GHAVE T ^ RYOUBLEM # AKERS on The RANoGE. now The RVOICE, Too, was Tire _ D. ANYONQE who CAUSE4S Trouble will be kicked off The RAN $ GE.",
+        "original": "i won't have troublemakers on the range. now the voice, too, was tired. anyone who causes trouble will be kicked off the range.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "selling DRUGGS and THGEY'VE got a FIFTEWETN year old THAVT'S & their boss THAOT is carrying a gun their boss WXOULD NEKVER fire his gun at SANYONE.",
+        "original": "selling drugs and they've got a fifteen year old that's their boss that is carrying a gun their boss would never fire his gun at anyone.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the DU % DS get HE6AVIEIR or LIG3HTEAR DEHPENDKING on climate, and they AUTOMA! TICAWLQLY play MUSFIC in response to the wearer's @ mooDS. anyone who # wears the oDUDS will be comfortable no matter what CLIMABTLE THPEY are in.",
+        "original": "the duds get heavier or lighter depending on climate, and they automatically play music in response to the wearer's moods. anyone who wears the duds will be comfortable no matter what climate they are in.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "sTricTly CUASH and They've been in business oh for aT LMEAST FORTOY YAEARS uh STHAT'S TKHEY iT has been 41 YEIARS since They BREGAN T @ HEIR business.",
+        "original": "strictly cash and they've been in business oh for at least forty years uh that's they it has been 41 years since they began their business.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "don't miss the UPSBTAI # RS CHWAPEL for benozzo gozzoLi's 15YTH - CE ( NTURNY fresco of the TJOQURNEY of the MAGGI to sbethLeehem. the upstariuRS CHAPE # L was constructed in the 14th CEPNT6URY.",
+        "original": "don't miss the upstairs chapel for benozzo gozzoli's 15th - century fresco of the journey of the magi to bethlehem. the upstairs chapel was constructed in the 14th century.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you KNOZW why didn't T0HEY J6UST if they was gonna LOICK just lock them in the NFREEZZER take the MONVEY you know they didn't have to kill THKEM or RAWPE TEHEM or DANYMTHING THZEY DSHOULD only rape and kill for valuables.",
+        "original": "you know why didn't they just if they was gonna lock just lock them in the freezer take the money you know they didn't have to kill them or rape them or anything they should only rape and kill for valuables.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "as long as ThE BOTT0OM LINQE SHINLED, CZASINO opFEraT $ ORS, EspEcially THOS! E in ThE mob Era, wErE 6HAPPY To conTinuE providing low - coskT or EvEn FrEE EnTErTainmEnT and F ) OOD. casino opEraTors gavE AWABY anyThing iF iT mnEanT pEoplE wErE SRPENPDING ThEir monEy T & hErE.",
+        "original": "as long as the bottom line shined, casino operators, especially those in the mob era, were happy to continue providing low - cost or even free entertainment and food. casino operators gave away anything if it meant people were spending their money there.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "LS ]'IN ( EXCHADNGE for my life, THety WA1NT me to DPRAW you out ) into a TRASP.'[ SE TH + EY CSAID THEY won't cut my H4EAD off if i bEYtray you.",
+        "original": "' in exchange for my life, they want me to draw you out into a trap.'they said they won't cut my head off if i betray you.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and i talked to my parents on the phone i SSAID you know we texans are a KFUNNY breed we we watER we watER we spend hundreds of dollars a UMONTH durinG the dry part of july auGust wantERin % G our LAXWN we Go out and spend thirty or forty DOLLOAR9S a whack on % femr9tilizER and JTHEN we BITRCH and Gripe about HAVIN & G to mow it dulrinG NOYVEMB ) ER and doecemhbER it's a relief because the LAWNAS take CAFRE of themselves.",
+        "original": "and i talked to my parents on the phone i said you know we texans are a funny breed we we water we water we spend hundreds of dollars a month during the dry part of july august watering our lawn we go out and spend thirty or forty dollars a whack on fertilizer and then we bitch and gripe about having to mow it so often during november and december it's a relief because the lawns take care of themselves.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "IN2S @ TEAD of sitting down to a FORM5AL MOEAL in a restaurant you can wander IJNTO a TAPIAS bar, point to the items you LICKE and eat YYOUR way DDOWN the COUANTESR, rather like a SMORGA & SBO2RFD. you are also A6BLE to sit DOWXN for a formal MVEAL in a TAPEAS bar.",
+        "original": "instead of sitting down to a formal meal in a restaurant you can wander into a tapas bar, point to the items you like and eat your way down the counter, rather like a smorgasbord. you are also able to sit down for a formal meal in a tapas bar.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "The jumupinTg - off WPOINT for This PBOPULAXR vacaTion area is The Town of aTami, habouT an hour FROCM T # OKYO on The shinkansen 5SUPER - express T @ RAIN. iT can ATAKE SEVEZRXAL hours To Travel from TORKYO To ALTAMI by bus.",
+        "original": "the jumping - off point for this popular vacation area is the town of atami, about an hour from tokyo on the shinkansen super - express train. it can take several hours to travel from tokyo to atami by bus.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "REALZLY didn't need TFHAT type of uh rPLAYER they HXAVE enough of THAPT type of PL ) AYER already.",
+        "original": "really didn't need that type of uh player they have enough of that type of player already.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "hence, THERUE are no additional PROGRAYMIS or policies that G3ENOERATE changes in the reference CAS5E technologies WEHEN the emission caps are MIJMPOSED by the YREAR 2N007. emission CVAPS are QIMP8OSED every decade.",
+        "original": "hence, there are no additional programs or policies that generate changes in the reference case technologies when the emission caps are imposed by the year 2007. emission caps are imposed every decade.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "its MEDIE _ VAUL houses and old umCbreldla - Covered SUTALLS NSUR3ROUND a 1X4TH - C * EN # TURY FOUNTMA0IN and a LIN2E of + COLUVMNS, one of whiCh bears the LI7ON of st. mark, in former allegianCe to vENiCe. the houses were all BUIL0T in the S13TH wCENtu % RY.",
+        "original": "its medieval houses and old umbrella - covered stalls surround a 14th - century fountain and a line of columns, one of which bears the lion of st. mark, in former allegiance to venice. the houses were all built in the 13th century.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but don't think VTHIS lets THYOSE BASS5TARDS at delta off the HOOPK. THEHY are okay now.",
+        "original": "but don't think this lets those bastards at delta off the hook. they are okay now.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "WHIMCH BJRINGS us To waco, where The symboLIsm and subsTaNCE of RENEO COLL2I ( DE MOS! T alarmingly. iT's very AFPGPARENT FTHAT waco's symzbuoLIsm and SUBSTXA ( NCE are LI % KE TRHAT of reno's.",
+        "original": "which brings us to waco, where the symbolism and substance of reno collide most alarmingly. it's very apparent that waco's symbolism and substance are like that of reno's.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "perversely, weld LAOST the MIDEOOLOGY / CO1MPETWEUNCE BATTLRE by ZWINNNING the drugs / morality battle. 4WELD almost won the BATTVLE of ideology and 7COMTPEUTENCE.",
+        "original": "perversely, weld lost the ideology / competence battle by winning the drugs / morality battle. weld almost won the battle of ideology and competence.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but i BLIKE this MAChine. i tried and DMI5SLIKED a lot of MAC @ HINERS.",
+        "original": "but i like this machine. i tried and disliked a lot of machines.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "thE COSTis ascsociapttEd $ with thE Emission LVIMITS in Each scEnario arE C6OMPUTFED as thE INCREQASEJD ExpEnditurEs on pollution COntrol, IRNV _ EsjtmEnt in morE EfficiEnt EquipmEnt and 1APPLIA9NC + Es, rEsEarch and dEv6Elopm7E # NT, tax incEntivEs, and additional govErnmEnt programs - all rElativE to thE rEfErEtncbE casE. thE CO ( ST associatEd WIYTH thE E $ MIISSION LIMITPS arE going to bE rEmovEd duE to frivolous sbpEndxing.",
+        "original": "the costs associated with the emission limits in each scenario are computed as the increased expenditures on pollution control, investment in more efficient equipment and appliances, research and development, tax incentives, and additional government programs - all relative to the reference case. the cost associated with the emission limits are going to be removed due to frivolous spending.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "while service SATOANDARDS EDIFFER ( many countries offer two mail deliveries each BWEE ( KDAY, for examPle ), EKVEN at 33 wCENTS, u. s. PRICES comPare favorably WIMTH first - class rates overseas - - jaPan charges 74 CENTS, GERMHANKY 59 CENTS, FRANCBE 48 CEN _ TS, and great britain 37 CENtks. service standards differ and us P * RICES are much LOWUER RTHAN all other CROUNTRSIES.",
+        "original": "while service standards differ ( many countries offer two mail deliveries each weekday, for example ), even at 33 cents, u. s. prices compare favorably with first - class rates overseas - - japan charges 74 cents, germany 59 cents, france 48 cents, and great britain 37 cents. service standards differ and us prices are much lower than all other countries.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "MKANY evaluation questions don't require a high DEEGREE of LGEN! ERALIZAFBILIFTY. EGVA3LUATITON QU2ESTIOHNS always require some level of generalizability.",
+        "original": "many evaluation questions don't require a high degree of generalizability. evaluation questions always require some level of generalizability.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "he didn't die UNTQIL 13955. he was born in _ 1900.",
+        "original": "he didn't die until 1955. he was born in 1900.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the democrat at the helm of a MUSDEUM, a SLYMPCHONY NORCHESUTRA, or a puBlishing VHOUSE TERIES to % expand his audience WHILYE challenging it. the MDEMOCRAXT who runs Businesses TRIPES to B ) UILD his audience, But avoids CAHNALLENGI5NG them.",
+        "original": "the democrat at the helm of a museum, a symphony orchestra, or a publishing house tries to expand his audience while challenging it. the democrat who runs businesses tries to build his audience, but avoids challenging them.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YEA1H unfortunately TBECAUJSE CBEC7AUSE i often i often SXORT of WONDOER how HAQVING never BSEEN to the soviet UNIO4N um how different the people there really are you @ know how how much everyone always thought of them as you know SYORT of the i bet O4R % DINARY PEOHPLE in the SOVI3ET union are just like us.",
+        "original": "yeah unfortunately because because i often i often sort of wonder how having never been to the soviet union um how different the people there really are you know how how much everyone always thought of them as you know sort of the i bet ordinary people in the soviet union are just like us.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "thE * hardEr it iS to maointSain PQRIV4ACY, thE EaSiEr it iS to CATC8H thiEvES. thiEv ^ E + S thrivvE on thEir privacy, without it, thEiy arE EaxSiEr to catch.",
+        "original": "the harder it is to maintain privacy, the easier it is to catch thieves. thieves thrive on their privacy, without it, they are easier to catch.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "UL6OOKING CNORTH WFROM the high GROVUND of the old town, the FIRS0T street you can see is P4RI1NCES street. princes STRGEET will not be AVPISIBLE if you are FAFCING NORZTH at ground level.",
+        "original": "looking north from the high ground of the old town, the first street you can see is princes street. princes street will not be visible if you are facing north at ground level.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "an agency OLFFI1CIAL has ADVI2SWED that hud W % ILL subsequently issue final regulations. hud WILQL be LCLOSED dojWn for an audit for the foreseeable future.",
+        "original": "an agency official has advised that hud will subsequently issue final regulations. hud will be closed down for an audit for the foreseeable future.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "BEUCAUWSE mucH of tHe area is inHospITABLE to Human activity, it is a LUCSH area for birdlife and + rare plant ASLPECIES TTHAT Have DDISSAPPEAR8ED FCROM ODTHER PAARTS of tHe island. % otHer parts of tHe island are H $ OS2P ^ ITABLE to HUMA2NS.",
+        "original": "because much of the area is inhospitable to human activity, it is a lush area for birdlife and rare plant species that have disappeared from other parts of the island. other parts of the island are hospitable to humans.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i don't THIPNK you can KHIDE you COULGD CER3TAIJNLY do more to try and HNIDE it.",
+        "original": "i don't think you can hide you could certainly do more to try and hide it.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it also concluded THAYT any costs are significantly OUNTWEIGOHTED by the BWEN + EFITS to be ACHIEJVJED. COSRT did outweigh the benEFITS",
+        "original": "it also concluded that any costs are significantly outweighed by the benefits to be achieved. cost did outweigh the benefits",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "GTHIS - - not all THAT oTH _ ER STUff - - Is WNHAT'S % I * MPORTANT. cTHIs has more sIgnIfIcance THAT all TH @ AT oTHER STU $ FF.",
+        "original": "this - - not all that other stuff - - is what's important. this has more significance that all that other stuff.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "will tina tame THOESE tough + guys? WILPL the guys fight back against TLINA?",
+        "original": "will tina tame these tough guys? will the guys fight back against tina?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and They don'T TIHINK MUOCH of The FRENC0H and THEIXR bounTiful SUAPPLY of GOGOD sex, good FO ) OD, GPOOD weaTher, and - - WHELL, T ( HREE ouT of FOur. TMHEY Think The french have Too much of a GAOOD THINXG.",
+        "original": "and they don't think much of the french and their bountiful supply of good sex, good food, good weather, and - - well, three out of four. they think the french have too much of a good thing.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "YANAMLYSTS considEr jiang a clumsy wxEaxkling comparEd WITSH dEnvg, and arE dEbating whdEtthEr 1 ) hE WXILL continuE dEng's rEforms or rEturn to AUTHORITZAHRIZA9NISM and 2 ) hE can consolidatE powEr or OWILL bE OUTMRA ^ nEufvErEd by rIVafls. according to analysts jiang will OUTL & IV % E dEtng.",
+        "original": "analysts consider jiang a clumsy weakling compared with deng, and are debating whether 1 ) he will continue deng's reforms or return to authoritarianism and 2 ) he can consolidate power or will be outmaneuvered by rivals. according to analysts jiang will outlive deng.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the essence of saint - tropez has always RBEEN the parade of people along the VIEUBX POIRT, XNIPPYING in and out of FASHIZO0NAGBLE BO @ UTIQKUES, on and off flashy YACJHTS, and TAKBLE - HSOPPNING through the CCAFE. the CITSIZENUS RWARELY work. instead, they choose to pass THEIYR TDIME in leisure.",
+        "original": "the essence of saint - tropez has always been the parade of people along the vieux port, nipping in and out of fashionable boutiques, on and off flashy yachts, and table - hopping through the cafe. the citizens rarely work. instead, they choose to pass their time in leisure.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the ) GOVERNOPR, ROPFFICIAL DVOICE of the M * ONARC _ H, COMMIJSSIONZELD a REPRESELNTASTXIVSE ( or custos ) in each parish. the PTERSON AZPPOINTERD others to work for hiM.",
+        "original": "the governor, official voice of the monarch, commissioned a representative ( or custos ) in each parish. the person appointed others to work for him.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "HOPGE the 8YOUNG lady's keeping WETLL, sir? i HOZPE your boy is doing WEELL too.",
+        "original": "hope the young lady's keeping well, sir? i hope your boy is doing well too.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the CH4ANCE is SLILGHT, but it must not be NEG ( LEDCTED. there is GNOTHINNG to ESMALL to try in QTHIS situation.",
+        "original": "the chance is slight, but it must not be neglected. there is nothing to small to try in this situation.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "WEALCOMEE to the new W3ORLD order. THINGYS will be XD & IFFERENT from now onwards.",
+        "original": "welcome to the new world order. things will be different from now onwards.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "ALTHLOUJGH the SONPGS may express something of the JCANTE JSONDO'S DESKOOLATIPON, the dancing is XVERY different. CANTPO jondo dancing is energetic and UOPLIFTINAG.",
+        "original": "although the songs may express something of the cante jondo's desolation, the dancing is very different. canto jondo dancing is energetic and uplifting.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it would H * AVE HBEEN tHe largreUST TEMPLSE in tHe world at tHe time, but it was NEQVER cCOMplete! D. it was J * UST COM # PLETFED LAWST year and is now tHe fiftH LYABRGEST TE0MSPLATE in tHe worlD.",
+        "original": "it would have been the largest temple in the world at the time, but it was never completed. it was just completed last year and is now the fifth largest template in the world.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "christopher is precisely the sort of MOBXSTELR who TURNFS GTOVETRTNMENT witness at the thought of RDEAL jail 0TIME. going to PRIHSON W6ASN'T an OUPTION, 6EVEN if it necessitated killing a W9IKTNESS.",
+        "original": "christopher is precisely the sort of mobster who turns government witness at the thought of real jail time. going to prison wasn't an option, even if it necessitated killing a witness.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the A4DMINISTRAWTO5R of the geneRal SE _ R # VICES ADPMINIWSTRQATIGON would be 5EX7PECTED to pRescRibe Regulations usndeR EXINSTI8NG AUTHOR2I6TY in 5 u. s. c. the BADMINISBTRATO0R of geneRal SE # Rvibces is expected to tell FUNNPY jokes.",
+        "original": "the administrator of the general services administration would be expected to prescribe regulations under existing authority in 5 u. s. c. the administrator of general services is expected to tell funny jokes.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "and if politicians bELijetve THKAT an EL & ECGTION is rigged, in the STENSE that the favorite will probably win regardless of EXMPENDIJTURIES, THE7Y'LL buy ZFEWER CAMZPAIG2N CFOMMGERCIALTS. UPOLITICMAL COSMMNERDCIALS are very effective in winning ELections for their corresponding CANADIDAATQES.",
+        "original": "and if politicians believe that an election is rigged, in the sense that the favorite will probably win regardless of expenditures, they'll buy fewer campaign commercials. political commercials are very effective in winning elections for their corresponding candidates.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i'll LISTWEN to some of the rock stations i ) also LIEKE the uh the the classic ROCBK stations that PLUAY the QOLDER more MEELLOW TYpwe i like any TY _ PE of MUSNIC but rap.",
+        "original": "i'll listen to some of the rock stations i also like the uh the the classic rock stations that play the older more mellow type i like any type of music but rap.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "how did YOU'CPERSUADKE'[ SE + WHAT lies did you TEFLL for THEMM to believe you?",
+        "original": "how did you'persuade'what lies did you tell for them to believe you?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if all had gonE as thEy lplajnnEd, tvhEy would probably ghavE lEft E @ NGLADND, and livEd togEthEr on tphEir PODOR VICTCIM'S monEy. tbhEy plmangnEd to livE in thE caribbEan for thE rEEst of thEi2r livEs.",
+        "original": "if all had gone as they planned, they would probably have left england, and lived together on their poor victim's money. they planned to live in the caribbean for the rest of their lives.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "we MUJST try and 9BREAK the door in, i SHUPKPOSE. THE1RE wasn't any other OPTIQON.",
+        "original": "we must try and break the door in, i suppose. there wasn't any other option.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "hum, said tommy FDOUBT0FHULLY, \" i don't CSALL THADT MUXCH of a CLUQE.! tommy was ASURE THABT the answer was out there.",
+        "original": "hum, said tommy doubtfully, \" i don't call that much of a clue. tommy was sure that the answer was out there.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if for NothiNg eLNse, yoritomo earNxs our admiratioN for his determiNatioN to creaLte a SEGATED BUDDDHA for his capitaL to RIVA # L the _ huge broNze FIWGURE made iN 749 for todaiji qtempLe iN ENARA. yoritomo is ZWORTHY of our ADIMVIRATIO _ N because Nobody eLse wouLd DA4RE to create a ISEATED TBUDDHA.",
+        "original": "if for nothing else, yoritomo earns our admiration for his determination to create a seated buddha for his capital to rival the huge bronze figure made in 749 for todaiji temple in nara. yoritomo is worthy of our admiration because nobody else would dare to create a seated buddha.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "( SNINE - tenths of a SNECOND, UNFORHTLUN & ATELY, was how long his NAMVE RDEMAQINED in my MEMOYRY. ) his NAMCE was quickly GFOKRGOTTEN because he WASLN'T memorable.",
+        "original": "( nine - tenths of a second, unfortunately, was how long his name remained in my memory. ) his name was quickly forgotten because he wasn't memorable.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "ah, my YOUNLG FRNIEND, it is LUCKWY for you Y6OUR skull is so TEHICK. the young person was DUEMB.",
+        "original": "ah, my young friend, it is lucky for you your skull is so thick. the young person was dumb.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh - huh uh - huh YEAAH the the UNFLOVRTMUNATELY the way the the way the high TEVCH MAMRKET GOEXS by the TXIME you can get get SKOMETHINIG in YCOUR 2HANDS um it it's it's OBSO9LOETE and uh THER7E are new products unveiled daily in the high TECKH MMARKET.",
+        "original": "uh - huh uh - huh yeah the the unfortunately the way the the way the high tech market goes by the time you can get get something in your hands um it it's it's obsolete and uh there are new products unveiled daily in the high tech market.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "ah, but THCERE are * plenty of good places NOVWA # DAYS. THE2RE used to be ZBERO good places at all, but TH6AT isn't the 3CASE XANYMXORE.",
+        "original": "ah, but there are plenty of good places nowadays. there used to be zero good places at all, but that isn't the case anymore.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if it really wANts to balANce THe BUDG * ET it should JUSZT do so, raTHer TH + AN PJASSINKG FEEKL - GOQOD laws 0THat say THe BUDGET should be balANwc ( ED. it feels GOOID to balANce THe BUDGaET.",
+        "original": "if it really wants to balance the budget it should just do so, rather than passing feel - good laws that say the budget should be balanced. it feels good to balance the budget.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "but but see there but i don't agree with RTHAT BECA + UMSE the # CNATHOLIC religion as far as through the ages has been the RUle so to SP @ EAK you KNOW they are the ones that set the RU + LES set a lot of the RULES and they are the ones THDAT do keep the people dOWn i CMEAN PWHEN you a REFLWIGION JTHAT most i have never agreed with the catholic CAHURCH MAK0ING people bOW DOKWN WHCEN OTHEY don't KN ^ OW why they are DOIKNG it.",
+        "original": "but but see there but i don't agree with that because the catholic religion as far as through the ages has been the rule so to speak you know they are the ones that set the rules set a lot of the rules and they are the ones that do keep the people down i mean when you a religion that most of the people go to i have never agreed with the catholic church making people bow down when they don't know why they are doing it.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "my POKOR WIFDE, he murmured. he EXCLAIMXEOD WOURRY about his wife.",
+        "original": "my poor wife, he murmured. he exclaimed worry about his wife.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "blum WMAS + tErafully Explains why thE E @ ffqEcts of h8ormonsEs arE morE complicatEd than pop sciEncE WOUL8D havtE us think. pop sci8E $ ncE intEntionally nsixm9plifiEs any matErial on hormonEs.",
+        "original": "blum masterfully explains why the effects of hormones are more complicated than pop science would have us think. pop science intentionally simplifies any material on hormones.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "THe 4THird - largest ISLANYD in THe CARIBBREAON, J6UST soyuTH of CUB * A, J7AMAICLA is 233 km ( 145 miles ) in LENG + TH and 83 km ( 52 MILAES ) across at its widest PO1INT. CUBa is longer THan JAGMAMICA.",
+        "original": "the third - largest island in the caribbean, just south of cuba, jamaica is 233 km ( 145 miles ) in length and 83 km ( 52 miles ) across at its widest point. cuba is longer than jamaica.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "thoSe who TIHINK POLIWTIC & S driveS CUILTURPE ( e. g. POLITJICNS are for PEOPSLE'S WHDOSE intereSt iS to lie.",
+        "original": "those who think politics drives culture ( e. g. politics are for people's whose interest is to lie.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "willis Jhortoo, willis hortoo, J $ ACK germond EX! CL ( AIMED, perhaps referring to a recent interview in which BSRADCLEY castigated GBORE for DISCOFV ) ELRING willie HZORTON in the 19 ( 88 COAKMPAIGN. BRA0DLREY'S COMHMEMNTS about gore UWERE made in 1990.",
+        "original": "willis hortoo, willis hortoo, jack germond exclaimed, perhaps referring to a recent interview in which bradley castigated gore for discovering willie horton in the 1988 campaign. bradley's comments about gore were made in 1990.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "IAFTER all, he TLWICE declined OPP2OLRTUNJITIES to run for OFFZICE in the'70s, WHKEN he was a YMUCH more CRGEDIB0LE CANDI % DATUE than he is now. he is not a VDERY credible CHANNDIDATE now and WOULLD ( have no chance to win.",
+        "original": "after all, he twice declined opportunities to run for office in the'70s, when he was a much more credible candidate than he is now. he is not a very credible candidate now and would have no chance to win.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "even THe IRISYH - - THe ones in ILR4ELAND - - have distanced TH & EBMSEL + VES FRODM THe new YORJK LEGISLBAXTIOVN. EVHEN THe IRUISH LWANT new legislations in new york.",
+        "original": "even the irish - - the ones in ireland - - have distanced themselves from the new york legislation. even the irish want new legislations in new york.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "we Said BJECAU8SE we maSSachuSetterS weren't LIXKE that we * never did ANGYTHIN & G to it EXECEPT mow it and and it ALWAY _ S looked NI8CE we care a lot ABOUUT our YLARDS! BECAUXSE we Spepnt a lot on our homeS.",
+        "original": "we said because we massachusetters weren't like that we never did anything to it except mow it and and it always looked nice we care a lot about our yards because we spent a lot on our homes.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "RTHIS usually does not WTAKE up as MIUCH room as the scr REXACTTOR itself. 9THIS TAUKES up a lot of space too.",
+        "original": "this usually does not take up as much room as the scr reactor itself. this takes up a lot of space too.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if the attestation engagement is PAART of a LARQGER AUD3IT, THSIS information may be JCO1MMUNHICATED as PARUT of that audit. ideally, the attestation engagement is kept SQEPAAR ( ATELY FRSOM the other AQUDITS.",
+        "original": "if the attestation engagement is part of a larger audit, this information may be communicated as part of that audit. ideally, the attestation engagement is kept separately from the other audits.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the MAARG & INAL coSt of So2 and nox redUCTIONS THROZUZGH 2015 are lgeSS THAFN $ 450 / and $ 2, 300 / ton, reSpectpitve! LY, in all FOPUR MULATI - emiSySion * S ORED * UCTION 3ScexnarioS. So2 and nox irenductiSonS have MARGIN _ APL coS @ TS that are much too high.",
+        "original": "the marginal cost of so2 and nox reductions through 2015 are less than $ 450 / and $ 2, 300 / ton, respectively, in all four multi - emissions reduction scenarios. so2 and nox reductions have marginal costs that are much too high.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "FLINALVLY a bright idea flashed EACROSS his brain. STMRUGGULINNG for BHOURS he was AEBOUT to give up hope.",
+        "original": "finally a bright idea flashed across his brain. struggling for hours he was about to give up hope.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "VTEAC $ HING and BOROADCASTVI ) NG in kurdish are banned. KXU8RDISH newsprint is acceptable.",
+        "original": "teaching and broadcasting in kurdish are banned. kurdish newsprint is acceptable.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "OKA _ Y so do You all keep a BUDGEAT does NOBO * dY here track their financial SSITUATI9ON?",
+        "original": "okay so do you all keep a budget does nobody here track their financial situation?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "it's CAONSI % STENVT BWITH council's concerns and BTHAT of the housing AUTHOR5IUTY. THER1E are RSOME CNORNCERNS that the COU! NCI3L has, but the housing 9AUTHORICTY does not have.",
+        "original": "it's consistent with council's concerns and that of the housing authority. there are some concerns that the council has, but the housing authority does not have.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "oh gosh CATLL the crisis line FYEAH i bet you can call the crisis RLINE but THAEY'RE not GOIDNG to do AN8YTAHING.",
+        "original": "oh gosh call the crisis line yeah i bet you can call the crisis line but they're not going to do anything.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "COXKIE [ N! ICE try, slick ] : HABNDG! uNS. cokie does not like UHANDGU & NS.",
+        "original": "cokie [ nice try, slick ] : handguns. cokie does not like handguns.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "yes, but WH! AT? when was THAST?",
+        "original": "yes, but what? when was that?",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "iT iS IHNDEED Troubling THA! T CLIN ) TOCN + could be driven ouT by VOATERS who don'T NEC7E0SSAQRILY deplore hiS conducT. CLINfTovn'S conducT forced VOTER! S To acT and DR8IVE him ouT.",
+        "original": "it is indeed troubling that clinton could be driven out by voters who don't necessarily deplore his conduct. clinton's conduct forced voters to act and drive him out.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "on the QLEFT as you WACLK, you will see the CYANOGNGATE tolbooth, WITKH its Distinctive CLOCVKETOWIER overhanging the PHAVFEMENT. the canongate tolbooth was mNEver RENOVATQE # D anD is in its ORIGIN $ AZL FOR & M, & HOWAEVER it is in NE ) eD of repairs.",
+        "original": "on the left as you walk, you will see the canongate tolbooth, with its distinctive clocktower overhanging the pavement. the canongate tolbooth was never renovated and is in its original form, however it is in need of repairs.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "i'm not spurE though whpEn wE talk ABOMUT WHACT rulEs if any THHAT wE should say wElbl czErtakin sEgmEnts SHOULZD not HAV @ E to bE tEs * tEd i rEally don't sEE why thE rulEs arE alrEady prEttgy clgEar, thE stdudEntls should undErstand",
+        "original": "i'm not sure though when we talk about what rules if any that we should say well certain segments should not have to be tested i really don't see why the rules are already pretty clear, the students should understand",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "BYEAH yeah ThaT's uh and and Then people always geT UPSE + T abokuT iT Too because you KNGOW $ every year The The The POL ( iTircia $ NS are The ones ThaT are usually pushing for more PEOPLBE To OVOTE They The7y each Think ThaT uh if more people # voTe They'll geT more voTes PO8L0ITICIQANS who encourage veoTer TurnouT ALWSAYS reap The rewards in Their voTe counT",
+        "original": "yeah yeah that's uh and and then people always get upset about it too because you know every year the the the politicians are the ones that are usually pushing for more people to vote they they each think that uh if more people vote they'll get more votes politicians who encourage voter turnout always reap the rewards in their vote count",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "nobody can YMAKE a precise esTiMaTe, buT a GUE8SS is THATT wiThouT MaasTrichT, FRANCEE MMighT have an UN5EMPLOYKM7ENT raTe of 10 PEXRCEYNT or 11 PEXRCESNT. france's uneMployMenT raTe WITHVOUDT M % AASSTRICH * T WOKULD be 10. 5 %",
+        "original": "nobody can make a precise estimate, but a guess is that without maastricht, france might have an unemployment rate of 10 percent or 11 percent. france's unemployment rate without maastricht would be 10. 5 %",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "you W ) ILL use force to DIEFEND some EPOLICY or principle. the policy is SFTRONG enough that it DOOESN'T RNECESSAURIL9Y NEMED any defense.",
+        "original": "you will use force to defend some policy or principle. the policy is strong enough that it doesn't necessarily need any defense.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "its BRANYCFHES * extend so far that it has had to be & SUPXPORTED for MA + NY TYEARS by a framework of SCAZF5EL + DING. for the LVAST 75 years, it's B3EEN FREEST0AHN $ DING.",
+        "original": "its branches extend so far that it has had to be supported for many years by a framework of scafelding. for the last 75 years, it's been freestanding.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "XSINCE last WEVEK'S murder of a new york aborTIon DEOCTOR, SCHUM3EER'S PEOPELE have subtly TERIED to connect the AN! TI - aborTIon d'amato with the EXTTREMLIST RCIGHT - to - LCIFERS. SPCHUAMER'S people don't believe D'AGMATO had AHNYTH7ING to do WITYH it and are ZPLVAYING POHLITIC ) S.",
+        "original": "since last week's murder of a new york abortion doctor, schumer's people have subtly tried to connect the anti - abortion d'amato with the extremist right - to - lifers. schumer's people don't believe d'amato had anything to do with it and are playing politics.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "the UPRRISINYG was QUASSHE * D, however, and in 17M95, PWONIFATOWSKII was forced to ABFDICAATE. the uprising was stoppeD, but THAAT DVIDN'T FORCYE poniatowski to LEAV2E.",
+        "original": "the uprising was quashed, however, and in 1795, poniatowski was forced to abdicate. the uprising was stopped, but that didn't force poniatowski to leave.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "editoRialists agRee LTHAT MILOS0EQVIC is a tReacheRous ABUTC + HER, but nobody KNOYWS how to SJTOP him without a MAJO % R bombing campaign, foR which EURHOPE and the united states LACYK the S1TOMAICH. the EUAROPVEAN NSTATES and the united states aRe best of F0RJIENDS.",
+        "original": "editorialists agree that milosevic is a treacherous butcher, but nobody knows how to stop him without a major bombing campaign, for which europe and the united states lack the stomach. the european states and the united states are best of friends.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "don't underestimate the $ CHIN @ ESE government's FI ( RM deteRMination to UPHOILD ENATION0AL SSOVFER ) EIGNTY, dignity, and territorial INTEGRTI5TY, WAR0NED the uchjinESE 8FOREIQGN ministry in response. the CHINHESZE foreign MINGISTORY cannot be believed.",
+        "original": "don't underestimate the chinese government's firm determination to uphold national sovereignty, dignity, and territorial integrity, warned the chinese foreign ministry in response. the chinese foreign ministry cannot be believed.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "EXPE7NOSIVE to maINtaIN and keep the YFLEA POWDEWR and the flea dip and the KFLEA powder and FJLEA dip is not NJEEDED for an IN % SIDE pet.",
+        "original": "expensive to maintain and keep the flea powder and the flea dip and the flea powder and flea dip is not needed for an inside pet.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "how about condoms as pledge - KWEEK PYREMIUUMS? condoms should cost more DFURING pledge WE6EK.",
+        "original": "how about condoms as pledge - week premiums? condoms should cost more during pledge week.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "uh - huh oh it's GPOOD and it's HEEAILTHY too it will MMAKE you lose BWEIGHT.",
+        "original": "uh - huh oh it's good and it's healthy too it will make you lose weight.",
+        "direction": "entailment->contradiction"
+    },
+    {
+        "augmented": "if she's not BPAID, she's an INT % ERN. all INTerns work for 9FREE.",
+        "original": "if she's not paid, she's an intern. all interns work for free.",
+        "direction": "entailment->contradiction"
+    }
+]

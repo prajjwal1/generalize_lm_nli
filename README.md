@@ -1,6 +1,4 @@
 # Generalization in NLI: Ways to [Not] Go Beyond Simple Heuristics
-Code for EACL 2021 submission
-
 
 ### Dependencies
 - [Pytorch >= 1.5](https://github.com/pytorch/pytorch)
