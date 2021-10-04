@@ -31,6 +31,7 @@ from typing import Optional
 import numpy as np
 from datasets import load_dataset, load_metric
 
+import torch
 import transformers
 import transformers.adapters.composition as ac
 from transformers import (
@@ -48,6 +49,7 @@ from transformers import (
     set_seed,
 )
 from transformers.trainer_utils import is_main_process
+from core import Clustering_Processor
 
 
 task_to_keys = {
@@ -240,6 +242,13 @@ def main():
     #
     # In distributed training, the .from_pretrained methods guarantee that only one local process can concurrently
     # download model & vocab.
+    clustering = torch.load("/home/nlp/experiments/cluster_output.pth")
+    clustering_proc = Clustering_Processor(clustering)
+    cluster_indices = clustering_proc.get_diverse_stream()
+
+    cluster_indices = cluster_indices[:5024]
+
+
     config = AutoConfig.from_pretrained(
         model_args.config_name if model_args.config_name else model_args.model_name_or_path,
         num_labels=num_labels,
@@ -373,9 +382,9 @@ def main():
     datasets = datasets.map(preprocess_function, batched=True, load_from_cache_file=not data_args.overwrite_cache)
 
     train_dataset = datasets["train"]
-    #  random_sequence = [i for i in range(39200)][:1024]
-    #  shuffle(random_sequence)
-    #  train_dataset = train_dataset.select(random_sequence)
+    train_dataset = train_dataset.select(cluster_indices)
+
+    #  assert len(train_dataset) == 1024
 
     eval_dataset = datasets["validation_matched" if data_args.task_name == "mnli" else "validation"]
     if data_args.task_name is not None:

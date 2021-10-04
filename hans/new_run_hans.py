@@ -33,15 +33,12 @@ from datasets import load_dataset, load_metric
 import torch
 
 import transformers
-import transformers.adapters.composition as ac
 from transformers import (
-    AdapterConfig,
     AutoConfig,
-    AutoModelWithHeads,
+    AutoModelForSequenceClassification,
     AutoTokenizer,
     EvalPrediction,
     HfArgumentParser,
-    MultiLingAdapterArguments,
     PretrainedConfig,
     Trainer,
     TrainingArguments,
@@ -49,7 +46,7 @@ from transformers import (
     set_seed,
 )
 from transformers.trainer_utils import is_main_process
-from adapter_utils_hans import HansDataset, InputFeatures, hans_processors, hans_tasks_num_labels
+from utils_hans import HansDataset, InputFeatures, hans_processors, hans_tasks_num_labels
 
 
 logger = logging.getLogger(__name__)
@@ -129,16 +126,16 @@ def main():
     # or by passing the --help flag to this script.
     # We now keep distinct sets of args, for a cleaner separation of concerns.
 
-    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments, MultiLingAdapterArguments))
+    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments))
 
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.
-        model_args, data_args, training_args, adapter_args = parser.parse_json_file(
+        model_args, data_args, training_args = parser.parse_json_file(
             json_file=os.path.abspath(sys.argv[1])
         )
     else:
-        model_args, data_args, training_args, adapter_args = parser.parse_args_into_dataclasses()
+        model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     if (
         os.path.exists(training_args.output_dir)
@@ -189,68 +186,13 @@ def main():
         use_fast=model_args.use_fast_tokenizer,
     )
     # We use the AutoModelWithHeads class here for better adapter support.
-    model = AutoModelWithHeads.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
         cache_dir=model_args.cache_dir,
     )
-    model.add_classification_head(
-        data_args.task_name or "glue",
-        num_labels=num_labels,
-        #  id2label={i: v for i, v in enumerate(label_list)} if num_labels > 0 else None,
-    )
 
-    # Setup adapters
-    if adapter_args.train_adapter:
-        task_name = "mnli"
-        # check if adapter already exists, otherwise add it
-        if task_name not in model.config.adapters:
-            # resolve the adapter config
-            adapter_config = AdapterConfig.load(
-                adapter_args.adapter_config,
-                non_linearity=adapter_args.adapter_non_linearity,
-                reduction_factor=adapter_args.adapter_reduction_factor,
-            )
-            # load a pre-trained from Hub if specified
-            if adapter_args.load_adapter:
-                model.load_adapter(
-                    adapter_args.load_adapter,
-                    config=adapter_config,
-                    load_as=task_name,
-                )
-            # otherwise, add a fresh adapter
-            else:
-                model.add_adapter(task_name, config=adapter_config)
-        # optionally load a pre-trained language adapter
-        if adapter_args.load_lang_adapter:
-            # resolve the language adapter config
-            lang_adapter_config = AdapterConfig.load(
-                adapter_args.lang_adapter_config,
-                non_linearity=adapter_args.lang_adapter_non_linearity,
-                reduction_factor=adapter_args.lang_adapter_reduction_factor,
-            )
-            # load the language adapter from Hub
-            lang_adapter_name = model.load_adapter(
-                adapter_args.load_lang_adapter,
-                config=lang_adapter_config,
-                load_as=adapter_args.language,
-            )
-        else:
-            lang_adapter_name = None
-        # Freeze all model weights except of those of this adapter
-        model.train_adapter([task_name])
-        # Set the adapters to be used in every forward pass
-        if lang_adapter_name:
-            model.set_active_adapters(ac.Stack(lang_adapter_name, task_name))
-        else:
-            model.set_active_adapters(task_name)
-    else:
-        if adapter_args.load_adapter or adapter_args.load_lang_adapter:
-            raise ValueError(
-                "Adapters can only be loaded in adapters training mode."
-                "Use --train_adapter to enable adapter training"
-            )
     data_dir = "/home/nlp/data/glue_data/hans/"
 
     train_dataset = (
@@ -287,7 +229,7 @@ def main():
         eval_dataset=eval_dataset if training_args.do_eval else None,
         tokenizer=tokenizer,
         # Data collator will default to DataCollatorWithPadding, so we change it if we already did the padding.
-        data_collator=default_data_collator
+        data_collator=hans_data_collator,
     )
 
     if training_args.do_eval:

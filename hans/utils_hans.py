@@ -42,7 +42,6 @@ logger = logging.getLogger(__name__)
 class InputExample:
     """
     A single training/test example for simple sequence classification.
-
     Args:
         guid: Unique id for the example.
         text_a: string. The untokenized text of the first sequence. For single
@@ -66,7 +65,6 @@ class InputFeatures:
     """
     A single set of features of data.
     Property names are the same names as the corresponding inputs to a model.
-
     Args:
         input_ids: Indices of input sequence tokens in the vocabulary.
         attention_mask: Mask to avoid performing attention on padding token indices.
@@ -88,7 +86,7 @@ class InputFeatures:
 
 if is_torch_available():
     import torch
-    from torch.utils.data.dataset import Dataset
+    from torch.utils.data import Dataset
 
     class HansDataset(Dataset):
         """
@@ -263,7 +261,7 @@ class HansProcessor(DataProcessor):
         (see :class:`~transformers.data.processors.utils.MnliProcessor`)
         but the HANS evaluation groups `contradiction` and `neutral` into `non-entailment` (label 0) while
         `entailment` is label 1."""
-        return ["contradiction", "entailment", "neutral"]
+        return ["entailment", "contradiction", "neutral"]
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
@@ -288,16 +286,13 @@ def hans_convert_examples_to_features(
 ):
     """
     Loads a data file into a list of ``InputFeatures``
-
     Args:
         examples: List of ``InputExamples`` containing the examples.
         label_list: List of labels. Can be obtained from the processor using the ``processor.get_labels()`` method.
         max_length: Maximum example length.
         tokenizer: Instance of a tokenizer that will tokenize the examples.
-
     Returns:
         A list of task-specific ``InputFeatures`` which can be fed to the model.
-
     """
 
     label_map = {label: i for i, label in enumerate(label_list)}
@@ -315,13 +310,15 @@ def hans_convert_examples_to_features(
             padding="max_length",
             truncation=True,
             return_overflowing_tokens=True,
+            return_tensors="pt"
         )
+        inputs["input_ids"] = inputs["input_ids"].squeeze(0)
 
         label = label_map[example.label] if example.label in label_map else 0
 
         pairID = int(example.pairID)
-        inputs.pop('overflow_to_sample_mapping')
 
+        inputs.pop('overflow_to_sample_mapping')
         features.append(InputFeatures(**inputs, label=label, pairID=pairID))
 
     for i, example in enumerate(examples[:5]):
