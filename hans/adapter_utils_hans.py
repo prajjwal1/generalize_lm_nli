@@ -1,18 +1,3 @@
-# coding=utf-8
-# Copyright 2018 The Google AI Language Team Authors and The HuggingFace Inc. team.
-# Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 import logging
 import os
@@ -86,7 +71,7 @@ class InputFeatures:
 
 if is_torch_available():
     import torch
-    from torch.utils.data import Dataset
+    from torch.utils.data.dataset import Dataset
 
     class HansDataset(Dataset):
         """
@@ -262,6 +247,7 @@ class HansProcessor(DataProcessor):
         but the HANS evaluation groups `contradiction` and `neutral` into `non-entailment` (label 0) while
         `entailment` is label 1."""
         return ["entailment", "contradiction", "neutral"]
+        #  return ["contradiction", "entailment", "neutral"]
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
@@ -310,15 +296,13 @@ def hans_convert_examples_to_features(
             padding="max_length",
             truncation=True,
             return_overflowing_tokens=True,
-            return_tensors="pt"
         )
-        inputs["input_ids"] = inputs["input_ids"].squeeze(0)
 
         label = label_map[example.label] if example.label in label_map else 0
 
         pairID = int(example.pairID)
-
         inputs.pop('overflow_to_sample_mapping')
+
         features.append(InputFeatures(**inputs, label=label, pairID=pairID))
 
     for i, example in enumerate(examples[:5]):
