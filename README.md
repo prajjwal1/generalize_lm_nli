@@ -7,8 +7,22 @@ Prajjwal Bhargava, Aleksandr Drozd, Anna Rogers
 
 **Insights from Negative Results Workshop (EMNLP 2021)** [arxiv.org/abs/2110.01518](https://arxiv.org/abs/2110.01518)
 
-
 Much of recent progress in NLU was shown to be due to models' learning dataset-specific heuristics. We conduct a case study of generalization in NLI (from MNLI to the adversarially constructed HANS dataset) in a range of BERT-based architectures (adapters, Siamese Transformers, HEX debiasing), as well as with subsampling the data and increasing the model size. We report 2 successful and 3 unsuccessful strategies, all providing insights into how Transformer-based models learn to generalize.
+
+
+# CITATION
+If you use the work, code or model in any form, please consider citing this paper
+
+```
+@misc{bhargava2021generalization,
+      title={Generalization in NLI: Ways (Not) To Go Beyond Simple Heuristics}, 
+      author={Prajjwal Bhargava and Aleksandr Drozd and Anna Rogers},
+      year={2021},
+      eprint={2110.01518},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
 
 # Dependencies
 - [Pytorch >= 1.5](https://github.com/pytorch/pytorch)
@@ -225,16 +239,3 @@ This part requires [Mccoy's script](https://github.com/tommccoy1/hans).
 python3 evaluate_heur_output.py PATH_TO_MODEL
 ```
 
-# CITATION
-If you use the work, code or model in any form, please consider citing this paper
-
-```
-@misc{bhargava2021generalization,
-      title={Generalization in NLI: Ways (Not) To Go Beyond Simple Heuristics}, 
-      author={Prajjwal Bhargava and Aleksandr Drozd and Anna Rogers},
-      year={2021},
-      eprint={2110.01518},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
-}
-```
