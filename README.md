@@ -75,12 +75,13 @@ export GLUE_DIR = /path/to/glue_directory/
 # Finetuning
 
 ```bash
- python3 run_glue.py   --model_name_or_path MODEL_NAME   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/seed_0/100_pct   --fp16 --seed 0
-: 1590076913:0;CUDA_VISIBLE_DEVICES=1 python3 run_glue.py   --model_name_or_path albert-base-v1   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir OUTPUT_DIR   --fp16 --seed 250
+ python3 run_glue.py   --model_name_or_path MODEL_NAME   --task_name $TASK_NAME   --do_train   --do_eval \
+                       --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512 \
+                       --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/seed_0/100_pct \
+                       --fp16 --seed 0
 ```
 
-
-With `transformers v4.1` and uses `datasets`
+The following will run with `transformers v4.1` and uses `datasets`
 ```bash
 python3 new_run_glue.py \\
   --model_name_or_path ~/experiments/again_bert_base_ft \\
