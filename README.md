@@ -26,7 +26,7 @@ If you use the work, code or model in any form, please consider citing this pape
 
 # Dependencies
 - [Pytorch >= 1.5](https://github.com/pytorch/pytorch)
-- [Transformers >= 2.9](https://github.com/huggingface/transformers)
+- [Transformers >= 3.3](https://github.com/huggingface/transformers)
 
 
 # Pre-trained models Access (In Pytorch)
@@ -34,11 +34,22 @@ Get the main pre-trained/fine-tuned models used in this work from Huggingface Mo
 
 ## Mini-BERTs
 
-BERTs: `"prajjwal1/bert-tiny"`,  `"prajjwal1/bert-mini"`, `"prajjwal1/bert-small"`, `"prajjwal1/bert-medium"`
+BERTs:
+- `"prajjwal1/bert-tiny"` [Model Link](https://huggingface.co/prajjwal1/bert-tiny)
+-   `"prajjwal1/bert-mini"` [Model Link](https://huggingface.co/prajjwal1/bert-mini)
+-   `"prajjwal1/bert-small"` [Model Link](https://huggingface.co/prajjwal1/bert-small)
+-   `"prajjwal1/bert-medium"` [Model Link](https://huggingface.co/prajjwal1/bert-medium)
 
-Pretrained LMs finetuned on NLI: `"prajjwal1/albert-base-v2-mnli"`, `"prajjwal1/bert-tiny-mnli"`,
-                                 `"prajjwal1/bert-small-mnli"`, `"bert-medium-mnli"`, `"bert-mini-mnli"`, 
-                                 `"albert-base-v1-mnli"`, `"roberta-base-mnli"`, `"roberta-large-mnli"`.
+Pretrained LMs finetuned on NLI: 
+- `"prajjwal1/albert-base-v2-mnli"`
+-  `"prajjwal1/bert-tiny-mnli"`
+- `"prajjwal1/bert-small-mnli"`
+- `"bert-medium-mnli"`
+-  `"bert-mini-mnli"`
+-  `"albert-base-v1-mnli"`
+-   `"roberta-base-mnli"`
+-   `"roberta-large-mnli"`
+
 The pre-trained models are meant to be used with `GlueDataset`. This is because label ordering ("entailment", "contradiction" and "neutral") has been changed in MNLI obtained from `datasets`.
 
 To use these, simply use
@@ -62,7 +73,6 @@ export GLUE_DIR = /path/to/glue_directory/
 ```
 
 # Finetuning
-With `transformers v3.3`
 
 ```bash
  python3 run_glue.py   --model_name_or_path MODEL_NAME   --task_name $TASK_NAME   --do_train   --do_eval   --data_dir $GLUE_DIR/$TASK_NAME/   --max_seq_length 128   --per_gpu_train_batch_size 512   --learning_rate 2e-5   --num_train_epochs 3.0   --output_dir /home/nlp/experiments/seed_0/100_pct   --fp16 --seed 0
