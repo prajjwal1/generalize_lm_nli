@@ -50,7 +50,7 @@ Pretrained LMs finetuned on NLI:
 -   `"roberta-base-mnli"`
 -   `"roberta-large-mnli"`
 
-The pre-trained models are meant to be used with `GlueDataset`. This is because label ordering ("entailment", "contradiction" and "neutral") has been changed in MNLI obtained from `datasets`.
+With the current code, the pre-trained models are meant to be used with `GlueDataset`. This is because label ordering ("entailment", "contradiction" and "neutral") has been changed in MNLI obtained from `datasets`. To use with `datasets` library, use `new_run_glue.py` instead. 
 
 To use these, simply use
 
