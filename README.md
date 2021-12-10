@@ -55,7 +55,7 @@ With the current code, the pre-trained models are meant to be used with `GlueDat
 To use these, simply use
 
 ```
-from transformers import AutModel # For BERTs
+from transformers import AutoModel # For BERTs
 from transformers import AutoModeForSequenceClassification # For models fine-tuned on MNLI
 from transformers import AutoTokenizer
 
