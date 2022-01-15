@@ -167,9 +167,9 @@ python3 train_siamese.py   --model_name bert-base-uncased --task_name    --do_ev
 ```
 
 ### Adapter Networks
-For this, you'll be required to switch from HF `transformers` to [Adapter Transformers v2.1](https://github.com/Adapter-Hub/adapter-transformers). This installation may cause issues with rest of the codebase because it relies on older version of `transformers`. It is recommended that you either create a new environment or install the `transformers` again.
+For this, you'll be required to switch from HF `transformers` to [Adapter Transformers v2.1](https://github.com/Adapter-Hub/adapter-transformers). This installation may cause issues with rest of the codebase because it relies on older version of `transformers`. It is recommended that you either create a new environment or install the `transformers` again if you again want to switch to `transformers` and not use Adapter Transformers.
 
-`train_adapter` parameter freezes the encoder and train only the adapter
+`train_adapter` parameter freezes the encoder and trains only the adapter
 
 ```bash
 python3 train_adapter.py \\
